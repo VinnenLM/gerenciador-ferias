@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "980163",
+    "password": "980163",
+    "database": "980163",
+    "host": "qqtech4.crqc50gxdjpu.sa-east-1.rds.amazonaws.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
