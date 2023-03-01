@@ -1,0 +1,25 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #009846;
+    padding: 15px 30px;
+    color: white;
+    font-size: 20px;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.opcoes>* {
+    margin-left: 30px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #1D4636;
+}
