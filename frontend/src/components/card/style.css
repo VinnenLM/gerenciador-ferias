@@ -9,14 +9,14 @@
     display: flex;
     flex-direction: column;
     padding-top: 10px;
-    height: 200px;
+    height: 190px;
     box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
     border-radius: 5px;
     position: relative;
 }
 
 .card>span>i {
-    margin-top: 60%;
+    margin-top: 50%;
     font-size: 5rem;
 }
 
@@ -24,11 +24,24 @@
     margin: 0 auto;
 }
 
-.card>button {
+.card>.botao {
     position: absolute;
     padding: 10px 20px;
     width: 80%;
     top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.botao {
+    background-color: #1D4636;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.botao:hover{
+    color: white;
 }

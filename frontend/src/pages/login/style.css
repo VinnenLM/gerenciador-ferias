@@ -10,7 +10,7 @@ h1{
     text-align: center;
 }
 
-.container {
+.container-login {
     width: 25%;
     background-color: #009846;
     padding: 30px;
@@ -29,10 +29,11 @@ input{
     box-shadow: 2px 2px 5px 3px rgb(0, 0, 0, .15);
 }
 
-button{
+#entrar{
     background-color: #1D4636;
     border: none;
     border-radius: 5px;
     color: white;
-    padding: 10px 20px
+    padding: 10px 20px;
+    text-align: center;
 }
