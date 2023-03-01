@@ -1,0 +1,29 @@
+.container {
+    width: 25%;
+    background-color: white;
+    padding: 30px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 3px rgb(0, 0, 0, .25);
+}
+
+select{
+    margin-bottom: 20px;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 2px 2px 5px 3px rgb(0 0 0 / 15%);
+}
+
+.container-duplo{
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-duplo{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
