@@ -20,10 +20,10 @@ export const Home = () => {
                     link="/colaboradores"
                 />
                 <Card
-                    titulo="Teste"
-                    icone="fa-regular fa-user"
-                    botao="Cadastrar"
-                    link=""
+                    titulo="Solicitar Férias"
+                    icone="fas fa-plane-departure"
+                    botao="Solicitar"
+                    link="/solicitar"
                 />
             </div>
         </>
