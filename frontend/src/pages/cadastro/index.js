@@ -6,7 +6,7 @@ export const Cadastro = () => {
         <>
             <Header />
             <h1>Cadastro Colaborador</h1>
-            <div className="container">
+            <div className="container-cadastro">
 
                 <div className="container-duplo">
 
@@ -42,7 +42,7 @@ export const Cadastro = () => {
                             <option value="Gestor">Gestor</option>
                         </select>
                     </div>
-                    
+
                 </div>
 
                 <label htmlFor="">Setor</label>

@@ -37,3 +37,8 @@ input{
     padding: 10px 20px;
     text-align: center;
 }
+
+#entrar:hover{
+    cursor: pointer;
+    background-color: #183f30;
+}

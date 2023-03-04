@@ -6,7 +6,7 @@ export const Card = ({ titulo, icone, botao, link }) => {
         <div className="container-card">
             <h2>{titulo}</h2>
             <div className="card">
-                <span><i className={`${icone}`} title="perfil"></i></span>
+                <span><i className={`${icone}`} ></i></span>
                 <Link to={`${link}`} className="botao">{botao}</Link>
             </div>
         </div>

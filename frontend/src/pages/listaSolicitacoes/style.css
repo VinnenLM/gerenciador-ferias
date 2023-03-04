@@ -1,0 +1,11 @@
+.aprovado {
+    background-color: #5CB85D;
+}
+
+.negado {
+    background-color: #D9544F;
+}
+
+.pendente {
+    background-color: #636363;
+}

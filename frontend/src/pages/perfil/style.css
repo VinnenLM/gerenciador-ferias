@@ -70,3 +70,12 @@ h1 {
 #check{
     align-self: flex-start;
 }
+
+.container-principal-perfil >button{
+    background-color: #1D4636;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
