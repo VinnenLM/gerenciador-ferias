@@ -24,13 +24,13 @@ export const Home = () => {
 
                         :
 
-                        (role === "funcionario" || role === "gestor")
+                        (role === "funcionario")
 
                             ?
 
                             <>
                                 <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />
-                                <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Solicitar" link="/solicitar" />
+                                <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Solicitar" link="/minhas-solicitacoes" />
                             </>
 
                             :
