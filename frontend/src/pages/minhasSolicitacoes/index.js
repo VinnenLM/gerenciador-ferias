@@ -10,7 +10,7 @@ export const MinhasSolicitacoes = () => {
             <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />
 
             <div className="container-equipe">
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr className="tabela">
                             <th>Data Solicitação</th>
@@ -20,9 +20,9 @@ export const MinhasSolicitacoes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="pendente" />
-                        <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="aprovado" />
-                        <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="negado" />
+                        <Solicitacao id="1" dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="pendente" />
+                        <Solicitacao id="1" dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="aprovado" />
+                        <Solicitacao id="1"dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="negado" />
                     </tbody>
                 </table>
 
