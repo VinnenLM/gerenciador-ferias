@@ -1,0 +1,12 @@
+td{
+    text-align: center;
+}
+
+.tabela{
+    background-color: #009846 !important;
+    color: white;
+}
+
+tr:nth-child(2n+1){
+    background-color: #D9D9D9;
+}

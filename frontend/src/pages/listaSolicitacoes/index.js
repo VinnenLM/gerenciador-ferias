@@ -12,7 +12,7 @@ export const ListaSolicitacoes = () => {
             <div className="container-equipe">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr className="tabela">
                             <th>Data Solicitação</th>
                             <th>Data Início</th>
                             <th>Data Fim</th>
@@ -21,6 +21,8 @@ export const ListaSolicitacoes = () => {
                     </thead>
                     <tbody>
                         <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="pendente" />
+                        <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="aprovado" />
+                        <Solicitacao dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="negado" />
                     </tbody>
                 </table>
 

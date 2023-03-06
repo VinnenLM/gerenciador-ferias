@@ -12,7 +12,7 @@ export const Colaboradores = () => {
             <div className="container-equipe">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr className="tabela">
                             <th>Colaborador</th>
                             <th>Setor</th>
                             <th>Matrícula</th>
