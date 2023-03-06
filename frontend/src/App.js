@@ -9,6 +9,7 @@ import { ListaSolicitacoes } from './pages/listaSolicitacoes';
 import { Login } from './pages/login';
 import { MinhasSolicitacoes } from './pages/minhasSolicitacoes';
 import { Perfil } from './pages/perfil';
+import { Solicitacao } from './pages/solicitacao';
 import { Solicitar } from './pages/solicitar';
 import { store, persistor } from './store';
 import "./style.css"
@@ -28,6 +29,7 @@ function App() {
             <Route exact path='/solicitacoes' element={<ListaSolicitacoes />} />
             <Route exact path='/solicitar' element={<Solicitar />} />
             <Route exact path='/minhas-solicitacoes' element={<MinhasSolicitacoes />} />
+            <Route exact path='/solicitacao' element={<Solicitacao />} />
           </Routes>
         </BrowserRouter>
       </PersistGate>
