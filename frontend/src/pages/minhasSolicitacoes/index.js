@@ -3,6 +3,37 @@ import { Solicitacao } from "../../components/solicitacao"
 import "./style.css"
 
 export const MinhasSolicitacoes = () => {
+
+    const minhasSolicitacoes = [
+        {
+            id: 1,
+            dataSolicitacao: "01/01/2023",
+            dataInicio: "01/01/2023",
+            dataFim: "11/01/2023",
+            comentario: "",
+            status: "pendente",
+            idColaborador: 1
+        },
+        {
+            id: 2,
+            dataSolicitacao: "02/02/2023",
+            dataInicio: "02/02/2023",
+            dataFim: "22/02/2023",
+            comentario: "",
+            status: "negado",
+            idColaborador: 1
+        },
+        {
+            id: 3,
+            dataSolicitacao: "03/03/2023",
+            dataInicio: "03/03/2023",
+            dataFim: "18/03/2023",
+            comentario: "",
+            status: "aprovado",
+            idColaborador: 1
+        },
+    ]
+
     return (
         <>
             <Header />
@@ -20,9 +51,7 @@ export const MinhasSolicitacoes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <Solicitacao id="1" dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="pendente" />
-                        <Solicitacao id="1" dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="aprovado" />
-                        <Solicitacao id="1"dataSolicitacao="03/03/2023" dataInicio="10/10/2023" DataFim="20/10/2023" status="negado" />
+                        {minhasSolicitacoes.map((soli, index) => <Solicitacao key={index} dataSolicitacao={soli.dataSolicitacao} dataInicio={soli.dataInicio} dataFim={soli.dataFim} status={soli.status} colaborador={soli.colaborador} idColaborador={soli.idColaborador} />)}
                     </tbody>
                 </table>
 

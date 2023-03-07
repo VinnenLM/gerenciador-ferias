@@ -3,6 +3,40 @@ import { Pessoa } from "../../components/pessoa"
 import "./style.css"
 
 export const Colaboradores = () => {
+
+    const pessoas = [
+        {
+            nome: "Fulano da Silva",
+            setor: "TI",
+            matricula: "123",
+            status: "ativo"
+        },
+        {
+            nome: "Beltrano da Silva",
+            setor: "RH",
+            matricula: "321",
+            status: "ferias"
+        },
+        {
+            nome: "Ciclano da Silva",
+            setor: "Contabilidade",
+            matricula: "456",
+            status: "ferias"
+        },
+        {
+            nome: "Joaozinho da Silva",
+            setor: "TI",
+            matricula: "654",
+            status: "ativo"
+        },
+        {
+            nome: "Gestor da Silva",
+            setor: "TI",
+            matricula: "111",
+            status: "ativo"
+        },
+    ]
+
     return (
         <>
             <Header />
@@ -20,8 +54,7 @@ export const Colaboradores = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <Pessoa nome="Fulano" setor="TI" matricula="123" status="ferias" />
-                        <Pessoa nome="Fulano" setor="TI" matricula="321" status="ativo" />
+                        {pessoas.map((pessoa, index) => <Pessoa key={index} nome={pessoa.nome} setor={pessoa.setor} matricula={pessoa.matricula} status={pessoa.status} />)}
                     </tbody>
                 </table>
 
