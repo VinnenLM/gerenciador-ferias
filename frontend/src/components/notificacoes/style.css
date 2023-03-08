@@ -1,0 +1,17 @@
+.notificacao{
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid black;
+}
+
+.notificacao>:last-child{
+    color: black;
+    font-size: 15px;
+    align-self: flex-end;
+}
+
+.notificacao>:last-child:hover{
+    color: #1D4636;
+}

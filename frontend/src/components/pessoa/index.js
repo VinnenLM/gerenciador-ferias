@@ -1,6 +1,8 @@
+import "./style.css"
+
 export const Pessoa = ({ nome, setor, matricula, status }) => {
     return (
-        <tr>
+        <tr className="colaborador">
             <td>{nome}</td>
             <td>{setor}</td>
             <td>{matricula}</td>

@@ -33,3 +33,8 @@ table{
 .ativo {
     background-color: #5CB85D;
 }
+
+.solicitacao:hover{
+    cursor: pointer;
+    background-color: #9ae09b;
+}

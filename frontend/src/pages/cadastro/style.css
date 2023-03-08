@@ -1,5 +1,5 @@
 .container-cadastro {
-    width: 25%;
+    width: 80%;
     background-color: white;
     padding: 30px;
     margin: 0 auto;
@@ -25,5 +25,10 @@ select{
 .input-duplo{
     display: flex;
     flex-direction: column;
-    width: 45%;
+    width: 48%;
+}
+
+.botao:hover{
+    cursor: pointer;
+    background-color: #183f30;
 }

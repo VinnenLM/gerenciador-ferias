@@ -12,7 +12,7 @@ export const Solicitacao = ({ id, dataSolicitacao, colaborador, dataInicio, data
     }
 
     return (
-        <tr onClick={redirecionar} key={id}>
+        <tr onClick={redirecionar} key={id} className="solicitacao">
             <td>{dataSolicitacao}</td>
             {(role === "gestor" && idColaborador !== 1 ) ? <td>{colaborador}</td> : null}
             <td>{dataInicio}</td>
