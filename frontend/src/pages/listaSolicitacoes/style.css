@@ -9,3 +9,23 @@
 .pendente {
     background-color: #636363;
 }
+
+#pesquisar{
+    width: 40%;
+    text-align: left;
+    margin-bottom: 10px;
+    padding: 8px 0 8px 20px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 2px 2px 5px 3px rgb(0, 0, 0, .15);
+}
+
+.container-pesquisa{
+    position: relative;
+}
+
+.container-pesquisa>span{
+    position: absolute;
+    top: 20%;
+    right: 31%;
+}

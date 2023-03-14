@@ -21,7 +21,7 @@ h1{
     box-shadow: 2px 2px 5px 3px rgb(0, 0, 0, .25);
 }
 
-input{
+.container-login>input{
     margin-bottom: 20px;
     padding: 8px;
     border-radius: 5px;

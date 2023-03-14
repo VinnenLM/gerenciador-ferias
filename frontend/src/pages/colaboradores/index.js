@@ -41,7 +41,11 @@ export const Colaboradores = () => {
         <>
             <Header />
             <h1>Equipe</h1>
-            <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />
+            
+            <div className="container-pesquisa">
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />
+                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            </div>
 
             <div className="container-equipe">
                 <table class="table table-bordered">

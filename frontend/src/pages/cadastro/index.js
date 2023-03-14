@@ -20,12 +20,10 @@ export const Cadastro = () => {
 
                     <div className="input-duplo">
                         <label htmlFor="">Matrícula</label>
-                        <input type="text" />
+                        <input type="text" placeholder="0000"/>
                     </div>
 
                 </div>
-
-
 
                 <div className="container-duplo">
 
@@ -80,8 +78,6 @@ export const Cadastro = () => {
                     </div>
 
                 </div>
-
-
 
                 <button className="botao">Cadastrar</button>
             </div>
