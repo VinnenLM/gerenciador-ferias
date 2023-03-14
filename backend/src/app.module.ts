@@ -3,12 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ColaboradorModule } from './colaborador/colaborador.module';
 import { SetorModule } from './setor/setor.module';
-import { FeriasModule } from './ferias/ferias.module';
-import { AdiantamentoModule } from './adiantamento/adiantamento.module';
+import { SolicitacaoController } from './solicitacao/solicitacao.controller';
+import { SolicitacaoModule } from './solicitacao/solicitacao.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [ColaboradorModule, SetorModule, FeriasModule, AdiantamentoModule],
-  controllers: [AppController],
+  imports: [ColaboradorModule, SetorModule, SolicitacaoModule, PrismaModule],
+  controllers: [AppController, SolicitacaoController],
   providers: [AppService],
 })
 export class AppModule {}
