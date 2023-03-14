@@ -26,8 +26,8 @@
     flex-direction: column;
     justify-content: space-around;
     padding-left: 20px;
-    word-spacing: 10px;
     text-align: center;
+    vertical-align: middle;
 }
 
 .grafico-meses {
@@ -35,4 +35,31 @@
     margin: 100px auto 50px auto;
     background-color: white;
     border-radius: 5px;
+}
+
+.span-ativo::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: green;
+}
+
+.span-ferias::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: yellow;
+}
+
+.span-total::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
 }
