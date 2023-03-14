@@ -29,7 +29,7 @@ export const Header = () => {
         },
     ]
 
-    const numNotific = 3;
+    const numNotific = notificacoes.length;
 
     return (
         <header>
