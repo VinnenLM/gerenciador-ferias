@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Card = ({ titulo, icone, botao, link }) => {
     return (
-        <div className="container-card">
+        <div className={Style.containerCard}>
             <h2>{titulo}</h2>
-            <div className="card">
-                <span><i className={`${icone}`} ></i></span>
-                <Link to={`${link}`} className="botao">{botao}</Link>
+            <div className={Style.card}>
+                <span><i className={`${icone}`}></i></span>
+                <Link to={`${link}`} className={Style.botao}>{botao}</Link>
             </div>
         </div>
     )
