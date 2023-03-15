@@ -6,3 +6,11 @@ body{
     background-color: #C7ECD8;
     margin: 0;
 }
+
+.visivel{
+    display: block !important;
+}
+
+.containerNotificacao{
+    display: none;
+}

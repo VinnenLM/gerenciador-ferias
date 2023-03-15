@@ -8,7 +8,7 @@ header {
 }
 
 .logo {
-    font-weight: bold;
+    width: 100px;
 }
 
 .opcoes {
@@ -35,7 +35,6 @@ a:hover {
 
 .notificacoes {
     z-index: 2;
-    display: none;
     border: 1px solid black;
     flex-direction: column;
     position: absolute;
