@@ -1,85 +1,88 @@
 import { Header } from "../../components/header"
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Cadastro = () => {
     return (
         <>
             <Header />
-            <h1>Cadastro Colaborador</h1>
-            <div className="container-cadastro">
+            <div className={Style.containerGeral}>
 
-                <div className="container-duplo">
+                <h1 className={Style.titulo}>Cadastro Colaborador</h1>
 
-                    <div className="input-duplo">
-                        <label htmlFor="">Contratação</label>
-                        <select name="" id="">
-                            <option value="CLT" selected>CLT</option>
-                            <option value="PJ">PJ</option>
-                        </select>
+                <div className={Style.containerCadastro}>
+
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="contratacao">Contratação</label>
+                            <select name="contratacao" id="contratacao">
+                                <option value="CLT" selected>CLT</option>
+                                <option value="PJ">PJ</option>
+                            </select>
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="data_contratacao">Data da Contratação</label>
+                            <input className={Style.dataContratacao} type="date" name="data_contratacao" id="data_contratacao" />
+                        </div>
                     </div>
 
-                    <div className="input-duplo">
-                        <label htmlFor="">Matrícula</label>
-                        <input type="text" placeholder="0000"/>
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="matricula">Matrícula</label>
+                            <input type="text" placeholder="0000" name="matricula" id="matricula" />
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="cpf">CPF</label>
+                            <input type="text" name="cpf" id="cpf" placeholder="___.___.___-__" />
+                        </div>
                     </div>
 
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="nome">Nome</label>
+                            <input type="text" placeholder="Insira o nome" name="nome" id="nome" />
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="id_gestor">Gestor</label>
+                            <select name="id_gestor" id="id_gestor">
+                                <option value="0">Nenhum</option>
+                                <option value="1">Fulano</option>
+                                <option value="2">Ciclano</option>
+                                <option value="3">Beltrano</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="email">Email</label>
+                            <input type="email" placeholder="email@email.com" name="email" id="email" />
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="gmail">Gmail</label>
+                            <input type="email" placeholder="email@gmail.com" name="gmail" id="gmail" />
+                        </div>
+                    </div>
+
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="id_setor">Setor</label>
+                            <select name="id_setor" id="id_setor">
+                                <option value="1" selected>TI</option>
+                                <option value="2">RH</option>
+                                <option value="3">Contabilidade</option>
+                            </select>
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="id_perfil">Função</label>
+                            <select name="id_perfil" id="id_perfil">
+                                <option value="1" selected>Funcionário</option>
+                                <option value="2">Gestor</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <button className={Style.botao}>Cadastrar</button>
                 </div>
-
-                <div className="container-duplo">
-
-                    <div className="input-duplo">
-                        <label htmlFor="">Nome</label>
-                        <input type="text" placeholder="seu nome aqui" />
-                    </div>
-
-                    <div className="input-duplo">
-                        <label htmlFor="">Email</label>
-                        <input type="email" placeholder="email@email.com" />
-                    </div>
-
-                </div>
-
-                <div className="container-duplo">
-
-                    <div className="input-duplo">
-                        <label htmlFor="">CPF</label>
-                        <input type="text" name="" id="" placeholder="___.___.___-__" />
-                    </div>
-
-                    <div className="input-duplo">
-                        <label htmlFor="">Função</label>
-                        <select name="" id="">
-                            <option value="Funcionario" selected>Funcionário</option>
-                            <option value="Gestor">Gestor</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div className="container-duplo">
-
-                    <div className="input-duplo">
-                        <label htmlFor="">Setor</label>
-                        <select name="" id="">
-                            <option value="TI" selected>TI</option>
-                            <option value="RH">RH</option>
-                            <option value="RH">Contabilidade</option>
-                        </select>
-                    </div>
-
-                    <div className="input-duplo">
-                        <label htmlFor="">Gestor</label>
-                        <select name="" id="">
-                            <option value="">Nenhum</option>
-                            <option value="TI">Fulano</option>
-                            <option value="RH">Ciclano</option>
-                            <option value="RH">Beltrano</option>
-                        </select>
-                    </div>
-
-                </div>
-
-                <button className="botao">Cadastrar</button>
             </div>
         </>
     )
