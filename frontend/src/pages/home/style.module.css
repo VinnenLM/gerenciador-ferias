@@ -1,0 +1,12 @@
+.containerCards {
+    position: absolute;
+    top: 35%;
+    left: 20%;
+    transform: translate(-20%, -20%);
+    width: 100%;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+}
