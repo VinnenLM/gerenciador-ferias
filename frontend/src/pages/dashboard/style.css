@@ -1,15 +1,20 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
 .container-geral {
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    justify-content: center;
-    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
     margin: 0 auto;
 }
 
-.container {
+.container-cards {
+    width: 100%;
     display: grid;
-    grid-template-rows: 30% 70%;
-    margin: 5% 5% 0 5%;
+    grid-template-rows: 20% 70%;
+    max-width: 400px;
 }
 
 .container-pie {
@@ -31,10 +36,12 @@
 }
 
 .grafico-meses {
-    width: 80%;
-    margin: 100px auto 50px auto;
-    background-color: white;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 45% 45%;
+    margin: 70px auto 0 auto;
     border-radius: 5px;
+    grid-gap: 10%;
 }
 
 .span-ativo::before {
@@ -62,4 +69,16 @@
     height: 10px;
     border-radius: 5px;
     background-color: black;
+}
+
+.container-chart {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
+}
+
+.container-calendar {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
 }

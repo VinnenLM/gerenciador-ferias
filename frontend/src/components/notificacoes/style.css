@@ -1,6 +1,6 @@
 .notificacao{
     display: flex;
-    font-size: 20px;
+    font-size: 15px;
     justify-content: space-between;
     padding: 5px 10px;
     border-bottom: 1px solid black;
@@ -8,7 +8,7 @@
 
 .notificacao>:last-child{
     color: black;
-    font-size: 15px;
+    font-size: 12px;
     align-self: flex-end;
 }
 

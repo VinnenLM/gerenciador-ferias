@@ -71,46 +71,58 @@ export const Dashboard = () => {
     return (
         <>
             <Header />
-            <h1>Dashboard</h1>
+            <div className="dashboard">
 
-            <div className="container-geral">
-                <div className="container">
-                    <h2>Funcionários</h2>
-                    <div className="container-pie">
-                        <div className="legenda">
-                            <span className="span-ativo">Ativos {21}</span>
-                            <span className="span-ferias">Férias {19}</span>
-                            <span className="span-total">Total {40}</span>
-                        </div>
-                        <div className="pie">
-                            <DonutChart
-                                className="mt-2"
-                                data={feriasTotal}
-                                category="sales"
-                                variant="pie"
-                                showLabel={true}
-                                colors={["yellow", "green"]}
-                            />
+                <div className="container-geral">
+                    <div className="container-cards">
+                        <h2>Funcionários</h2>
+                        <div className="container-pie">
+                            <div className="legenda">
+                                <span className="span-ativo">Ativos {21}</span>
+                                <span className="span-ferias">Férias {19}</span>
+                                <span className="span-total">Total {40}</span>
+                            </div>
+                            <div className="pie">
+                                <DonutChart
+                                    className="mt-2"
+                                    data={feriasTotal}
+                                    category="sales"
+                                    variant="pie"
+                                    showLabel={true}
+                                    colors={["yellow", "green"]}
+                                />
+                            </div>
+
                         </div>
 
                     </div>
-
+                    <Card botao="Visualizar" icone="far fa-copy" link="/solicitacoes" titulo="Solicitações" />
+                    <Card botao="Visualizar" icone="fa-solid fa-users" link="/colaboradores" titulo="Equipe" />
                 </div>
-                <Card botao="Visualizar" icone="far fa-copy" link="/solicitacoes" titulo="Solicitações" />
-                <Card botao="Visualizar" icone="fa-solid fa-users" link="/colaboradores" titulo="Equipe" />
-            </div>
 
+                <div className="grafico-meses">
+                    <div className="container-chart">
+                        <BarChart
+                            className="mt-6"
+                            data={feriasMeses}
+                            index="name"
+                            categories={["Funcionários De Férias Por Mês"]}
+                            colors={["green"]}
+                            yAxisWidth={50}
+                        />
+                    </div>
+                    <div className="container-calendar">
+                        <BarChart
+                            className="mt-6"
+                            data={feriasMeses}
+                            index="name"
+                            categories={["Funcionários De Férias Por Mês"]}
+                            colors={["green"]}
+                            yAxisWidth={50}
+                        />
+                    </div>
+                </div>
 
-
-            <div className="grafico-meses">
-                <BarChart
-                    className="mt-6"
-                    data={feriasMeses}
-                    index="name"
-                    categories={["Funcionários De Férias Por Mês"]}
-                    colors={["green"]}
-                    yAxisWidth={50}
-                />
             </div>
         </>
     )
