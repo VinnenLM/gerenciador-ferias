@@ -1,48 +1,57 @@
 import { Header } from "../../components/header"
-import "./style.css"
+import Style from "../solicitar/style.module.css"
+import StyleLocal from "./style.module.css"
 
 export const Solicitacao = () => {
     return (
         <>
             <Header />
-            <h1>Solicitação</h1>
-            <div className="container-solicitacao">
+            <h1 className={Style.titulo}>Solicitação</h1>
+            <div className={Style.containerSolicitacao}>
 
-                <label htmlFor="">Nome</label>
-                <input type="text" value="Fulano da Silva" readOnly />
+                <div className={StyleLocal.inputNome}>
+                    <label htmlFor="nome">Nome</label>
+                    <input type="text" value="Fulano da Silva" readOnly />
+                </div>
 
-                <div className="container-duplo">
+                <div className={Style.containerDuplo}>
 
-                    <div className="input-duplo">
+                    <div className={Style.inputDuplo}>
                         <label htmlFor="">Matrícula</label>
                         <input type="text" value="123" readOnly />
                     </div>
 
-                    <div className="input-duplo">
+                    <div className={Style.inputDuplo}>
                         <label htmlFor="">Duração</label>
                         <input type="text" value="10 Dias" readOnly />
                     </div>
 
                 </div>
 
-                <div className="container-duplo">
+                <div className={Style.containerDuplo}>
 
-                    <div className="input-duplo">
+
+                    <div className={Style.inputDuplo}>
                         <label htmlFor="">Data Início</label>
                         <input type="date" value="2023-01-01" readOnly />
                     </div>
 
-                    <div className="input-duplo">
+                    <div className={Style.inputDuplo}>
                         <label htmlFor="">Data Término</label>
                         <input type="date" value="2023-01-11" readOnly />
                     </div>
 
                 </div>
 
-                <label htmlFor="">Obervação</label>
-                <textarea name="" id="" cols="30" rows="3" readOnly>Quero muito tirar férias, aceita ae</textarea>
+                <label htmlFor="observacao">Obervação</label>
+                <textarea className={Style.textarea} name="observacao" id="observacao" cols="30" rows="3" value="Aceita por favor!"></textarea>
 
-                <div className="status-solicitacao">
+                <div className={Style.antecipacao}>
+                    <label htmlFor="antecipacao">Antecipar 13°</label>
+                    <input type="checkbox" name="antecipacao" id="antecipacao" checked />
+                </div>
+
+                <div className={StyleLocal.statuSolicitacao}>
                     <span className="pendente">Pendente</span>
                 </div>
 

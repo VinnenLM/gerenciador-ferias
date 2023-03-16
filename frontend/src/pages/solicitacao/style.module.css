@@ -1,0 +1,36 @@
+.inputNome {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputNome>input {
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 2px 2px rgb(0, 0, 0, .15);
+}
+
+.inputNome>label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.statusSolicitacao {
+    text-align: center;
+    color: white;
+    margin: 20px 0;
+}
+
+.statuSolicitacao>span {
+    display: flex;
+    width: 30%;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    padding: 10px 40px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
