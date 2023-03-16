@@ -97,7 +97,7 @@ export const Dashboard = () => {
 
                     </div>
                     <Card botao="Visualizar" icone="far fa-copy" link="/solicitacoes" titulo="Solicitações" />
-                    <Card botao="Visualizar" icone="fa-solid fa-users" link="/colaboradores" titulo="Equipe" />
+                    <Card botao="Visualizar" icone="fa-solid fa-users" link="/equipe" titulo="Equipe" />
                 </div>
 
                 <div className="grafico-meses">

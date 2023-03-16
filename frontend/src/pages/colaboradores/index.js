@@ -40,7 +40,10 @@ export const Colaboradores = () => {
     return (
         <>
             <Header />
-            <h1>Equipe</h1>
+            
+            {
+                (window.location.pathname === "/equipe") ? <h1>Equipe</h1> : <h1>Colaboradores</h1>
+            }
             
             <div className="container-pesquisa">
                 <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />

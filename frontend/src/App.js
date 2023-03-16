@@ -25,6 +25,7 @@ function App() {
             <Route exact path='/perfil' element={<Perfil />} />
             <Route exact path='/cadastro' element={<Cadastro />} />
             <Route exact path='/colaboradores' element={<Colaboradores />} />
+            <Route exact path='/equipe' element={<Colaboradores />} />
             <Route exact path='/dashboard' element={<Dashboard />} />
             <Route exact path='/solicitacoes' element={<ListaSolicitacoes />} />
             <Route exact path='/solicitar' element={<Solicitar />} />
