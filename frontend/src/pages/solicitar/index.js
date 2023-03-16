@@ -1,24 +1,24 @@
 import { Header } from "../../components/header"
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Solicitar = () => {
     return (
         <>
             <Header />
-            <h1>Solicitar Férias</h1>
-            <div className="container-solicitacao">
+            <h1 className={Style.titulo}>Solicitar Férias</h1>
+            <div className={Style.containerSolicitacao}>
 
-                <div className="container-duplo">
+                <div className={Style.containerDuplo}>
 
-                    <div className="input-duplo">
-                        <label htmlFor="">Data de Início</label>
-                        <input type="date" />
+                    <div className={Style.inputDuplo}>
+                        <label htmlFor="data_inicio">Data de Início</label>
+                        <input type="date" name="data_nicio" id="data_inicio" />
                     </div>
 
-                    <div className="input-duplo">
-                        <label htmlFor="">Duração</label>
-                        <select name="" id="">
-                            <option value="5" selected>5</option>
+                    <div className={Style.inputDuplo}>
+                        <label htmlFor="duracao">Duração</label>
+                        <select name="duracao" id="duracao" defaultValue={"5"}>
+                            <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                             <option value="20">20</option>
@@ -28,10 +28,15 @@ export const Solicitar = () => {
 
                 </div>
 
-                <label htmlFor="">Obervação</label>
-                <textarea name="" id="" cols="30" rows="3"></textarea>
+                <label htmlFor="observacao">Obervação</label>
+                <textarea className={Style.textarea} name="observacao" id="observacao" cols="30" rows="3"></textarea>
 
-                <button className="botao">Solicitar</button>
+                <div className={Style.antecipacao}>
+                    <label htmlFor="antecipacao">Antecipar 13°</label>
+                    <input type="checkbox" name="antecipacao" id="antecipacao" />
+                </div>
+
+                <button className={Style.botao}>Solicitar</button>
             </div>
         </>
     )

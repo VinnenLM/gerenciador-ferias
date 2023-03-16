@@ -1,6 +1,6 @@
 import { Header } from "../../components/header"
 import { Solicitacao } from "../../components/solicitacao"
-import "./style.css"
+import Style from "./style.module.css"
 
 export const MinhasSolicitacoes = () => {
 
@@ -37,17 +37,17 @@ export const MinhasSolicitacoes = () => {
     return (
         <>
             <Header />
-            <h1>Minhas Solicitações</h1>
+            <h1 className={Style.titulo}>Minhas Solicitações</h1>
            
-            <div className="container-pesquisa">
-                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />
+            <div className={Style.containerPesquisa}>
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className={Style.pesquisa} />
                 <span><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
-
-            <div className="container-equipe">
+            
+            <div className={Style.containerSolicitacoes}>
                 <table className="table table-bordered">
                     <thead>
-                        <tr className="tabela">
+                        <tr className={Style.tabela}>
                             <th>Data Solicitação</th>
                             <th>Data Início</th>
                             <th>Data Fim</th>
