@@ -1,6 +1,6 @@
 import { Header } from "../../components/header"
 import { Pessoa } from "../../components/pessoa"
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Colaboradores = () => {
 
@@ -42,15 +42,15 @@ export const Colaboradores = () => {
             <Header />
             
             {
-                (window.location.pathname === "/equipe") ? <h1>Equipe</h1> : <h1>Colaboradores</h1>
+                (window.location.pathname === "/equipe") ? <h1 className={Style.titulo}>Equipe</h1> : <h1 className={Style.titulo}>Colaboradores</h1>
             }
             
-            <div className="container-pesquisa">
-                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" />
+            <div className={Style.containerPesquisa}>
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className={Style.pesquisa} />
                 <span><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
 
-            <div className="container-equipe">
+            <div className={Style.containerEquipe}>
                 <table class="table table-bordered">
                     <thead>
                         <tr className="tabela">
