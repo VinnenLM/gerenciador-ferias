@@ -53,7 +53,7 @@ export const Colaboradores = () => {
             <div className={Style.containerEquipe}>
                 <table class="table table-bordered">
                     <thead>
-                        <tr className="tabela">
+                        <tr className={Style.tabela}>
                             <th>Colaborador</th>
                             <th>Setor</th>
                             <th>Matrícula</th>

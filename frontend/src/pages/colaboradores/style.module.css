@@ -23,6 +23,11 @@ th{
     text-align: center;
 }
 
+.tabela{
+    background-color: #009846 !important;
+    color: white;
+}
+
 .containerEquipe {
     width: 80%;
     background-color: white;

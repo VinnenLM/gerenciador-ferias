@@ -7,7 +7,7 @@ export const Cadastro = () => {
             <Header />
             <div className={Style.containerGeral}>
 
-                <h1 className={Style.titulo}>Cadastro Colaborador</h1>
+                <h1 className={Style.titulo}>Cadastrar Colaborador</h1>
 
                 <div className={Style.containerCadastro}>
 
