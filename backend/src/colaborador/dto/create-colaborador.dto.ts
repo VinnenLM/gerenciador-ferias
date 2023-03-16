@@ -1,8 +1,6 @@
 import { contrato } from '@prisma/client';
-import { Transform } from 'class-transformer';
 import {
   IsString,
-  IsDate,
   IsEmail,
   IsStrongPassword,
   IsNumber,
@@ -40,12 +38,13 @@ export class CreateColaboradorDTO {
   @IsString()
   contratacao: contrato;
 
-  @IsDate()
-  data_contratacao: Date;
+  @IsString()
+  data_contratacao: string;
 
   @IsNumber()
   dias_disponiveis: number;
 
   @IsNumber()
+  @IsOptional()
   id_gestor: number;
 }

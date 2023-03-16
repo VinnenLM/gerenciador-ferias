@@ -13,19 +13,19 @@ export class ColaboradorController {
   }
   @Get()
   async list() {
-    return { res: 'Opa bom?' };
+    return this.colaboradorService.findAll();
   }
   @Get(':id')
-  async readOne(@Param() param) {
-    return { res: 'Get One', param };
+  async readOne(@Param('id', ParseIntPipe) id) {
+    return this.colaboradorService.findOne(id);
   }
   @Put(':id')
-  async edit(@Body() body, @Param() id) {
-    return { res: 'Put', id: id };
+  async editPassword(@Body() req, @Param('id', ParseIntPipe) id) {
+    return this.colaboradorService.updatePassword(id, req.senha);
   }
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id) {
     //Parse usado para converter
-    return { res: 'Delete', id: id };
+    return this.colaboradorService.delete(id);
   }
 }
