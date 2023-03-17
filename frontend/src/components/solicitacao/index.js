@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Solicitacao = ({ id, dataSolicitacao, colaborador, dataInicio, dataFim, status, idColaborador }) => {
 
@@ -12,7 +12,7 @@ export const Solicitacao = ({ id, dataSolicitacao, colaborador, dataInicio, data
     }
 
     return (
-        <tr onClick={redirecionar} key={id} className="solicitacao">
+        <tr onClick={redirecionar} key={id} className={Style.solicitacao}>
             <td>{dataSolicitacao}</td>
             {(role === "gestor" && idColaborador !== 1 ) ? <td>{colaborador}</td> : null}
             <td>{dataInicio}</td>

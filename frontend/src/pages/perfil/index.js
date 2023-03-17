@@ -34,12 +34,12 @@ export const Perfil = () => {
                             <span>Setor</span>
                         </div>
                         <div className={Style.valores}>
-                            <span>Matrícula</span>
-                            <span>Nome</span>
-                            <span>CPF</span>
-                            <span>Email</span>
-                            <span>Gmail</span>
-                            <span>Setor</span>
+                            <span>1234</span>
+                            <span>Fulano da Silva jr</span>
+                            <span>123.123.123-12</span>
+                            <span>empresa@email.com</span>
+                            <span>gmail@gmail.com</span>
+                            <span>Recursos Humanos</span>
                         </div>
                     </div>
 

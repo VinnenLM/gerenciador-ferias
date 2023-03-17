@@ -16,23 +16,6 @@
     border-radius: 5px;
 }
 
-.containerPesquisa{
-    position: relative;
-}
-
-.containerPesquisa>span{
-    position: absolute;
-    top: 20%;
-    right: 31%;
-}
-
-.pesquisa{
-    text-align: center;
-    display: flex;
-    margin: 0 auto;
-    margin-bottom: 20px !important;
-}
-
 td{
     text-align: center;
 }

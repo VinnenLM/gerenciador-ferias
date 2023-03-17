@@ -45,8 +45,8 @@ export const Colaboradores = () => {
                 (window.location.pathname === "/equipe") ? <h1 className={Style.titulo}>Equipe</h1> : <h1 className={Style.titulo}>Colaboradores</h1>
             }
             
-            <div className={Style.containerPesquisa}>
-                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className={Style.pesquisa} />
+            <div className="containerPesquisa">
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" />
                 <span><i class="fa-solid fa-magnifying-glass"></i></span>
             </div>
 

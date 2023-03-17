@@ -14,3 +14,56 @@ body{
 .containerNotificacao{
     display: none;
 }
+
+.status {
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    max-width: 100px;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.ferias {
+    background-color: #E8D52E;
+}
+
+.ativo {
+    background-color: #5CB85D;
+}
+
+.aprovado {
+    background-color: #5CB85D;
+}
+
+.negado {
+    background-color: #D9544F;
+}
+
+.pendente {
+    background-color: #636363;
+}
+
+.containerPesquisa{
+    position: relative;
+}
+
+.containerPesquisa>span{
+    position: absolute;
+    top: 18%;
+    right: 31%;
+}
+
+.pesquisa{
+    text-align: center;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 20px !important;
+    padding: 5px;
+    width: 40%;
+    border-radius: 20px;
+    box-shadow: 1px 1px 2px 2px rgb(0, 0, 0, .15);
+}
