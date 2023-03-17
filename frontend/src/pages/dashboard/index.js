@@ -72,7 +72,6 @@ export const Dashboard = () => {
         <>
             <Header />
             <div className={Style.dashboard}>
-
                 <div className={Style.containerGeral}>
                     <div className={Style.containerRequisicoes}>
                         <h2>Resultado das Solicitações</h2>
