@@ -2,7 +2,7 @@ import { Card } from "../../components/card"
 import { Header } from "../../components/header"
 import { DonutChart } from "@tremor/react";
 import { BarChart } from "@tremor/react";
-import "./style.css"
+import Style from "./style.module.css"
 
 export const Dashboard = () => {
 
@@ -71,56 +71,89 @@ export const Dashboard = () => {
     return (
         <>
             <Header />
-            <div className="dashboard">
+            <div className={Style.dashboard}>
 
-                <div className="container-geral">
-                    <div className="container-cards">
+                <div className={Style.containerGeral}>
+                    <div className={Style.containerRequisicoes}>
+                        <h2>Resultado das Solicitações</h2>
+                        <div className={Style.requisicoes}>
+                            <div className={Style.solicitacoes}>
+                                <h3>Aprovadas</h3>
+                                <div className={Style.aprovado}>10</div>
+                            </div>
+                            <div className={Style.solicitacoes}>
+                                <h3>Negadas</h3>
+                                <div className={Style.negado}>5</div>
+                            </div>
+                            <div className={Style.solicitacoes}>
+                                <h3>Pendentes</h3>
+                                <div className={Style.pendente}>15</div>
+                            </div>
+                            <div className={Style.solicitacoes}>
+                                <h3>Total</h3>
+                                <div className={Style.total}>30</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={Style.containerCards}>
+                        <Card botao="Visualizar" icone="far fa-copy" link="/solicitacoes" titulo="Solicitações" />
+                        <Card botao="Visualizar" icone="fa-solid fa-users" link="/equipe" titulo="Equipe" />
+                    </div>
+
+                </div>
+
+                <div className={Style.graficoMeses}>
+                    <div className={Style.containerChart}>
+                        <BarChart
+                            className="mt-6"
+                            data={feriasMeses}
+                            index="name"
+                            categories={["Funcionários De Férias Por Mês"]}
+                            colors={["green"]}
+                            yAxisWidth={25}
+                        />
+                    </div>
+
+                    <div className={Style.containerGrafico}>
                         <h2>Funcionários</h2>
-                        <div className="container-pie">
-                            <div className="legenda">
-                                <span className="span-ativo">Ativos {21}</span>
-                                <span className="span-ferias">Férias {19}</span>
-                                <span className="span-total">Total {40}</span>
+                        <div className={Style.containerPie}>
+                            <div className={Style.graficoPie}>
+                                <div className={Style.legenda}>
+                                    <div className={Style.item}>
+                                        <div className={Style.itemLegenda}>
+                                            <span className={Style.spanAtivo}></span><span>Ativos</span>
+                                        </div>
+                                        {21}
+                                    </div>
+                                    <div className={Style.item}>
+                                        <div className={Style.itemLegenda}>
+                                            <span className={Style.spanFerias}></span><span>Férias</span>
+                                        </div>
+                                        {19}
+                                    </div>
+                                    <div className={Style.item}>
+                                        <div className={Style.itemLegenda}>
+                                            <span className={Style.spanTotal}></span><span>Total</span>
+                                        </div>
+                                        {40}
+                                    </div>
+                                </div>
+                                <div className={Style.pie}>
+                                    <DonutChart
+                                        className="mt-2"
+                                        data={feriasTotal}
+                                        category="sales"
+                                        variant="pie"
+                                        showLabel={true}
+                                        colors={["green", "yellow"]}
+                                    />
+                                </div>
                             </div>
-                            <div className="pie">
-                                <DonutChart
-                                    className="mt-2"
-                                    data={feriasTotal}
-                                    category="sales"
-                                    variant="pie"
-                                    showLabel={true}
-                                    colors={["yellow", "green"]}
-                                />
-                            </div>
-
                         </div>
 
                     </div>
-                    <Card botao="Visualizar" icone="far fa-copy" link="/solicitacoes" titulo="Solicitações" />
-                    <Card botao="Visualizar" icone="fa-solid fa-users" link="/equipe" titulo="Equipe" />
-                </div>
 
-                <div className="grafico-meses">
-                    <div className="container-chart">
-                        <BarChart
-                            className="mt-6"
-                            data={feriasMeses}
-                            index="name"
-                            categories={["Funcionários De Férias Por Mês"]}
-                            colors={["green"]}
-                            yAxisWidth={50}
-                        />
-                    </div>
-                    <div className="container-calendar">
-                        <BarChart
-                            className="mt-6"
-                            data={feriasMeses}
-                            index="name"
-                            categories={["Funcionários De Férias Por Mês"]}
-                            colors={["green"]}
-                            yAxisWidth={50}
-                        />
-                    </div>
                 </div>
 
             </div>

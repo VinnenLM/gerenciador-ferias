@@ -22,8 +22,8 @@ export const Solicitacao = () => {
                     </div>
 
                     <div className={Style.inputDuplo}>
-                        <label htmlFor="">Duração</label>
-                        <input type="text" value="10 Dias" readOnly />
+                        <label htmlFor="">Data da Solicitação</label>
+                        <input type="date" value="2023-01-01" readOnly />
                     </div>
 
                 </div>
@@ -32,13 +32,13 @@ export const Solicitacao = () => {
 
 
                     <div className={Style.inputDuplo}>
-                        <label htmlFor="">Data Início</label>
-                        <input type="date" value="2023-01-01" readOnly />
+                        <label htmlFor="">Data de Início</label>
+                        <input type="date" value="2023-02-01" readOnly />
                     </div>
 
                     <div className={Style.inputDuplo}>
-                        <label htmlFor="">Data Término</label>
-                        <input type="date" value="2023-01-11" readOnly />
+                        <label htmlFor="">Data de Término</label>
+                        <input type="date" value="2023-02-11" readOnly />
                     </div>
 
                 </div>

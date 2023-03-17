@@ -1,0 +1,185 @@
+body {
+    overflow: hidden;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.containerGeral {
+    display: grid;
+    width: 90%;
+    margin: 0 auto;
+    grid-template-columns: 43% 55%;
+}
+
+.containerCards {
+    display: flex;
+}
+
+.containerGrafico {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 20% 70%;
+    max-width: 400px;
+    height: 80%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
+}
+
+.containerGrafico>h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.graficoMeses {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 60% 30%;
+    margin: 70px auto 0 auto;
+    border-radius: 5px;
+    grid-gap: 10%;
+}
+
+.spanAtivo {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: green;
+    margin-right: 10px;
+}
+
+.spanFerias {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: yellow;
+    margin-right: 10px;
+}
+
+.spanTotal {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: black;
+    margin-right: 10px;
+}
+
+.containerChart {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
+    height: 80%;
+}
+
+.containerChart>div>div {
+    height: 250px !important;
+}
+
+.containerPie {
+    
+    width: 100%;
+    height: 190px;
+}
+
+.graficoPie {
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+
+.legenda {
+    display: grid;
+    grid-template-rows: 25% 25% 25%;
+    grid-gap: 10%;
+    padding-left: 20px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+    align-self: center;
+}
+
+.legenda:first-child {
+    margin-top: 5px;
+}
+
+.itemLegenda {
+    font-weight: bold;
+}
+
+.containerRequisicoes {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    display: grid;
+    margin: 0 auto;
+    grid-template-rows: 20% 70%;
+}
+
+.containerRequisicoes>h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.requisicoes {
+    background-color: white;
+    box-shadow: 3px 3px 5px 1px rgb(0, 0, 0, .25);
+    display: grid;
+    height: 190px;
+    border-radius: 5px;
+    grid-template-columns: repeat(auto-fill, 50%);
+}
+
+.solicitacoes {
+    text-align: center;
+    align-self: center;
+}
+
+.solicitacoes>div {
+    width: 50%;
+    margin: 0 auto;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.solicitacoes>h3 {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.aprovado {
+    background-color: #5CB85D;
+}
+
+.negado {
+    background-color: #D9544F;
+}
+
+.pendente {
+    background-color: #636363;
+}
+
+.total {
+    background-color: #1D4636;
+}

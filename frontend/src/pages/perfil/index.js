@@ -6,6 +6,8 @@ export const Perfil = () => {
 
     const [checked, setChecked] = useState(false);
     const [habilitado, setHabilitado] = useState(true);
+    const [senha, setSenha] = useState("");
+    const [repetirSenha, setRepetirSenha] = useState("");
 
     function mudarSenha() {
         if (checked === false) {
@@ -14,6 +16,8 @@ export const Perfil = () => {
         } else {
             setChecked(false);
             setHabilitado(true);
+            setSenha("");
+            setRepetirSenha("");
         }
     }
 
@@ -53,12 +57,12 @@ export const Perfil = () => {
 
                         <div className={Style.dado}>
                             <span>Senha</span>
-                            <input type="password" disabled={habilitado} />
+                            <input type="password" disabled={habilitado} value={senha} onChange={(evt) => setSenha(evt.target.value)} />
                         </div>
 
                         <div className={Style.dado}>
                             <span>Confirmar Senha</span>
-                            <input type="password" disabled={habilitado} />
+                            <input type="password" disabled={habilitado} value={repetirSenha} onChange={(evt) => setRepetirSenha(evt.target.value)} />
                         </div>
                     </div>
 
