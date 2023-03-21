@@ -12,8 +12,8 @@
 .containerCadastro {
     width: 60%;
     background-color: white;
-    padding: 30px;
-    margin: 0 auto;
+    padding: 15px;
+    margin: 0 auto 20px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;

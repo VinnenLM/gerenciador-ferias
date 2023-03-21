@@ -9,30 +9,30 @@ export const Dashboard = () => {
     const feriasTotal = [
         {
             name: "Ativo",
-            sales: 21,
+            sales: 31,
         },
         {
             name: "Férias",
-            sales: 19,
+            sales: 5,
         },
     ];
 
     const feriasMeses = [
         {
             name: "Jan",
-            "Funcionários De Férias Por Mês": 4,
+            "Funcionários De Férias Por Mês": 14,
         },
         {
             name: "Fev",
-            "Funcionários De Férias Por Mês": 2,
+            "Funcionários De Férias Por Mês": 14,
         },
         {
             name: "Mar",
-            "Funcionários De Férias Por Mês": 0,
+            "Funcionários De Férias Por Mês": 5,
         },
         {
             name: "Abr",
-            "Funcionários De Férias Por Mês": 0,
+            "Funcionários De Férias Por Mês": 6,
         },
         {
             name: "Mai",
