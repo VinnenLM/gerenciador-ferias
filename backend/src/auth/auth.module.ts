@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+/*import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -18,3 +18,4 @@ import { Colaborador } from 'src/colaborador/entity/colaborador.entity';
   controllers: [AuthController],
 })
 export class AuthModule {}
+*/

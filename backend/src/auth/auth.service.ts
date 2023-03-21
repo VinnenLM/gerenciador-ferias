@@ -1,9 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+/*import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Colaborador } from 'src/colaborador/entity/colaborador.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    @InjectRepository(Colaborador)
+    private colaboradorRepository: Repository<Colaborador>,
+  ) {}
 
   async createToken() {
     //return this.jwtService.sign();
@@ -13,8 +20,8 @@ export class AuthService {
     //return this.jwtService.verify;
   }
 
-  /*async login(matricula: string, senha: string) {
-    const colab = this.prisma.colaborador.findFirst({
+  async login(matricula: string, senha: string) {
+    const colab = this.colaboradorRepository.findOne({
       where: {
         matricula,
         senha,
@@ -26,7 +33,7 @@ export class AuthService {
     }
   }
 
-  async reset(id_colaborador: number, senha: string) {
+  /*async reset(id_colaborador: number, senha: string) {
     await this.prisma.colaborador.update({
       where: {
         id_colaborador,
@@ -36,5 +43,5 @@ export class AuthService {
       },
     });
     return true;
-  }*/
-}
+  }
+}*/

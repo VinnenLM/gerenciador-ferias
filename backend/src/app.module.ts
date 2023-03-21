@@ -8,7 +8,7 @@ import { SolicitacaoModule } from './solicitacao/solicitacao.module';
 import { PerfilController } from './perfil/perfil.controller';
 import { PerfilService } from './perfil/perfil.service';
 import { PerfilModule } from './perfil/perfil.module';
-import { AuthModule } from './auth/auth.module';
+//import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Colaborador } from './colaborador/entity/colaborador.entity';
 
@@ -18,7 +18,7 @@ import { Colaborador } from './colaborador/entity/colaborador.entity';
     SetorModule,
     SolicitacaoModule,
     PerfilModule,
-    AuthModule,
+    //AuthModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'qqtech4.crqc50gxdjpu.sa-east-1.rds.amazonaws.com',

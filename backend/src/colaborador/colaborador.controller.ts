@@ -11,11 +11,11 @@ export class ColaboradorController {
   async create(@Body() body: CreateColaboradorDTO) {
     return this.colaboradorService.create(body);
   }
-  /*@Get()
+  @Get()
   async list() {
     return this.colaboradorService.findAll();
   }
-  @Get('/gestor')
+  @Get('gestor')
   async listGestor() {
     return this.colaboradorService.findGestor();
   }
@@ -26,13 +26,13 @@ export class ColaboradorController {
   @Put(':id')
   async editPassword(
     @Body() { senha },
-    @Param('id', ParseIntPipe) id_colaborador,
+    @Param('id', ParseIntPipe) idColaborador,
   ) {
-    return this.colaboradorService.updatePassword(id_colaborador, senha);
+    return this.colaboradorService.updatePassword(idColaborador, senha);
   }
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) id) {
     //Parse usado para converter
     return this.colaboradorService.delete(id);
-  }*/
+  }
 }

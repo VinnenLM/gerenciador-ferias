@@ -30,63 +30,53 @@ export class ColaboradorService {
       nome,
       cpf,
       email,
-      gmail,
+      gmail: gmail ? gmail : null,
       senha,
       tipoContratacao,
       dataContratacao,
-      idGestor,
+      idGestor: idGestor ? idGestor : null,
       idPerfil,
       idSetor,
     });
   }
 
-  /*async findAll() {
-    return this.prisma.colaborador.findMany({
-      include: {
-        colaborador: true,
-        other_colaborador: true,
-      },
-    });
+  async findAll() {
+    return this.colaboradorRepository.find();
   }
-  async findOne(id: number) {
-    return this.prisma.colaborador.findUnique({
+  async findOne(idColaborador: number) {
+    return this.colaboradorRepository.findOne({
       where: {
-        id_colaborador: id,
+        idColaborador,
       },
     });
   }
   async findGestor() {
-    return this.prisma.colaborador.findMany({
+    return this.colaboradorRepository.find({
       where: {
-        id_perfil: 2,
+        idPerfil: 2,
       },
       select: {
         nome: true,
-        id_colaborador: true,
+        idColaborador: true,
       },
     });
   }
-  async updatePassword(id_colaborador: number, senha: string) {
-    return this.prisma.colaborador.update({
-      data: {
-        senha: senha,
-      },
-      where: {
-        id_colaborador: id_colaborador,
-      },
-    });
+  async updatePassword(idColaborador: number, senha: string) {
+    return this.colaboradorRepository.update(idColaborador, { senha });
   }
-  async delete(id: number) {
-    await this.exists(id);
-    return this.prisma.colaborador.delete({
-      where: {
-        id_colaborador: id,
-      },
-    });
+  async delete(idColaborador: number) {
+    await this.exists(idColaborador);
+    return this.colaboradorRepository.delete(idColaborador);
   }
-  async exists(id: number) {
-    if (!(await this.findOne(id))) {
-      throw new NotFoundException(`O usuário ${id} não existe!`);
+  async exists(idColaborador: number) {
+    if (
+      !(await this.colaboradorRepository.exist({
+        where: {
+          idColaborador,
+        },
+      }))
+    ) {
+      throw new NotFoundException(`O usuário ${idColaborador} não existe!`);
     }
-  }*/
+  }
 }
