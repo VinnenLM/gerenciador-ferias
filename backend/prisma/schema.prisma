@@ -43,15 +43,15 @@ model setor {
 }
 
 model solicitacao {
-  idSolicitacao    Int         @id @default(autoincrement())
-  dataSolicitacao  DateTime    @db.Date
-  dataInicio       DateTime    @db.Date
-  dataFim          DateTime    @db.Date
-  status           String      @db.VarChar(45)
-  comentarioColab  String?
-  comentarioGestor String?
-  idColaborador    Int
-  colaborador      colaborador @relation(fields: [idColaborador], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "solicitacao_id_colaborador")
+  idSolicitacao     Int         @id @default(autoincrement())
+  dataSolicitacao   DateTime    @db.Date
+  dataInicio        DateTime    @db.Date
+  dataFim           DateTime    @db.Date
+  statusSolicitacao String      @db.VarChar(45)
+  comentarioColab   String?
+  comentarioGestor  String?
+  idColaborador     Int
+  colaborador       colaborador @relation(fields: [idColaborador], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "solicitacao_id_colaborador")
 }
 
 enum contrato {

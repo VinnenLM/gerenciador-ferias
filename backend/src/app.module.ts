@@ -9,10 +9,10 @@ import { PerfilController } from './perfil/perfil.controller';
 import { PerfilService } from './perfil/perfil.service';
 import { PerfilModule } from './perfil/perfil.module';
 //import { AuthModule } from './auth/auth.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Colaborador } from './colaborador/entity/colaborador.entity';
-import { Setor } from './setor/entity/setor.entity';
-import { Perfil } from './perfil/entity/perfil.entity';
+//import { TypeOrmModule } from '@nestjs/typeorm';
+//import { Colaborador } from './colaborador/entity/colaborador.entity';
+//import { Setor } from './setor/entity/setor.entity';
+//import { Perfil } from './perfil/entity/perfil.entity';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -22,7 +22,7 @@ import { PrismaModule } from './prisma/prisma.module';
     SolicitacaoModule,
     PerfilModule,
     //AuthModule,
-    TypeOrmModule.forRoot({
+    /*8TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'qqtech4.crqc50gxdjpu.sa-east-1.rds.amazonaws.com',
       port: 5432,
@@ -32,7 +32,7 @@ import { PrismaModule } from './prisma/prisma.module';
       schema: 'QQFerias',
       entities: [Colaborador, Setor, Perfil],
       synchronize: false,
-    }),
+    }),*/
     PrismaModule,
   ],
   controllers: [AppController, SolicitacaoController, PerfilController],

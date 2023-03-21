@@ -7,50 +7,59 @@ export class SolicitacaoService {
   constructor(private readonly prisma: PrismaService) {}
 
   async salvarSolicitacao(data) {
-    data.dataContratacao = new Date(data.dataContratacao);
-    data.gmail = data.gmail ? data.gmail : null;
-    data.idGestor = data.idGestor ? data.idGestor : null;
-    return this.prisma.colaborador.create({ data });
+    data.dataSolicitacao = new Date(data.dataSolicitacao);
+    data.dataInicio = new Date(data.dataInicio);
+    data.dataFim = new Date(data.dataFim);
+    data.comentarioColab = data.comentarioColab ? data.comentarioColab : null;
+    data.comentarioGestor = data.comentarioGestor
+      ? data.comentarioGestor
+      : null;
+    return this.prisma.solicitacao.create({ data });
   }
 
   async listarSolicitacoes() {
-    return this.prisma.colaborador.findMany();
+    return this.prisma.solicitacao.findMany();
   }
-  async buscarSolicitacao(idColaborador: number) {
-    await this.exists(idColaborador);
-    return this.prisma.colaborador.findFirst({
+  async buscarSolicitacao(idSolicitacao: number) {
+    await this.exists(idSolicitacao);
+    return this.prisma.solicitacao.findFirst({
       where: {
-        idColaborador,
+        idSolicitacao,
       },
     });
   }
-  async editarSolicitacao(idColaborador: number, senha: string) {
-    return this.prisma.colaborador.update({
+  async editarSolicitacao(
+    idSolicitacao: number,
+    statusSolicitacao: string,
+    comentarioGestor: string,
+  ) {
+    return this.prisma.solicitacao.update({
       data: {
-        senha,
+        statusSolicitacao,
+        comentarioGestor,
       },
       where: {
-        idColaborador,
+        idSolicitacao,
       },
     });
   }
-  async excluirSolicitacao(idColaborador: number) {
-    await this.exists(idColaborador);
-    return this.prisma.colaborador.delete({
+  async excluirSolicitacao(idSolicitacao: number) {
+    await this.exists(idSolicitacao);
+    return this.prisma.solicitacao.delete({
       where: {
-        idColaborador,
+        idSolicitacao,
       },
     });
   }
-  async exists(idColaborador: number) {
+  async exists(idSolicitacao: number) {
     if (
-      !(await this.prisma.colaborador.count({
+      !(await this.prisma.solicitacao.count({
         where: {
-          idColaborador,
+          idSolicitacao,
         },
       }))
     ) {
-      throw new NotFoundException(`O usuário ${idColaborador} não existe!`);
+      throw new NotFoundException(`O usuário ${idSolicitacao} não existe!`);
     }
   }
 }

@@ -21,10 +21,14 @@ export class SolicitacaoController {
   }
   @Put(':id')
   async editarSolicitacao(
-    @Body() { senha },
-    @Param('id', ParseIntPipe) idColaborador,
+    @Body() { statusSolicitacao, comentarioGestor },
+    @Param('id', ParseIntPipe) idSolicitacao,
   ) {
-    return this.solicitacaoService.editarSolicitacao(idColaborador, senha);
+    return this.solicitacaoService.editarSolicitacao(
+      idSolicitacao,
+      statusSolicitacao,
+      comentarioGestor,
+    );
   }
   @Delete(':id')
   async excluirSolicitacao(@Param('id', ParseIntPipe) id) {

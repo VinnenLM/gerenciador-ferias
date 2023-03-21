@@ -1,59 +1,26 @@
-import {
-  IsString,
-  IsEmail,
-  IsStrongPassword,
-  IsNumber,
-  IsOptional,
-  IsEnum,
-} from 'class-validator';
-
-export enum tipoContratacao {
-  CLT = 'CLT',
-  PJ = 'PJ',
-}
+import { IsString, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateSolicitacaoDTO {
   @IsString()
-  matricula: string;
+  dataSolicitacao: Date;
 
   @IsString()
-  nome: string;
+  dataInicio: Date;
 
   @IsString()
-  cpf: string;
+  dataFim: Date;
 
-  @IsEmail()
-  email: string;
+  @IsString()
+  status: string;
 
-  @IsEmail()
   @IsOptional()
-  gmail: string;
-
-  @IsStrongPassword({
-    minLength: 3,
-    minNumbers: 0,
-    minUppercase: 0,
-    minLowercase: 0,
-    minSymbols: 0,
-  })
-  senha: string;
-
-  @IsEnum(tipoContratacao)
-  tipoContratacao: tipoContratacao;
-
   @IsString()
-  dataContratacao: Date;
+  comentarioColab: string;
 
-  @IsNumber()
-  diasDisponiveis: number;
-
-  @IsNumber()
   @IsOptional()
-  idGestor: number;
+  @IsString()
+  comentarioGestor: string;
 
   @IsNumber()
-  idPerfil: number;
-
-  @IsNumber()
-  idSetor: number;
+  idColaborador: number;
 }
