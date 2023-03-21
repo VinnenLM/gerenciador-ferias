@@ -5,6 +5,7 @@ import {
   IsNumber,
   IsOptional,
   IsEnum,
+  IsDate,
 } from 'class-validator';
 
 export enum tipoContratacao {
@@ -25,8 +26,8 @@ export class CreateColaboradorDTO {
   @IsEmail()
   email: string;
 
-  @IsEmail()
   @IsOptional()
+  @IsEmail()
   gmail: string;
 
   @IsStrongPassword({
@@ -42,13 +43,13 @@ export class CreateColaboradorDTO {
   tipoContratacao: tipoContratacao;
 
   @IsString()
-  dataContratacao: Date;
+  dataContratacao: string;
 
   @IsNumber()
   diasDisponiveis: number;
 
-  @IsNumber()
   @IsOptional()
+  @IsNumber()
   idGestor: number;
 
   @IsNumber()

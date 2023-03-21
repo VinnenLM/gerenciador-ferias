@@ -7,6 +7,7 @@ export class ColaboradorService {
   constructor(private readonly prisma: PrismaService) {}
 
   async cadastrarColaborador(data) {
+    console.log(data);
     data.dataContratacao = new Date(data.dataContratacao);
     data.gmail = data.gmail ? data.gmail : null;
     data.idGestor = data.idGestor ? data.idGestor : null;
