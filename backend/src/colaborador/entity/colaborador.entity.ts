@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+  JoinTable,
+} from 'typeorm';
 
 export enum tipoContratacao {
   CLT = 'CLT',
@@ -71,4 +79,10 @@ export class Colaborador {
 
   @Column()
   idGestor: number;
+
+  /*@ManyToOne((type) => Colaborador, (colaborador) => colaborador.geridos)
+  gestor: Colaborador;
+
+  @OneToMany((type) => Colaborador, (colaborador) => colaborador.gestor)
+  geridos: Colaborador[];*/
 }

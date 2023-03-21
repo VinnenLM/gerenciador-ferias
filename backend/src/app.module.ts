@@ -11,6 +11,8 @@ import { PerfilModule } from './perfil/perfil.module';
 //import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Colaborador } from './colaborador/entity/colaborador.entity';
+import { Setor } from './setor/entity/setor.entity';
+import { Perfil } from './perfil/entity/perfil.entity';
 
 @Module({
   imports: [
@@ -27,7 +29,8 @@ import { Colaborador } from './colaborador/entity/colaborador.entity';
       password: '980163',
       database: '980163',
       schema: 'QQFerias',
-      entities: [Colaborador],
+      entities: [Colaborador, Setor, Perfil],
+      synchronize: false,
     }),
   ],
   controllers: [AppController, SolicitacaoController, PerfilController],
