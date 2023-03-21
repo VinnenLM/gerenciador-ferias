@@ -8,31 +8,31 @@ export class ColaboradorController {
   constructor(private readonly colaboradorService: ColaboradorService) {}
 
   @Post()
-  async create(@Body() body: CreateColaboradorDTO) {
-    return this.colaboradorService.create(body);
+  async cadastrar(@Body() data: CreateColaboradorDTO) {
+    return this.colaboradorService.cadastrarColaborador(data);
   }
   @Get()
-  async list() {
-    return this.colaboradorService.findAll();
+  async listarTodos() {
+    return this.colaboradorService.listarTodos();
   }
   @Get('gestor')
-  async listGestor() {
-    return this.colaboradorService.findGestor();
+  async listarGestores() {
+    return this.colaboradorService.listarGestores();
   }
   @Get(':id')
-  async readOne(@Param('id', ParseIntPipe) id) {
-    return this.colaboradorService.findOne(id);
+  async buscarColaborador(@Param('id', ParseIntPipe) idColaborador) {
+    return this.colaboradorService.buscarColaborador(idColaborador);
   }
   @Put(':id')
-  async editPassword(
+  async editarSenha(
     @Body() { senha },
     @Param('id', ParseIntPipe) idColaborador,
   ) {
-    return this.colaboradorService.updatePassword(idColaborador, senha);
+    return this.colaboradorService.editarSenha(idColaborador, senha);
   }
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id) {
+  async excluirColaborador(@Param('id', ParseIntPipe) id) {
     //Parse usado para converter
-    return this.colaboradorService.delete(id);
+    return this.colaboradorService.excluirColaborador(id);
   }
 }

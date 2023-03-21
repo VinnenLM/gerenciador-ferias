@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model colaborador {
+  idColaborador     Int           @id @default(autoincrement())
+  matricula         String        @db.VarChar(255)
+  nome              String        @db.VarChar(255)
+  cpf               String        @unique @db.VarChar(11)
+  email             String        @db.VarChar(45)
+  gmail             String?       @db.VarChar(45)
+  senha             String        @db.VarChar(45)
+  tipoContratacao   contrato
+  dataContratacao   DateTime      @db.Date
+  diasDisponiveis   Int
+  idGestor          Int?
+  idPerfil          Int
+  idSetor           Int
+  ultimoAcesso      DateTime?     @db.Date
+  colaborador       colaborador?  @relation("colaboradorTocolaborador", fields: [idGestor], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_gestor_fkey")
+  other_colaborador colaborador[] @relation("colaboradorTocolaborador")
+  perfil            perfil        @relation(fields: [idPerfil], references: [idPerfil], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_perfil_fkey")
+  setor             setor         @relation(fields: [idSetor], references: [idSetor], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_setor_fkey")
+  solicitacao       solicitacao[]
+}
+
+model perfil {
+  idPerfil    Int           @id @default(autoincrement())
+  perfil      String?       @db.VarChar(255)
+  colaborador colaborador[]
+}
+
+model setor {
+  idSetor     Int           @id @default(autoincrement())
+  nomeSetor   String        @db.VarChar(255)
+  sigla       String?       @db.VarChar(45)
+  colaborador colaborador[]
+}
+
+model solicitacao {
+  idSolicitacao    Int         @id @default(autoincrement())
+  dataSolicitacao  DateTime    @db.Date
+  dataInicio       DateTime    @db.Date
+  dataFim          DateTime    @db.Date
+  status           String      @db.VarChar(45)
+  comentarioColab  String?
+  comentarioGestor String?
+  idColaborador    Int
+  colaborador      colaborador @relation(fields: [idColaborador], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "solicitacao_id_colaborador")
+}
+
+enum contrato {
+  CLT
+  PJ
+}

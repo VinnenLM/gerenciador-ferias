@@ -13,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Colaborador } from './colaborador/entity/colaborador.entity';
 import { Setor } from './setor/entity/setor.entity';
 import { Perfil } from './perfil/entity/perfil.entity';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { Perfil } from './perfil/entity/perfil.entity';
       entities: [Colaborador, Setor, Perfil],
       synchronize: false,
     }),
+    PrismaModule,
   ],
   controllers: [AppController, SolicitacaoController, PerfilController],
   providers: [AppService, PerfilService],

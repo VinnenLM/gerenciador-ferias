@@ -12,7 +12,7 @@ export enum tipoContratacao {
   PJ = 'PJ',
 }
 
-export class CreateColaboradorDTO {
+export class CreateSolicitacaoDTO {
   @IsString()
   matricula: string;
 

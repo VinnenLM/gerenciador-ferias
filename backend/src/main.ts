@@ -11,6 +11,7 @@ bootstrap();
 
 //npm i class-validator class-transformer
 //npm i @nestjs/mapped-types
+//npm i -D prisma
 //npx prisma init
 //npm i @nestjs/jwt
 //npm i typeorm pg --save @nestjs/typeorm

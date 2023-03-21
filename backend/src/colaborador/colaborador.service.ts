@@ -1,57 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
-import { CreateColaboradorDTO } from './dto/create-colaborador.dto';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Colaborador } from './entity/colaborador.entity';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ColaboradorService {
-  constructor(
-    @InjectRepository(Colaborador)
-    private colaboradorRepository: Repository<Colaborador>,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async create({
-    matricula,
-    nome,
-    cpf,
-    email,
-    gmail,
-    senha,
-    tipoContratacao,
-    dataContratacao,
-    idGestor,
-    idPerfil,
-    idSetor,
-  }: CreateColaboradorDTO) {
-    return this.colaboradorRepository.create({
-      matricula,
-      nome,
-      cpf,
-      email,
-      gmail: gmail ? gmail : null,
-      senha,
-      tipoContratacao,
-      dataContratacao,
-      idGestor: idGestor ? idGestor : null,
-      idPerfil,
-      idSetor,
-    });
+  async cadastrarColaborador(data) {
+    data.dataContratacao = new Date(data.dataContratacao);
+    data.gmail = data.gmail ? data.gmail : null;
+    data.idGestor = data.idGestor ? data.idGestor : null;
+    return this.prisma.colaborador.create({ data });
   }
 
-  async findAll() {
-    return this.colaboradorRepository.find();
+  async listarTodos() {
+    return this.prisma.colaborador.findMany();
   }
-  async findOne(idColaborador: number) {
-    return this.colaboradorRepository.findOne({
+  async buscarColaborador(idColaborador: number) {
+    await this.exists(idColaborador);
+    return this.prisma.colaborador.findFirst({
       where: {
         idColaborador,
       },
     });
   }
-  async findGestor() {
-    return this.colaboradorRepository.find({
+  async listarGestores() {
+    return this.prisma.colaborador.findMany({
       where: {
         idPerfil: 2,
       },
@@ -61,16 +35,27 @@ export class ColaboradorService {
       },
     });
   }
-  async updatePassword(idColaborador: number, senha: string) {
-    return this.colaboradorRepository.update(idColaborador, { senha });
+  async editarSenha(idColaborador: number, senha: string) {
+    return this.prisma.colaborador.update({
+      data: {
+        senha,
+      },
+      where: {
+        idColaborador,
+      },
+    });
   }
-  async delete(idColaborador: number) {
+  async excluirColaborador(idColaborador: number) {
     await this.exists(idColaborador);
-    return this.colaboradorRepository.delete(idColaborador);
+    return this.prisma.colaborador.delete({
+      where: {
+        idColaborador,
+      },
+    });
   }
   async exists(idColaborador: number) {
     if (
-      !(await this.colaboradorRepository.exist({
+      !(await this.prisma.colaborador.count({
         where: {
           idColaborador,
         },

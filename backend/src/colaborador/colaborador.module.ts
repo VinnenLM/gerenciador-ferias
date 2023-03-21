@@ -3,9 +3,10 @@ import { ColaboradorController } from './colaborador.controller';
 import { ColaboradorService } from './colaborador.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Colaborador } from './entity/colaborador.entity';
+import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Colaborador])],
+  imports: [PrismaModule],
   controllers: [ColaboradorController],
   providers: [ColaboradorService],
   exports: [ColaboradorService],
