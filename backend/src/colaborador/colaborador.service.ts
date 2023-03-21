@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateColaboradorDTO } from './dto/create-colaborador.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Colaborador } from './entity/colaborador.entity';
 
 @Injectable()
 export class ColaboradorService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Colaborador)
+    private colaboradorRepository: Repository<Colaborador>,
+  ) {}
+
   async create({
     matricula,
     nome,
@@ -13,26 +19,28 @@ export class ColaboradorService {
     email,
     gmail,
     senha,
-    contratacao,
-    data_contratacao,
-    id_gestor,
+    tipoContratacao,
+    dataContratacao,
+    idGestor,
+    idPerfil,
+    idSetor,
   }: CreateColaboradorDTO) {
-    return this.prisma.colaborador.create({
-      data: {
-        matricula: matricula,
-        nome: nome,
-        cpf: cpf,
-        email: email,
-        gmail: gmail,
-        senha: senha,
-        contratacao: contratacao,
-        data_contratacao: new Date(data_contratacao),
-        dias_disponiveis: 0,
-        id_gestor: id_gestor ? id_gestor : null,
-      },
+    return this.colaboradorRepository.create({
+      matricula,
+      nome,
+      cpf,
+      email,
+      gmail,
+      senha,
+      tipoContratacao,
+      dataContratacao,
+      idGestor,
+      idPerfil,
+      idSetor,
     });
   }
-  async findAll() {
+
+  /*async findAll() {
     return this.prisma.colaborador.findMany({
       include: {
         colaborador: true,
@@ -47,13 +55,24 @@ export class ColaboradorService {
       },
     });
   }
-  async updatePassword(id: number, senha: string) {
+  async findGestor() {
+    return this.prisma.colaborador.findMany({
+      where: {
+        id_perfil: 2,
+      },
+      select: {
+        nome: true,
+        id_colaborador: true,
+      },
+    });
+  }
+  async updatePassword(id_colaborador: number, senha: string) {
     return this.prisma.colaborador.update({
       data: {
         senha: senha,
       },
       where: {
-        id_colaborador: id,
+        id_colaborador: id_colaborador,
       },
     });
   }
@@ -69,5 +88,5 @@ export class ColaboradorService {
     if (!(await this.findOne(id))) {
       throw new NotFoundException(`O usuário ${id} não existe!`);
     }
-  }
+  }*/
 }

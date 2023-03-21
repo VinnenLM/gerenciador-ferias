@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { PrismaModule } from 'src/prisma/prisma.module';
 import { ColaboradorController } from './colaborador.controller';
 import { ColaboradorService } from './colaborador.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Colaborador } from './entity/colaborador.entity';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [TypeOrmModule.forFeature([Colaborador])],
   controllers: [ColaboradorController],
   providers: [ColaboradorService],
+  exports: [ColaboradorService],
 })
 export class ColaboradorModule {}

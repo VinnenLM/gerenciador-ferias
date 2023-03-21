@@ -1,12 +1,15 @@
-import { contrato } from '@prisma/client';
 import {
   IsString,
   IsEmail,
   IsStrongPassword,
   IsNumber,
-  IsIn,
   IsOptional,
 } from 'class-validator';
+
+export enum tipoContratacao {
+  CLT = 'CLT',
+  PJ = 'PJ',
+}
 
 export class CreateColaboradorDTO {
   @IsString()
@@ -34,17 +37,22 @@ export class CreateColaboradorDTO {
   })
   senha: string;
 
-  @IsIn(['CLT', 'PJ'])
   @IsString()
-  contratacao: contrato;
+  tipoContratacao: tipoContratacao;
 
   @IsString()
-  data_contratacao: string;
+  dataContratacao: string;
 
   @IsNumber()
-  dias_disponiveis: number;
+  diasDisponiveis: number;
 
   @IsNumber()
   @IsOptional()
-  id_gestor: number;
+  idGestor: number;
+
+  @IsNumber()
+  idPerfil: number;
+
+  @IsNumber()
+  idSetor: number;
 }
