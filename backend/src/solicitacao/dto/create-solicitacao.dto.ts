@@ -2,16 +2,13 @@ import { IsString, IsNumber, IsOptional } from 'class-validator';
 
 export class CreateSolicitacaoDTO {
   @IsString()
-  dataSolicitacao: Date;
+  dataSolicitacao: string;
 
   @IsString()
-  dataInicio: Date;
+  dataInicio: string;
 
   @IsString()
-  dataFim: Date;
-
-  @IsString()
-  status: string;
+  dataFim: string;
 
   @IsOptional()
   @IsString()
@@ -19,7 +16,7 @@ export class CreateSolicitacaoDTO {
 
   @IsOptional()
   @IsString()
-  comentarioGestor: string;
+  solicitacao13: string;
 
   @IsNumber()
   idColaborador: number;

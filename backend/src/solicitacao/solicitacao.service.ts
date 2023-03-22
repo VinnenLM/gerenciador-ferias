@@ -10,10 +10,17 @@ export class SolicitacaoService {
     data.dataSolicitacao = new Date(data.dataSolicitacao);
     data.dataInicio = new Date(data.dataInicio);
     data.dataFim = new Date(data.dataFim);
-    data.comentarioColab = data.comentarioColab ? data.comentarioColab : null;
-    data.comentarioGestor = data.comentarioGestor
-      ? data.comentarioGestor
-      : null;
+    data.solicitacao13 ? new Date(data.solicitacao13) : null;
+
+    data.statusSolicitacao = 'pendente';
+
+    data.comentarioColab =
+      data.comentarioColab !== '' ? data.comentarioColab : null;
+
+    data.comentarioGestor = null;
+
+    console.log(data);
+
     return this.prisma.solicitacao.create({ data });
   }
 

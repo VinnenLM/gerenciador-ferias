@@ -51,6 +51,7 @@ model solicitacao {
   comentarioColab   String?
   comentarioGestor  String?
   idColaborador     Int
+  solicitacao13     DateTime?   @db.Date
   colaborador       colaborador @relation(fields: [idColaborador], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "solicitacao_id_colaborador")
 }
 

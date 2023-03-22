@@ -15,7 +15,11 @@ export class ColaboradorService {
   }
 
   async listarTodos() {
-    return this.prisma.colaborador.findMany();
+    return this.prisma.colaborador.findMany({
+      include: {
+        setor: true,
+      },
+    });
   }
   async buscarColaborador(idColaborador: number) {
     await this.exists(idColaborador);
