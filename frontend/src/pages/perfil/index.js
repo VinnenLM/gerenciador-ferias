@@ -51,7 +51,7 @@ export const Perfil = () => {
                         <div className={Style.dado}>
                             <span>Alterar Senha</span>
                             <div className={Style.alterar}>
-                                <input className={Style.check} type="checkbox" id="check" checked={checked} onClick={mudarSenha} />
+                                <input className={Style.check} type="checkbox" id="check" checked={checked} onChange={mudarSenha} />
                             </div>
                         </div>
 

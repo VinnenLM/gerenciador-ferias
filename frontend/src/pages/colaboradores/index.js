@@ -1,57 +1,54 @@
+import { useEffect, useState } from "react"
 import { Header } from "../../components/header"
 import { Pessoa } from "../../components/pessoa"
+import api from "../../services/api";
 import Style from "./style.module.css"
 
 export const Colaboradores = () => {
 
-    const pessoas = [
-        {
-            nome: "Fulano da Silva",
-            setor: "TI",
-            matricula: "123",
-            status: "ativo"
-        },
-        {
-            nome: "Beltrano da Silva",
-            setor: "RH",
-            matricula: "321",
-            status: "ferias"
-        },
-        {
-            nome: "Ciclano da Silva",
-            setor: "Contabilidade",
-            matricula: "456",
-            status: "ferias"
-        },
-        {
-            nome: "Joaozinho da Silva",
-            setor: "TI",
-            matricula: "654",
-            status: "ativo"
-        },
-        {
-            nome: "Gestor da Silva",
-            setor: "TI",
-            matricula: "111",
-            status: "ativo"
-        },
-    ]
+    const [colaboradores, setColaboradores] = useState([]);
+    const [query, setQuery] = useState("");
+    const [pesquisa] = useState(["nome", "matricula", "nomeSetor"]);
+
+    useEffect(() => {
+        api
+            .get("/colaborador")
+            .then((response) => {
+                setColaboradores(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
+
+    function buscarColaborador(items) {
+        return items.filter((item) => {
+          return pesquisa.find((newItem) => {
+            return (
+              item[newItem]
+                .toString()
+                .toLowerCase()
+                .indexOf(query.toLowerCase()) > -1
+            );
+          });
+        });
+      }
 
     return (
         <>
             <Header />
-            
+
             {
                 (window.location.pathname === "/equipe") ? <h1 className={Style.titulo}>Equipe</h1> : <h1 className={Style.titulo}>Colaboradores</h1>
             }
-            
+
             <div className="containerPesquisa">
-                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" />
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" value={query} onChange={(evt) => setQuery(evt.target.value)}/>
+                <span><i className="fa-solid fa-magnifying-glass"></i></span>
             </div>
 
             <div className={Style.containerEquipe}>
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr className={Style.tabela}>
                             <th>Colaborador</th>
@@ -61,7 +58,7 @@ export const Colaboradores = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {pessoas.map((pessoa, index) => <Pessoa key={index} nome={pessoa.nome} setor={pessoa.setor} matricula={pessoa.matricula} status={pessoa.status} />)}
+                        {buscarColaborador(colaboradores).map((pessoa, index) => <Pessoa key={index} nome={pessoa.nome} setor={pessoa.setor.nomeSetor} matricula={pessoa.matricula}  />)}
                     </tbody>
                 </table>
 
