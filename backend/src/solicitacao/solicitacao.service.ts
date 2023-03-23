@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -32,6 +33,18 @@ export class SolicitacaoService {
         idSolicitacao,
       },
     });
+  }
+  async buscarMinhasSolicitacoes(data) {
+    return this.prisma.solicitacao.findMany({
+      where: {
+        idColaborador: data.idColaborador,
+      },
+    });
+  }
+  async buscarSolicitacoesPorGestor(data) {
+    return this.prisma.$queryRaw(
+      Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor}`,
+    );
   }
   async editarSolicitacao(
     idSolicitacao: number,

@@ -15,7 +15,6 @@ export class ColaboradorService {
   }
 
   async logar(data) {
-    console.log(data);
     return this.prisma.colaborador.findFirst({
       where: {
         matricula: data.matricula,
@@ -109,7 +108,7 @@ export class ColaboradorService {
       return { ...colab, stats: 'ferias' };
     });
 
-    const todosColaboradores = ativos.concat(ferias);
+    const todosColaboradores = ferias.concat(ativos);
 
     return { todosColaboradores, countAtivos, countFerias };
   }

@@ -11,6 +11,14 @@ export class SolicitacaoController {
   async salvarSolicitacao(@Body() data: CreateSolicitacaoDTO) {
     return this.solicitacaoService.salvarSolicitacao(data);
   }
+  @Post('gestor')
+  async buscarSolicitacoesPorGestor(@Body() data) {
+    return this.solicitacaoService.buscarSolicitacoesPorGestor(data);
+  }
+  @Post('minhasSolicitacoes')
+  async buscarMinhasSolicitacoes(@Body() data) {
+    return this.solicitacaoService.buscarMinhasSolicitacoes(data);
+  }
   @Get()
   async listarSolicitacoes() {
     return this.solicitacaoService.listarSolicitacoes();
