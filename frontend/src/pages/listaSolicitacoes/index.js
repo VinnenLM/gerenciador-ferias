@@ -1,51 +1,27 @@
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
 import { Header } from "../../components/header"
 import { Solicitacao } from "../../components/solicitacao"
+import api from "../../services/api";
 import Style from "../minhasSolicitacoes/style.module.css"
 
 export const ListaSolicitacoes = () => {
 
-    const solicitacoes = [
-        {
-            id: 1,
-            dataSolicitacao: "01/01/2023",
-            dataInicio: "01/01/2023",
-            dataFim: "11/01/2023",
-            comentario: "",
-            status: "pendente",
-            idColaborador: 2,
-            colaborador: "Fulano da Silva"
-        },
-        {
-            id: 2,
-            dataSolicitacao: "02/02/2023",
-            dataInicio: "02/02/2023",
-            dataFim: "22/02/2023",
-            comentario: "",
-            status: "negado",
-            idColaborador: 3,
-            colaborador: "Beltrano da Silva"
-        },
-        {
-            id: 3,
-            dataSolicitacao: "03/03/2023",
-            dataInicio: "03/03/2023",
-            dataFim: "18/03/2023",
-            comentario: "",
-            status: "aprovado",
-            idColaborador: 4,
-            colaborador: "Ciclano da Silva"
-        },
-        {
-            id: 4,
-            dataSolicitacao: "04/04/2023",
-            dataInicio: "04/04/2023",
-            dataFim: "14/04/2023",
-            comentario: "",
-            status: "pendente",
-            idColaborador: 5,
-            colaborador: "Joaozinho da Silva"
-        },
-    ];
+    const idColaborador = useSelector((state) => state.idColaborador);
+    const [solicitacoes, setSolicitacoes] = useState([]);
+
+    useEffect(() => {
+        api
+            .post("/solicitacao/gestor", {
+                idGestor: idColaborador
+            })
+            .then((response) => {
+                setSolicitacoes(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [idColaborador])
 
     return (
         <>
@@ -69,7 +45,7 @@ export const ListaSolicitacoes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {solicitacoes.map((soli, index) => <Solicitacao key={index} dataSolicitacao={soli.dataSolicitacao} dataInicio={soli.dataInicio} dataFim={soli.dataFim} status={soli.status} colaborador={soli.colaborador} />)}
+                        {solicitacoes.map((soli, index) => <Solicitacao key={index} dataSolicitacao={soli.dataSolicitacao} colaborador={soli.nome} dataInicio={soli.dataInicio} dataFim={soli.dataFim} status={soli.statusSolicitacao} />)}
                     </tbody>
                 </table>
 

@@ -8,7 +8,7 @@ export const Colaboradores = () => {
 
     const [colaboradores, setColaboradores] = useState([]);
     const [query, setQuery] = useState("");
-    //const [pesquisa] = useState(["nome", "matricula", "nomeSetor"]);
+    const [pesquisa] = useState(["nome", "matricula", "stats"]);
 
     useEffect(() => {
         api
@@ -21,7 +21,7 @@ export const Colaboradores = () => {
             })
     }, [])
 
-    /*function buscarColaborador(items) {
+    function buscarColaborador(items) {
         return items.filter((item) => {
             return pesquisa.find((newItem) => {
                 return (
@@ -32,7 +32,7 @@ export const Colaboradores = () => {
                 );
             });
         });
-    }*/
+    }
 
     return (
         <>
@@ -58,14 +58,15 @@ export const Colaboradores = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {(colaboradores).map((pessoa, index) =>
+                        {buscarColaborador(colaboradores).map((pessoa, index) =>
                             <Pessoa
                                 key={index}
                                 nome={pessoa.nome}
                                 setor={pessoa.setor.nomeSetor}
                                 matricula={pessoa.matricula}
                                 status={pessoa.stats}
-                            />)}
+                            />
+                        )}
                     </tbody>
                 </table>
 
