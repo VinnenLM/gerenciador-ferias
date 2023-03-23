@@ -10,7 +10,7 @@ export class SolicitacaoService {
     data.dataSolicitacao = new Date(data.dataSolicitacao);
     data.dataInicio = new Date(data.dataInicio);
     data.dataFim = new Date(data.dataFim);
-    data.solicitacao13 ? new Date(data.solicitacao13) : null;
+    data.solicitacao13 = new Date(data.solicitacao13);
 
     data.statusSolicitacao = 'pendente';
 
@@ -18,8 +18,6 @@ export class SolicitacaoService {
       data.comentarioColab !== '' ? data.comentarioColab : null;
 
     data.comentarioGestor = null;
-
-    console.log(data);
 
     return this.prisma.solicitacao.create({ data });
   }

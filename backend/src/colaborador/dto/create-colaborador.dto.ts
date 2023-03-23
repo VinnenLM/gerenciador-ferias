@@ -5,7 +5,6 @@ import {
   IsNumber,
   IsOptional,
   IsEnum,
-  IsDate,
 } from 'class-validator';
 
 export enum tipoContratacao {
