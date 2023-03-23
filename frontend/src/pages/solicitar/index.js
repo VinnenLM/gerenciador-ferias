@@ -14,6 +14,7 @@ export const Solicitar = () => {
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
     const idColaborador = useSelector((state) => state.idColaborador);
+    const tipoContratacao = useSelector((state) => state.tipoContratacao);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -85,10 +86,15 @@ export const Solicitar = () => {
                 <label htmlFor="comentarioColab">Obervação</label>
                 <textarea className={Style.textarea} name="comentarioColab" id="comentarioColab" cols="30" rows="3" onChange={(evt) => setComentarioColab(evt.target.value)} value={comentarioColab}></textarea>
 
-                <div className={Style.antecipacao}>
-                    <label htmlFor="solicitacao13">Antecipar 13°</label>
-                    <input type="checkbox" name="solicitacao13" id="solicitacao13" checked={solicitacao13} onChange={solicitar13} />
-                </div>
+                {
+                    (tipoContratacao === "CLT")
+                        ?
+                        <div className={Style.antecipacao}>
+                            <label htmlFor="solicitacao13">Antecipar 13°</label>
+                            <input type="checkbox" name="solicitacao13" id="solicitacao13" checked={solicitacao13} onChange={solicitar13} />
+                        </div>
+                        : null
+                }
 
                 <button className={Style.botao} onClick={salvarSolicitacao}>Solicitar</button>
             </div>

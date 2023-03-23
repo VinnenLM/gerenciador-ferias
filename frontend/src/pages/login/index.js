@@ -21,7 +21,12 @@ export const Login = () => {
                 senha: senha
             })
             .then((response) => {
-                dispatch({ type: 'LOGIN', idPerfil: response.data.idPerfil, idColaborador: response.data.idColaborador, idGestor: response.data.idGestor });
+                dispatch({ type: 'LOGIN', 
+                idPerfil: response.data.idPerfil, 
+                idColaborador: response.data.idColaborador, 
+                idGestor: response.data.idGestor,
+                tipoContratacao: response.data.tipoContratacao
+            });
                 navigate("/home")
             })
             .catch((error) => {
