@@ -16,9 +16,11 @@ export const Login = () => {
 
     function logar() {
         api
-            .post("/colaborador/login")
+            .post("/colaborador/login", {
+                matricula: login,
+                senha: senha
+            })
             .then((response) => {
-                console.log(response.data);
                 dispatch({ type: 'LOGIN', idPerfil: response.data.idPerfil, idColaborador: response.data.idColaborador, idGestor: response.data.idGestor });
                 navigate("/home")
             })
