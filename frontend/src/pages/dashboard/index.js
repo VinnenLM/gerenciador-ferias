@@ -2,18 +2,35 @@ import { Card } from "../../components/card"
 import { Header } from "../../components/header"
 import { DonutChart } from "@tremor/react";
 import { BarChart } from "@tremor/react";
+import api from "../../services/api";
 import Style from "./style.module.css"
+import { useEffect, useState } from "react";
 
 export const Dashboard = () => {
+
+    const [ativos, setAtivos] = useState(0);
+    const [ferias, setFerias] = useState(0);
+
+    useEffect(() => {
+        api
+            .get("/colaborador")
+            .then((response) => {
+                setAtivos(response.data.countAtivos)
+                setFerias(response.data.countFerias)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [])
 
     const feriasTotal = [
         {
             name: "Ativo",
-            sales: 31,
+            sales: ativos,
         },
         {
             name: "Férias",
-            sales: 5,
+            sales: ferias,
         },
     ];
 
@@ -123,19 +140,19 @@ export const Dashboard = () => {
                                         <div className={Style.itemLegenda}>
                                             <span className={Style.spanAtivo}></span><span>Ativos</span>
                                         </div>
-                                        {21}
+                                        {ativos}
                                     </div>
                                     <div className={Style.item}>
                                         <div className={Style.itemLegenda}>
                                             <span className={Style.spanFerias}></span><span>Férias</span>
                                         </div>
-                                        {19}
+                                        {ferias}
                                     </div>
                                     <div className={Style.item}>
                                         <div className={Style.itemLegenda}>
                                             <span className={Style.spanTotal}></span><span>Total</span>
                                         </div>
-                                        {40}
+                                        {ativos+ferias}
                                     </div>
                                 </div>
                                 <div className={Style.pie}>
