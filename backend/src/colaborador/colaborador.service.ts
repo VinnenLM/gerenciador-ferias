@@ -87,7 +87,7 @@ export class ColaboradorService {
           ) {
             if (
               !colabFerias.some(
-                (colab) => colab.idColaborador === colab.idColaborador,
+                (col) => col.idColaborador === colab.idColaborador,
               )
             ) {
               colabFerias.push(colab);
