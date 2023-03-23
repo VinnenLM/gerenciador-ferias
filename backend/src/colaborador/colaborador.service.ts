@@ -114,10 +114,12 @@ export class ColaboradorService {
   }
 
   async buscarColaborador(idColaborador: number) {
-    await this.exists(idColaborador);
-    return this.prisma.colaborador.findFirst({
+    return this.prisma.colaborador.findUnique({
       where: {
         idColaborador,
+      },
+      include: {
+        setor: true,
       },
     });
   }
