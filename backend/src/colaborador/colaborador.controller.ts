@@ -11,6 +11,10 @@ export class ColaboradorController {
   async cadastrar(@Body() data: CreateColaboradorDTO) {
     return this.colaboradorService.cadastrarColaborador(data);
   }
+  @Post('login')
+  async logar(@Body() data) {
+    return this.colaboradorService.logar(data);
+  }
   @Get()
   async listarTodos() {
     return this.colaboradorService.listarTodos();

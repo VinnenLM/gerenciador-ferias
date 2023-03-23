@@ -14,6 +14,16 @@ export class ColaboradorService {
     return this.prisma.colaborador.create({ data });
   }
 
+  async logar(data) {
+    console.log(data);
+    return this.prisma.colaborador.findFirst({
+      where: {
+        matricula: data.matricula,
+        senha: data.senha,
+      },
+    });
+  }
+
   /*async listarTodos() {
     return this.prisma.colaborador.findMany({
       include: {
@@ -75,8 +85,14 @@ export class ColaboradorService {
               moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
             dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
           ) {
-            colabFerias.push(colab);
-            countFerias++;
+            if (
+              !colabFerias.some(
+                (colab) => colab.idColaborador === colab.idColaborador,
+              )
+            ) {
+              colabFerias.push(colab);
+              countFerias++;
+            }
           }
         });
       } else {
