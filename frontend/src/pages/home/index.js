@@ -5,7 +5,7 @@ import Style from "./style.module.css"
 
 export const Home = () => {
 
-    const role = useSelector((state) => state.role);
+    const idPerfil = useSelector((state) => state.idPerfil);
 
     return (
         <>
@@ -13,7 +13,7 @@ export const Home = () => {
             <div className={Style.containerCards}>
                 <div className={Style.cards}>
                     {
-                        (role === "gestor")
+                        (idPerfil === 2)
                             ?
                             <>
                                 <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />
@@ -21,7 +21,7 @@ export const Home = () => {
                                 <Card titulo="Dashboard" icone="fa-solid fa-chart-pie" botao="Visualizar" link="/dashboard" />
                             </>
                             :
-                            (role === "funcionario")
+                            (idPerfil === 3)
                                 ?
                                 <>
                                     <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />

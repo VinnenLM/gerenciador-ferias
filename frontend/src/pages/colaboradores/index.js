@@ -8,31 +8,31 @@ export const Colaboradores = () => {
 
     const [colaboradores, setColaboradores] = useState([]);
     const [query, setQuery] = useState("");
-    const [pesquisa] = useState(["nome", "matricula", "nomeSetor"]);
+    //const [pesquisa] = useState(["nome", "matricula", "nomeSetor"]);
 
     useEffect(() => {
         api
             .get("/colaborador")
             .then((response) => {
-                setColaboradores(response.data)
+                setColaboradores(response.data.todosColaboradores)
             })
             .catch((error) => {
                 console.log(error);
             })
     }, [])
 
-    function buscarColaborador(items) {
+    /*function buscarColaborador(items) {
         return items.filter((item) => {
-          return pesquisa.find((newItem) => {
-            return (
-              item[newItem]
-                .toString()
-                .toLowerCase()
-                .indexOf(query.toLowerCase()) > -1
-            );
-          });
+            return pesquisa.find((newItem) => {
+                return (
+                    item[newItem]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(query.toLowerCase()) > -1
+                );
+            });
         });
-      }
+    }*/
 
     return (
         <>
@@ -43,7 +43,7 @@ export const Colaboradores = () => {
             }
 
             <div className="containerPesquisa">
-                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" value={query} onChange={(evt) => setQuery(evt.target.value)}/>
+                <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" value={query} onChange={(evt) => setQuery(evt.target.value)} />
                 <span><i className="fa-solid fa-magnifying-glass"></i></span>
             </div>
 
@@ -58,7 +58,14 @@ export const Colaboradores = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {buscarColaborador(colaboradores).map((pessoa, index) => <Pessoa key={index} nome={pessoa.nome} setor={pessoa.setor.nomeSetor} matricula={pessoa.matricula}  />)}
+                        {(colaboradores).map((pessoa, index) =>
+                            <Pessoa
+                                key={index}
+                                nome={pessoa.nome}
+                                setor={pessoa.setor.nomeSetor}
+                                matricula={pessoa.matricula}
+                                status={pessoa.stats}
+                            />)}
                     </tbody>
                 </table>
 

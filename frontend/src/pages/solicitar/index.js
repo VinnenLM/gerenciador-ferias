@@ -3,6 +3,7 @@ import { Header } from "../../components/header"
 import api from "../../services/api";
 import Style from "./style.module.css"
 import { format, addDays } from 'date-fns';
+import { useSelector } from "react-redux";
 
 export const Solicitar = () => {
 
@@ -12,7 +13,7 @@ export const Solicitar = () => {
     const [solicitacao13, setSolicitacao13] = useState(false);
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
-    const idColaborador = 7;
+    const idColaborador = useSelector((state) => state.idColaborador);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -25,7 +26,7 @@ export const Solicitar = () => {
                     dataInicio: dataInicio,
                     dataFim: format(addDays(new Date(dataInicio), (qntDias)), 'yyyy-MM-dd'),
                     comentarioColab: comentarioColab,
-                    idColaborador: idColaborador,
+                    idColaborador: parseInt(idColaborador),
                     solicitacao13: (solicitacao13) ? format(new Date(), 'yyyy-MM-dd') : null
                 })
                 .then((response) => {

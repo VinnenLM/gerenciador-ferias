@@ -1,13 +1,15 @@
 const initialValue = {
-    role: null,
+    idPerfil: null,
+    idColaborador: null,
+    idGestor: null,
 }
 
 function usuarioStore(state = initialValue, action) {
     switch (action.type) {
         case 'LOGIN':
-            return { ...state, role: action.role }
+            return { ...state, idPerfil: action.idPerfil, idColaborador: action.idColaborador, idGestor: action.idGestor }
         case 'LOGOUT':
-            return { ...state, role: null }
+            return { ...state, idPerfil: null, idColaborador: null, idGestor: null }
         default:
             return state;
     }

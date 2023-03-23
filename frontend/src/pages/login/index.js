@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
+import api from "../../services/api";
 import Style from "./style.module.css"
 import Logo from "../../assets/imgs/logo.png"
 
@@ -13,13 +14,18 @@ export const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    function redirecionar() {
-        if (login === "admin" || login === "gestor" || login === "funcionario") {
-            dispatch({ type: 'LOGIN', role: login });
-            navigate("/home")
-        } else {
-            setMsg(true)
-        }
+    function logar() {
+        api
+            .post("/colaborador/login")
+            .then((response) => {
+                console.log(response.data);
+                dispatch({ type: 'LOGIN', idPerfil: response.data.idPerfil, idColaborador: response.data.idColaborador, idGestor: response.data.idGestor });
+                navigate("/home")
+            })
+            .catch((error) => {
+                setMsg(true)
+                console.log(error);
+            })
     }
 
     return (
@@ -44,7 +50,7 @@ export const Login = () => {
                 <div className={Style.loginInput}>
                     <i className="fa-solid fa-lock"></i><input type="password" placeholder="Senha" value={senha} onChange={(evt) => setSenha(evt.target.value)} />
                 </div>
-                <button to="/home" className={Style.botao} onClick={redirecionar}>Entrar</button>
+                <button to="/home" className={Style.botao} onClick={logar}>Entrar</button>
             </div>
         </div >
     )
