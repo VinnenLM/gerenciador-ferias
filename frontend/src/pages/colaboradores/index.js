@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
 import { Header } from "../../components/header"
 import { Pessoa } from "../../components/pessoa"
 import api from "../../services/api";
@@ -8,18 +9,34 @@ export const Colaboradores = () => {
 
     const [colaboradores, setColaboradores] = useState([]);
     const [query, setQuery] = useState("");
+    const idColaborador = useSelector((state) => state.idColaborador);
+    const idPerfil = useSelector((state) => state.idPerfil);
     const [pesquisa] = useState(["nome", "matricula", "stats"]);
 
     useEffect(() => {
+        (idPerfil === 1)
+        ?
         api
-            .get("/colaborador")
+        .get("/colaborador")
+        .then((response) => {
+            setColaboradores(response.data.todosColaboradores)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        :
+        api
+            .post("/colaborador/gestor",{
+                idGestor: idColaborador
+            })
             .then((response) => {
                 setColaboradores(response.data.todosColaboradores)
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+        
+    }, [idColaborador, idPerfil])
 
     function buscarColaborador(items) {
         return items.filter((item) => {
