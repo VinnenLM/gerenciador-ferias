@@ -30,7 +30,7 @@ function App() {
             <Route exact path='/solicitacoes' element={<ListaSolicitacoes />} />
             <Route exact path='/solicitar' element={<Solicitar />} />
             <Route exact path='/minhas-solicitacoes' element={<MinhasSolicitacoes />} />
-            <Route exact path='/solicitacao' element={<Solicitacao />} />
+            <Route exact path='/solicitacao/:idSolicitacao' element={<Solicitacao />} />
           </Routes>
         </BrowserRouter>
       </PersistGate>

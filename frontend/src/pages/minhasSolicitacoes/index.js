@@ -16,8 +16,7 @@ export const MinhasSolicitacoes = () => {
                 idColaborador: idColaborador
             })
             .then((response) => {
-                setSolicitacoes(response.data)
-                (response.data);
+                setSolicitacoes(response.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -31,7 +30,7 @@ export const MinhasSolicitacoes = () => {
            
             <div className="containerPesquisa">
                 <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" />
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span><i className="fa-solid fa-magnifying-glass"></i></span>
             </div>
             
             <div className={Style.containerSolicitacoes}>

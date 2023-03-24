@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Header } from "../../components/header"
 import api from "../../services/api";
 import Style from "./style.module.css"
-import { format, addDays } from 'date-fns';
+import { addDays } from 'date-fns';
 import { useSelector } from "react-redux";
 
 export const Solicitar = () => {
@@ -22,13 +22,13 @@ export const Solicitar = () => {
             setAlert("warning")
         } else {
             api
-                .post("/solicitacao", {
-                    dataSolicitacao: format(new Date(), 'yyyy-MM-dd'),
-                    dataInicio: dataInicio,
-                    dataFim: format(addDays(new Date(dataInicio), (qntDias)), 'yyyy-MM-dd'),
+                .post("/solicitacao", {                    
+                    dataSolicitacao: new Date(),
+                    dataInicio: new Date(dataInicio),
+                    dataFim: addDays(new Date(dataInicio), (qntDias - 1)),
                     comentarioColab: comentarioColab,
                     idColaborador: parseInt(idColaborador),
-                    solicitacao13: (solicitacao13) ? format(new Date(), 'yyyy-MM-dd') : null
+                    solicitacao13: (solicitacao13) ? new Date() : null
                 })
                 .then((response) => {
                     setAlert("success")

@@ -10,7 +10,7 @@
     width: 80%;
     background-color: white;
     padding: 30px;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
     display: flex;
     flex-direction: column;
     border-radius: 5px;

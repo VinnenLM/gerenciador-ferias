@@ -30,7 +30,7 @@ export const ListaSolicitacoes = () => {
            
             <div className="containerPesquisa">
                 <input type="search" placeholder="Pesquisar colaborador" id="pesquisar" className="pesquisa" />
-                <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                <span><i className="fa-solid fa-magnifying-glass"></i></span>
             </div>
             
             <div className={Style.containerSolicitacoes}>
@@ -45,7 +45,7 @@ export const ListaSolicitacoes = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {solicitacoes.map((soli, index) => <Solicitacao key={index} dataSolicitacao={soli.dataSolicitacao} colaborador={soli.nome} dataInicio={soli.dataInicio} dataFim={soli.dataFim} status={soli.statusSolicitacao} />)}
+                        {solicitacoes.map((soli, index) => <Solicitacao key={index} id={soli.idSolicitacao} dataSolicitacao={soli.dataSolicitacao} colaborador={soli.nome} dataInicio={soli.dataInicio} dataFim={soli.dataFim} status={soli.statusSolicitacao} />)}
                     </tbody>
                 </table>
 
