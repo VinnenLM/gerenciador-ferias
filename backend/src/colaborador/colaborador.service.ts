@@ -20,6 +20,9 @@ export class ColaboradorService {
         matricula: data.matricula,
         senha: data.senha,
       },
+      include: {
+        colaborador: true,
+      },
     });
   }
 
