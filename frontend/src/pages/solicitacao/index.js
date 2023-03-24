@@ -54,7 +54,7 @@ export const Solicitacao = () => {
 
     function atualizarSolicitacao() {
         let stats = "";
-        (confirmacao === true) ? stats = "aprovado" : stats = "aprovado";
+        (confirmacao === true) ? stats = "aprovado" : stats = "negado";
         api
             .put(`/solicitacao/${solicitacao.idSolicitacao}`, {
                 "statusSolicitacao": stats,

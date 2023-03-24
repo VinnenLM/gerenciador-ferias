@@ -11,16 +11,33 @@ export const Dashboard = () => {
 
     const [ativos, setAtivos] = useState(0);
     const [ferias, setFerias] = useState(0);
+    const [aprovados, setAprovados] = useState(0);
+    const [negados, setNegados] = useState(0);
+    const [pendentes, setPendentes] = useState(0);
+    const [totalSolicitacoes, setTotalSolicitacoes] = useState(0);
     const idColaborador = useSelector((state) => state.idColaborador);
 
     useEffect(() => {
         api
-            .post("/colaborador/gestor",{
+            .post("/colaborador/gestor", {
                 idGestor: idColaborador
             })
             .then((response) => {
                 setAtivos(response.data.countAtivos);
                 setFerias(response.data.countFerias);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        api
+            .post("/solicitacao/gestor/count", {
+                idGestor: idColaborador
+            })
+            .then((response) => {
+                setAprovados(response.data.aprovados)
+                setNegados(response.data.negados)
+                setPendentes(response.data.pendentes)
+                setTotalSolicitacoes(response.data.total)
             })
             .catch((error) => {
                 console.log(error);
@@ -99,19 +116,19 @@ export const Dashboard = () => {
                         <div className={Style.requisicoes}>
                             <div className={Style.solicitacoes}>
                                 <h3>Aprovadas</h3>
-                                <div className={Style.aprovado}>10</div>
+                                <div className={Style.aprovado}>{aprovados}</div>
                             </div>
                             <div className={Style.solicitacoes}>
                                 <h3>Negadas</h3>
-                                <div className={Style.negado}>5</div>
+                                <div className={Style.negado}>{negados}</div>
                             </div>
                             <div className={Style.solicitacoes}>
                                 <h3>Pendentes</h3>
-                                <div className={Style.pendente}>15</div>
+                                <div className={Style.pendente}>{pendentes}</div>
                             </div>
                             <div className={Style.solicitacoes}>
                                 <h3>Total</h3>
-                                <div className={Style.total}>30</div>
+                                <div className={Style.total}>{totalSolicitacoes}</div>
                             </div>
                         </div>
                     </div>
@@ -156,7 +173,7 @@ export const Dashboard = () => {
                                         <div className={Style.itemLegenda}>
                                             <span className={Style.spanTotal}></span><span>Total</span>
                                         </div>
-                                        {ativos+ferias}
+                                        {ativos + ferias}
                                     </div>
                                 </div>
                                 <div className={Style.pie}>
