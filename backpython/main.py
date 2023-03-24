@@ -5,6 +5,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
+from fastapi.middleware.cors import CORSMiddleware
 
 
 class ObjetoNotificacao(BaseModel):
@@ -14,6 +15,16 @@ class ObjetoNotificacao(BaseModel):
     email: str | None = None
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.post("/enviarNotificacao")
 async def enviar_notificacao(obj: ObjetoNotificacao):
