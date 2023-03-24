@@ -4,6 +4,7 @@ import api from "../../services/api";
 import Style from "./style.module.css"
 import { addDays } from 'date-fns';
 import { useSelector } from "react-redux";
+import apiPython from "../../services/apiPython";
 
 export const Solicitar = () => {
 
@@ -15,6 +16,9 @@ export const Solicitar = () => {
     const [alert, setAlert] = useState("");
     const idColaborador = useSelector((state) => state.idColaborador);
     const tipoContratacao = useSelector((state) => state.tipoContratacao);
+    const nomeColaborador = useSelector((state) => state.nomeColaborador);
+    const emailGestor = useSelector((state) => state.emailGestor);
+    const [idSolicitacao, setIdSolicitacao] = useState(0);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -22,7 +26,7 @@ export const Solicitar = () => {
             setAlert("warning")
         } else {
             api
-                .post("/solicitacao", {                    
+                .post("/solicitacao", {
                     dataSolicitacao: new Date(),
                     dataInicio: new Date(dataInicio),
                     dataFim: addDays(new Date(dataInicio), (qntDias - 1)),
@@ -33,11 +37,37 @@ export const Solicitar = () => {
                 .then((response) => {
                     setAlert("success")
                     setMsg("Solicitação enviada com sucesso!")
-                    console.log(response.data);
+                    setIdSolicitacao(response.data.idSolicitacao);
                 })
                 .catch((error) => {
                     setAlert("warning")
                     setMsg("Erro ao solicitar férias!")
+                    console.log(error.response.data.message);
+                })
+
+            apiPython
+                .post("/enviarEmail", {
+                    colaborador: nomeColaborador,
+                    idSolicitacao: idSolicitacao,
+                    email: emailGestor
+                })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.response.data.message);
+                })
+
+            apiPython
+                .post("/enviarNotificacao", {
+                    id: "100089479950088",
+                    colaborador: nomeColaborador,
+                    idSolicitacao: idSolicitacao,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
                     console.log(error.response.data.message);
                 })
         }

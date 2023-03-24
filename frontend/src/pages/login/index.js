@@ -24,7 +24,9 @@ export const Login = () => {
                 dispatch({ type: 'LOGIN', 
                 idPerfil: response.data.idPerfil, 
                 idColaborador: response.data.idColaborador, 
+                nomeColaborador: response.data.nome, 
                 idGestor: response.data.idGestor,
+                emailGestor: response.data.colaborador.email,
                 tipoContratacao: response.data.tipoContratacao
             });
                 navigate("/home")
