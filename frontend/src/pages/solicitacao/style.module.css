@@ -38,7 +38,7 @@
     border-radius: 5px;
 }
 
-.statuSolicitacao>span {
+.statusSolicitacao>span {
     display: flex;
     width: 30%;
     text-align: center;

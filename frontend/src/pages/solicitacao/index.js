@@ -21,6 +21,8 @@ export const Solicitacao = () => {
     const [dataFim, setDataFim] = useState("");
     const [checked, setChecked] = useState(false);
     const [confirmacao, setConfirmacao] = useState(false);
+    const [msg, setMsg] = useState("");
+    const [alert, setAlert] = useState("");
 
     useEffect(() => {
         api
@@ -48,12 +50,40 @@ export const Solicitacao = () => {
             ? setConfirmacao(true)
             : setConfirmacao(false)
         setShow(true);
-        console.log(confirmacao);
+    }
+
+    function atualizarSolicitacao() {
+        let stats = "";
+        (confirmacao === true) ? stats = "aprovado" : stats = "aprovado";
+        api
+            .put(`/solicitacao/${solicitacao.idSolicitacao}`, {
+                "statusSolicitacao": stats,
+                "comentarioGestor": comentarioGestor
+            })
+            .then((response) => {
+                setAlert("success")
+                setMsg("Solicitação alterada com sucesso!")
+                setShow(false);
+            })
+            .catch((error) => {
+                setAlert("warning")
+                setMsg("Erro ao alterar solicitação!")
+                console.log(error);
+            })
     }
 
     return (
         <>
             <Header />
+
+            {msg !== "" ?
+                (<div className={`alert alert-${alert} w-25 mt-4 mx-auto text-center border border-${alert}`} role={alert}>
+                    {msg}
+                </div>)
+                :
+                null
+            }
+
             <h1 className={Style.titulo}>Solicitação</h1>
             <div className={Style.containerSolicitacao}>
 
@@ -99,16 +129,28 @@ export const Solicitacao = () => {
                 </div>
 
                 {
-                    (colaborador.idGestor === idColaborador)
+                    (colaborador.idGestor === idColaborador && solicitacao.statusSolicitacao === "pendente")
                         ?
                         <div className={StyleLocal.statusSolicitacaoDuplo}>
                             <button className="negado" onClick={() => { handleShow(false) }}>Negar</button>
                             <button className="aprovado" onClick={() => { handleShow(true) }}>Aprovar</button>
                         </div>
                         :
-                        <div className={StyleLocal.statuSolicitacao}>
-                            <span className="pendente">Pendente</span>
-                        </div>
+                        (solicitacao.statusSolicitacao !== "pendente")
+                            ?
+                            <>
+                                <div className={StyleLocal.statusSolicitacao}>
+                                    <span className={solicitacao.statusSolicitacao}>{solicitacao.statusSolicitacao}</span>
+                                </div>
+                                <div className={StyleLocal.inputNome}>
+                                    <label htmlFor="comentarioGestor">Comentário</label>
+                                    <textarea className={Style.textarea} name="comentarioGestor" id="comentarioGestor" cols="30" rows="3" value={solicitacao.comentarioGestor} readOnly></textarea>
+                                </div>
+                            </>
+                            :
+                            <div className={StyleLocal.statusSolicitacao}>
+                                <span className="pendente">Pendente</span>
+                            </div>
                 }
 
                 <Modal show={showModal} onHide={handleClose}>
@@ -126,8 +168,8 @@ export const Solicitacao = () => {
                             <button className="pendente" onClick={handleClose}>Cancelar</button>
                             {
                                 (confirmacao === true)
-                                    ? <button className="aprovado" onClick={handleShow}>Aprovar</button>
-                                    : <button className="negado" onClick={handleShow}>Negar</button>
+                                    ? <button className="aprovado" onClick={atualizarSolicitacao}>Aprovar</button>
+                                    : <button className="negado" onClick={atualizarSolicitacao}>Negar</button>
                             }
                         </div>
                     </Modal.Footer>

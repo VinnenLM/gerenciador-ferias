@@ -5,23 +5,27 @@ import { BarChart } from "@tremor/react";
 import api from "../../services/api";
 import Style from "./style.module.css"
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Dashboard = () => {
 
     const [ativos, setAtivos] = useState(0);
     const [ferias, setFerias] = useState(0);
+    const idColaborador = useSelector((state) => state.idColaborador);
 
     useEffect(() => {
         api
-            .get("/colaborador")
+            .post("/colaborador/gestor",{
+                idGestor: idColaborador
+            })
             .then((response) => {
-                setAtivos(response.data.countAtivos)
-                setFerias(response.data.countFerias)
+                setAtivos(response.data.countAtivos);
+                setFerias(response.data.countFerias);
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, [])
+    }, [idColaborador])
 
     const feriasTotal = [
         {
