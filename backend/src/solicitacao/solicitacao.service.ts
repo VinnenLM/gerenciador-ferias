@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
-import { Prisma } from '@prisma/client';
+import { Prisma, solicitacao } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -40,6 +40,29 @@ export class SolicitacaoService {
         idColaborador: data.idColaborador,
       },
     });
+  }
+  async buscarCountSolicitacoesPorGestor(data) {
+    let pendentes = 0;
+    let aprovados = 0;
+    let negados = 0;
+    const solicitacoes: solicitacao[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor}`,
+    );
+    (await solicitacoes).forEach((soli) => {
+      if (soli.statusSolicitacao == 'aprovado') {
+        aprovados++;
+      } else if (soli.statusSolicitacao == 'negado') {
+        negados++;
+      } else {
+        pendentes++;
+      }
+    });
+    return {
+      pendentes,
+      aprovados,
+      negados,
+      total: pendentes + aprovados + negados,
+    };
   }
   async buscarSolicitacoesPorGestor(data) {
     return this.prisma.$queryRaw(
