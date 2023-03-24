@@ -113,6 +113,60 @@ export class ColaboradorService {
     return { todosColaboradores, countAtivos, countFerias };
   }
 
+  async listarTodosPorGestor(data) {
+    const dataAtual = moment(new Date()).format('YYYY/MM/DD');
+    const colabAtivos = [];
+    const colabFerias = [];
+    let countAtivos = 0;
+    let countFerias = 0;
+
+    const colaboradores = this.prisma.colaborador.findMany({
+      where: {
+        idGestor: data.idGestor,
+      },
+      include: {
+        setor: true,
+        solicitacao: true,
+      },
+    });
+
+    (await colaboradores).forEach((colab) => {
+      if (colab.solicitacao.length > 0) {
+        colab.solicitacao.forEach((soli) => {
+          if (
+            dataAtual >
+              moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
+            dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
+          ) {
+            if (
+              !colabFerias.some(
+                (col) => col.idColaborador === colab.idColaborador,
+              )
+            ) {
+              colabFerias.push(colab);
+              countFerias++;
+            }
+          }
+        });
+      } else {
+        colabAtivos.push(colab);
+        countAtivos++;
+      }
+    });
+
+    const ativos = colabAtivos.map((colab) => {
+      return { ...colab, stats: 'ativo' };
+    });
+
+    const ferias = colabFerias.map((colab) => {
+      return { ...colab, stats: 'ferias' };
+    });
+
+    const todosColaboradores = ferias.concat(ativos);
+
+    return { todosColaboradores, countAtivos, countFerias };
+  }
+
   async buscarColaborador(idColaborador: number) {
     return this.prisma.colaborador.findUnique({
       where: {

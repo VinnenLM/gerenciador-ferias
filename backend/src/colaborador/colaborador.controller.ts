@@ -19,6 +19,10 @@ export class ColaboradorController {
   async listarTodos() {
     return this.colaboradorService.listarTodos();
   }
+  @Post('gestor')
+  async listarTodosPorGestor(@Body() data) {
+    return this.colaboradorService.listarTodosPorGestor(data);
+  }
   /*@Get('ferias')
   async listarTodosFerias() {
     return this.colaboradorService.listarTodosFerias();
