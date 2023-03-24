@@ -26,7 +26,7 @@ export const Login = () => {
                 idColaborador: response.data.idColaborador, 
                 nomeColaborador: response.data.nome, 
                 idGestor: response.data.idGestor,
-                emailGestor: response.data.colaborador.email,
+                emailGestor: (response.data.colaborador) ? response.data.colaborador.email: null,
                 tipoContratacao: response.data.tipoContratacao
             });
                 navigate("/home")

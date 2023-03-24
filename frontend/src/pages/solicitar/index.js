@@ -18,7 +18,6 @@ export const Solicitar = () => {
     const tipoContratacao = useSelector((state) => state.tipoContratacao);
     const nomeColaborador = useSelector((state) => state.nomeColaborador);
     const emailGestor = useSelector((state) => state.emailGestor);
-    const [idSolicitacao, setIdSolicitacao] = useState(0);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -37,37 +36,36 @@ export const Solicitar = () => {
                 .then((response) => {
                     setAlert("success")
                     setMsg("Solicitação enviada com sucesso!")
-                    setIdSolicitacao(response.data.idSolicitacao);
+
+                    apiPython
+                        .post("/enviarEmail", {
+                            colaborador: nomeColaborador,
+                            idSolicitacao: response.data.idSolicitacao,
+                            email: emailGestor
+                        })
+                        .then((response) => {
+                            console.log(response.data);
+                        })
+                        .catch((error) => {
+                            console.log(error.response.data.message);
+                        })
+
+                    apiPython
+                        .post("/enviarNotificacao", {
+                            id: "100089479950088",
+                            colaborador: nomeColaborador,
+                            idSolicitacao: response.data.idSolicitacao,
+                        })
+                        .then((response) => {
+                            console.log(response.data);
+                        })
+                        .catch((error) => {
+                            console.log(error.response.data.message);
+                        })
                 })
                 .catch((error) => {
                     setAlert("warning")
                     setMsg("Erro ao solicitar férias!")
-                    console.log(error.response.data.message);
-                })
-
-            apiPython
-                .post("/enviarEmail", {
-                    colaborador: nomeColaborador,
-                    idSolicitacao: idSolicitacao,
-                    email: emailGestor
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error.response.data.message);
-                })
-
-            apiPython
-                .post("/enviarNotificacao", {
-                    id: "100089479950088",
-                    colaborador: nomeColaborador,
-                    idSolicitacao: idSolicitacao,
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
                     console.log(error.response.data.message);
                 })
         }
