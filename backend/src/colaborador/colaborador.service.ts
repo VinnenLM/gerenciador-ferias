@@ -80,6 +80,7 @@ export class ColaboradorService {
       if (colab.solicitacao.length > 0) {
         colab.solicitacao.forEach((soli) => {
           if (
+            soli.statusSolicitacao === 'aprovado' &&
             dataAtual >
               moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
             dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
@@ -91,6 +92,15 @@ export class ColaboradorService {
             ) {
               colabFerias.push(colab);
               countFerias++;
+            }
+          } else {
+            if (
+              !colabAtivos.some(
+                (col) => col.idColaborador === colab.idColaborador,
+              )
+            ) {
+              colabAtivos.push(colab);
+              countAtivos++;
             }
           }
         });
@@ -134,6 +144,7 @@ export class ColaboradorService {
       if (colab.solicitacao.length > 0) {
         colab.solicitacao.forEach((soli) => {
           if (
+            soli.statusSolicitacao === 'aprovado' &&
             dataAtual >
               moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
             dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
@@ -145,6 +156,15 @@ export class ColaboradorService {
             ) {
               colabFerias.push(colab);
               countFerias++;
+            }
+          } else {
+            if (
+              !colabAtivos.some(
+                (col) => col.idColaborador === colab.idColaborador,
+              )
+            ) {
+              colabAtivos.push(colab);
+              countAtivos++;
             }
           }
         });
