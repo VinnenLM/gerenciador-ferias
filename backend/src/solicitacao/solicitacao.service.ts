@@ -8,15 +8,12 @@ export class SolicitacaoService {
   constructor(private readonly prisma: PrismaService) {}
 
   async salvarSolicitacao(data) {
-    data.dataSolicitacao = new Date(data.dataSolicitacao);
-    data.dataInicio = new Date(data.dataInicio);
-    data.dataFim = new Date(data.dataFim);
-    data.solicitacao13 = new Date(data.solicitacao13);
+    //data.dataSolicitacao = new Date(data.dataSolicitacao);
+    //data.dataInicio = new Date(data.dataInicio);
+    //data.dataFim = new Date(data.dataFim);
+    //data.solicitacao13 !== null ? new Date(data.solicitacao13) : null;
 
     data.statusSolicitacao = 'pendente';
-
-    data.comentarioColab =
-      data.comentarioColab !== '' ? data.comentarioColab : null;
 
     data.comentarioGestor = null;
 
@@ -31,6 +28,9 @@ export class SolicitacaoService {
     return this.prisma.solicitacao.findFirst({
       where: {
         idSolicitacao,
+      },
+      include: {
+        colaborador: true,
       },
     });
   }
