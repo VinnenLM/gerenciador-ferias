@@ -21,15 +21,20 @@ export const Login = () => {
                 senha: senha
             })
             .then((response) => {
-                dispatch({ type: 'LOGIN', 
-                idPerfil: response.data.idPerfil, 
-                idColaborador: response.data.idColaborador, 
-                nomeColaborador: response.data.nome, 
-                idGestor: response.data.idGestor,
-                emailGestor: (response.data.colaborador) ? response.data.colaborador.email: null,
-                tipoContratacao: response.data.tipoContratacao
-            });
-                navigate("/home")
+                if (response.data !== '') {
+                    dispatch({
+                        type: 'LOGIN',
+                        idPerfil: response.data.idPerfil,
+                        idColaborador: response.data.idColaborador,
+                        nomeColaborador: response.data.nome,
+                        idGestor: response.data.idGestor,
+                        emailGestor: (response.data.colaborador) ? response.data.colaborador.email : null,
+                        tipoContratacao: response.data.tipoContratacao
+                    });
+                    navigate("/home")
+                } else {
+                    setMsg(true)
+                }
             })
             .catch((error) => {
                 setMsg(true)
