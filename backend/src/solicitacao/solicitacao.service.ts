@@ -20,9 +20,6 @@ export class SolicitacaoService {
     return this.prisma.solicitacao.create({ data });
   }
 
-  async listarSolicitacoes() {
-    return this.prisma.solicitacao.findMany();
-  }
   async buscarSolicitacao(idSolicitacao: number) {
     await this.exists(idSolicitacao);
     return this.prisma.solicitacao.findFirst({
@@ -66,7 +63,7 @@ export class SolicitacaoService {
   }
   async buscarSolicitacoesPorGestor(data) {
     return this.prisma.$queryRaw(
-      Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor}`,
+      Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor} order by "idSolicitacao" desc`,
     );
   }
   async editarSolicitacao(

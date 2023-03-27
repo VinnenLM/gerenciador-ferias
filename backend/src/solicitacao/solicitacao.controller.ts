@@ -23,10 +23,6 @@ export class SolicitacaoController {
   async buscarMinhasSolicitacoes(@Body() data) {
     return this.solicitacaoService.buscarMinhasSolicitacoes(data);
   }
-  @Get()
-  async listarSolicitacoes() {
-    return this.solicitacaoService.listarSolicitacoes();
-  }
   @Get(':id')
   async buscarSolicitacao(@Param('id', ParseIntPipe) idColaborador) {
     return this.solicitacaoService.buscarSolicitacao(idColaborador);
