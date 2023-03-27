@@ -7,6 +7,7 @@ import { Modal } from "react-bootstrap";
 import Style from "../solicitar/style.module.css"
 import StyleLocal from "./style.module.css"
 import { useSelector } from "react-redux";
+import apiPython from "../../services/apiPython";
 
 export const Solicitacao = () => {
 
@@ -64,6 +65,33 @@ export const Solicitacao = () => {
                 setAlert("success")
                 setMsg("Solicitação alterada com sucesso!")
                 setShow(false);
+                apiPython
+                    .post("/enviarEmail", {
+                        idSolicitacao: response.data.idSolicitacao,
+                        email: colaborador.email,
+                        resposta: true,
+                        analise: (confirmacao === true) ? "aprovado" : "negado"
+                    })
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data.message);
+                    })
+
+                apiPython
+                    .post("/enviarNotificacao", {
+                        idWorkplace: colaborador.idWorkplace,
+                        idSolicitacao: response.data.idSolicitacao,
+                        resposta: true,
+                        analise: (confirmacao === true) ? "aprovado" : "negado"
+                    })
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data.message);
+                    })
             })
             .catch((error) => {
                 setAlert("warning")

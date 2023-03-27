@@ -18,6 +18,7 @@ export const Solicitar = () => {
     const tipoContratacao = useSelector((state) => state.tipoContratacao);
     const nomeColaborador = useSelector((state) => state.nomeColaborador);
     const emailGestor = useSelector((state) => state.emailGestor);
+    const idWorkplace = useSelector((state) => state.idWorkplace);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -39,9 +40,10 @@ export const Solicitar = () => {
 
                     apiPython
                         .post("/enviarEmail", {
-                            colaborador: nomeColaborador,
+                            nomeColaborador: nomeColaborador,
                             idSolicitacao: response.data.idSolicitacao,
-                            email: emailGestor
+                            email: emailGestor,
+                            resposta: false
                         })
                         .then((response) => {
                             console.log(response.data);
@@ -52,9 +54,10 @@ export const Solicitar = () => {
 
                     apiPython
                         .post("/enviarNotificacao", {
-                            id: "100089479950088",
-                            colaborador: nomeColaborador,
+                            idWorkplace: idWorkplace,
+                            nomeColaborador: nomeColaborador,
                             idSolicitacao: response.data.idSolicitacao,
+                            resposta: false
                         })
                         .then((response) => {
                             console.log(response.data);

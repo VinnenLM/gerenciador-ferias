@@ -29,7 +29,8 @@ export const Login = () => {
                         nomeColaborador: response.data.nome,
                         idGestor: response.data.idGestor,
                         emailGestor: (response.data.colaborador) ? response.data.colaborador.email : null,
-                        tipoContratacao: response.data.tipoContratacao
+                        tipoContratacao: response.data.tipoContratacao,
+                        idWorkplace: response.data.idWorkplace
                     });
                     navigate("/home")
                 } else {
