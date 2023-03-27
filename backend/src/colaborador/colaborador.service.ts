@@ -8,10 +8,15 @@ export class ColaboradorService {
   constructor(private readonly prisma: PrismaService) {}
 
   async cadastrarColaborador(data) {
-    data.dataContratacao = new Date(data.dataContratacao);
-    data.gmail = data.gmail ? data.gmail : null;
-    data.idGestor = data.idGestor ? data.idGestor : null;
-    return this.prisma.colaborador.create({ data });
+    try {
+      console.log(data);
+      data.dataContratacao = new Date(data.dataContratacao);
+      data.gmail = data.gmail ? data.gmail : null;
+      data.idGestor = data.idGestor ? data.idGestor : null;
+      return this.prisma.colaborador.create({ data });
+    } catch (e) {
+      return { error: e.message };
+    }
   }
 
   async logar(data) {
@@ -25,45 +30,6 @@ export class ColaboradorService {
       },
     });
   }
-
-  /*async listarTodos() {
-    return this.prisma.colaborador.findMany({
-      include: {
-        setor: true,
-        solicitacao: true,
-      },
-    });
-  }
-
-  async listarTodosFerias() {
-    const dataAtual = moment(new Date()).format('YYYY/MM/DD');
-    const colabFerias = [];
-    let countFerias = 0;
-
-    const colaboradores = this.prisma.colaborador.findMany({
-      include: {
-        setor: true,
-        solicitacao: true,
-      },
-    });
-
-    (await colaboradores).forEach((colab) => {
-      if (colab.solicitacao.length > 0) {
-        colab.solicitacao.forEach((soli) => {
-          if (
-            dataAtual >
-              moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
-            dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
-          ) {
-            colabFerias.push(colab);
-            countFerias++;
-          }
-        });
-      }
-    });
-
-    return { colabFerias, countFerias };
-  }*/
 
   async listarTodos() {
     const dataAtual = moment(new Date()).format('YYYY/MM/DD');

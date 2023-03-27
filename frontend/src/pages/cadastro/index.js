@@ -17,6 +17,8 @@ export const Cadastro = () => {
     const [idGestor, setIdGestor] = useState(0);
     const [idSetor, setIdSetor] = useState(1);
     const [idPerfil, setIdPerfil] = useState(3);
+    const [diasDisponiveis, setDiasDisponiveis] = useState(0);
+    const [idWorkplace, setIdWorkplace] = useState("");
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
 
@@ -51,6 +53,7 @@ export const Cadastro = () => {
                 senha: "quero123",
                 tipoContratacao: tipoContratacao,
                 diasDisponiveis: 0,
+                idWorkplace: (idWorkplace !== "") ? idWorkplace : null,
                 dataContratacao: (dataContratacao !== "") ? dataContratacao : null,
                 idGestor: (parseInt(idGestor) !== 0) ? parseInt(idGestor) : null,
                 idPerfil: parseInt(idPerfil),
@@ -136,6 +139,17 @@ export const Cadastro = () => {
                         <div className={Style.inputDuplo}>
                             <label htmlFor="gmail">Gmail</label>
                             <input type="email" placeholder="email@gmail.com" name="gmail" id="gmail" value={gmail} onChange={(evt) => setGmail(evt.target.value)} />
+                        </div>
+                    </div>
+
+                    <div className={Style.containerDuplo}>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="diasDisponiveis">Dias Disponíveis</label>
+                            <input type="number" placeholder="00" name="diasDisponiveis" min="0" max="30" id="diasDisponiveis" value={diasDisponiveis} onChange={(evt) => setDiasDisponiveis(evt.target.value)} />
+                        </div>
+                        <div className={Style.inputDuplo}>
+                            <label htmlFor="idWorkspace">Id no Workspace</label>
+                            <input type="text" placeholder="00000000" name="idWorkspace" id="idWorkspace" value={idWorkplace} onChange={(evt) => setIdWorkplace(evt.target.value)} />
                         </div>
                     </div>
 

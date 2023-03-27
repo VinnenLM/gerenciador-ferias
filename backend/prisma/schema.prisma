@@ -9,7 +9,7 @@ datasource db {
 
 model colaborador {
   idColaborador     Int           @id @default(autoincrement())
-  matricula         String        @db.VarChar(255)
+  matricula         String        @unique @db.VarChar(255)
   nome              String        @db.VarChar(255)
   cpf               String        @unique @db.VarChar(11)
   email             String        @db.VarChar(45)
@@ -22,6 +22,7 @@ model colaborador {
   idPerfil          Int
   idSetor           Int
   ultimoAcesso      DateTime?     @db.Date
+  idWorkplace       String?       @db.VarChar(45)
   colaborador       colaborador?  @relation("colaboradorTocolaborador", fields: [idGestor], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_gestor_fkey")
   other_colaborador colaborador[] @relation("colaboradorTocolaborador")
   perfil            perfil        @relation(fields: [idPerfil], references: [idPerfil], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_perfil_fkey")

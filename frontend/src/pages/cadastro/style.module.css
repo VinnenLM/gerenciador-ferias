@@ -27,7 +27,7 @@
 
 .inputDuplo>input {
     margin-bottom: 15px;
-    padding: 8px;
+    padding: 4px 8px;
     border-radius: 5px;
     border: none;
     box-shadow: 1px 1px 2px 2px rgb(0, 0, 0, .15);

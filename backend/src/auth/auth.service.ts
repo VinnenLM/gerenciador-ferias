@@ -1,15 +1,15 @@
-/*import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Colaborador } from 'src/colaborador/entity/colaborador.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    @InjectRepository(Colaborador)
-    private colaboradorRepository: Repository<Colaborador>,
+    private readonly prisma: PrismaService,
   ) {}
 
   async createToken() {
@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   async login(matricula: string, senha: string) {
-    const colab = this.colaboradorRepository.findOne({
+    const colab = this.prisma.colaborador.findFirst({
       where: {
         matricula,
         senha,
@@ -33,10 +33,10 @@ export class AuthService {
     }
   }
 
-  /*async reset(id_colaborador: number, senha: string) {
+  async reset(idColaborador: number, senha: string) {
     await this.prisma.colaborador.update({
       where: {
-        id_colaborador,
+        idColaborador,
       },
       data: {
         senha,
@@ -44,4 +44,4 @@ export class AuthService {
     });
     return true;
   }
-}*/
+}
