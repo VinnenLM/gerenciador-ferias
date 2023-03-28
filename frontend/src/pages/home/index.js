@@ -5,7 +5,7 @@ import Style from "./style.module.css"
 
 export const Home = () => {
 
-    const idPerfil = useSelector((state) => state.idPerfil);
+    const colab = useSelector((state) => state.colaborador);
 
     return (
         <>
@@ -13,7 +13,7 @@ export const Home = () => {
             <div className={Style.containerCards}>
                 <div className={Style.cards}>
                     {
-                        (idPerfil === 2)
+                        (colab.idPerfil === 2)
                             ?
                             <>
                                 <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />
@@ -21,7 +21,7 @@ export const Home = () => {
                                 <Card titulo="Dashboard" icone="fa-solid fa-chart-pie" botao="Visualizar" link="/dashboard" />
                             </>
                             :
-                            (idPerfil === 3)
+                            (colab.idPerfil === 3)
                                 ?
                                 <>
                                     <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />

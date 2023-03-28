@@ -6,7 +6,6 @@ import Style from "./style.module.css"
 import Logo from "../../assets/imgs/logo.png"
 
 export const Login = () => {
-
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
     const [msg, setMsg] = useState(false);
@@ -24,13 +23,7 @@ export const Login = () => {
                 if (response.data !== '') {
                     dispatch({
                         type: 'LOGIN',
-                        idPerfil: response.data.idPerfil,
-                        idColaborador: response.data.idColaborador,
-                        nomeColaborador: response.data.nome,
-                        idGestor: response.data.idGestor,
-                        emailGestor: (response.data.colaborador) ? response.data.colaborador.email : null,
-                        tipoContratacao: response.data.tipoContratacao,
-                        idWorkplace: response.data.idWorkplace
+                        colaborador: response.data,
                     });
                     navigate("/home")
                 } else {

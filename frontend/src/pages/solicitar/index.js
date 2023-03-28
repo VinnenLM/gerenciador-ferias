@@ -92,6 +92,22 @@ export const Solicitar = () => {
             }
 
             <h1 className={Style.titulo}>Solicitar Férias</h1>
+
+            <div className={Style.containerFerias}>
+                <div className={Style.periodos}>
+                    <span>Dias Disponíveis</span>
+                    <span>30</span>
+                </div>
+                <div className={Style.periodos}>
+                    <span>Período Aquisitivo</span>
+                    <span>30</span>
+                </div>
+                <div className={Style.periodos}>
+                    <span>Período Concessivo</span>
+                    <span>30</span>
+                </div>
+            </div>
+
             <div className={Style.containerSolicitacao}>
 
                 <div className={Style.containerDuplo}>

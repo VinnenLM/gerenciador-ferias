@@ -85,7 +85,9 @@ export const Perfil = () => {
                             <span>Nome</span>
                             <span>CPF</span>
                             <span>Email</span>
-                            <span>Gmail</span>
+                            {
+                                (colaborador.gmail !== null) ? <span>Gmail</span> : null
+                            }
                             <span>Setor</span>
                         </div>
                         <div className={Style.valores}>
