@@ -8,7 +8,7 @@ export const Perfil = () => {
 
     const [colaborador, setColaborador] = useState({});
     const [setor, setSetor] = useState("");
-    const idColaborador = useSelector((state) => state.idColaborador);
+    const idColaborador = useSelector((state) => state.colaborador.idColaborador);
 
     useEffect(() => {
         api

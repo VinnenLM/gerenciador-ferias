@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header"
 import api from "../../services/api";
 import Style from "./style.module.css"
+import InputMask from 'react-input-mask';
 
 export const Cadastro = () => {
 
@@ -21,26 +24,33 @@ export const Cadastro = () => {
     const [idWorkplace, setIdWorkplace] = useState("");
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
+    const colab = useSelector((state) => state.colaborador);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        api
-            .get("/colaborador/gestor")
-            .then((response) => {
-                setGestores(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        if (colab.idPerfil === 1) {
+            api
+                .get("/colaborador/gestor")
+                .then((response) => {
+                    setGestores(response.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
 
-        api
-            .get("/setor")
-            .then((response) => {
-                setSetores(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [])
+            api
+                .get("/setor")
+                .then((response) => {
+                    setSetores(response.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        } else {
+            navigate("/home")
+        }
+
+    }, [colab, navigate])
 
     function cadastrarColaborador() {
         api
@@ -76,13 +86,13 @@ export const Cadastro = () => {
             <Header />
             <div className={Style.containerGeral}>
 
-            {msg !== "" ?
-                (<div className={`alert alert-${alert} w-25 mx-auto text-center border border-${alert}`} role={alert}>
-                    {msg}
-                </div>)
-                :
-                null
-            }
+                {msg !== "" ?
+                    (<div className={`alert alert-${alert} w-25 mx-auto text-center border border-${alert}`} role={alert}>
+                        {msg}
+                    </div>)
+                    :
+                    null
+                }
 
                 <h1 className={Style.titulo}>Cadastrar Colaborador</h1>
 
@@ -109,7 +119,13 @@ export const Cadastro = () => {
                         </div>
                         <div className={Style.inputDuplo}>
                             <label htmlFor="cpf">CPF</label>
-                            <input type="text" name="cpf" id="cpf" placeholder="___.___.___-__" value={cpf} onChange={(evt) => setCpf(evt.target.value)} />
+                            <InputMask
+                                mask="999.999.999-99"
+                                id="cpf"
+                                value={cpf}
+                                placeholder="___.___.___-__"
+                                onChange={(evt) => setCpf(evt.target.value)}
+                            />
                         </div>
                     </div>
 

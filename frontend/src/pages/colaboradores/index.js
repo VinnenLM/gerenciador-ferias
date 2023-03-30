@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header"
 import { Pessoa } from "../../components/pessoa"
 import api from "../../services/api";
@@ -10,33 +11,36 @@ export const Colaboradores = () => {
     const [colaboradores, setColaboradores] = useState([]);
     const [query, setQuery] = useState("");
     const idColaborador = useSelector((state) => state.idColaborador);
-    const idPerfil = useSelector((state) => state.idPerfil);
+    const idPerfil = useSelector((state) => state.colaborador.idPerfil);
     const [pesquisa] = useState(["nome", "matricula", "stats"]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        (idPerfil === 1)
-        ?
-        api
-        .get("/colaborador")
-        .then((response) => {
-            setColaboradores(response.data.todosColaboradores)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        :
-        api
-            .post("/colaborador/gestor",{
-                idGestor: idColaborador
-            })
-            .then((response) => {
-                setColaboradores(response.data.todosColaboradores)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        
-    }, [idColaborador, idPerfil])
+        if (idPerfil === 1) {
+            api
+                .get("/colaborador")
+                .then((response) => {
+                    setColaboradores(response.data.todosColaboradores)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        } else if (idPerfil === 2) {
+            api
+                .post("/colaborador/gestor", {
+                    idGestor: idColaborador
+                })
+                .then((response) => {
+                    setColaboradores(response.data.todosColaboradores)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        } else {
+            navigate("/home");
+        }
+
+    }, [idColaborador, idPerfil, navigate])
 
     function buscarColaborador(items) {
         return items.filter((item) => {

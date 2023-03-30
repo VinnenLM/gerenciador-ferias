@@ -21,6 +21,7 @@ export const Login = () => {
             })
             .then((response) => {
                 if (response.data !== '') {
+                    console.log(response.data);
                     dispatch({
                         type: 'LOGIN',
                         colaborador: response.data,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Header } from "../../components/header"
 import api from "../../services/api";
 import Style from "./style.module.css"
-import { addDays } from 'date-fns';
+import { addDays, addMonths, format } from 'date-fns';
 import { useSelector } from "react-redux";
 import apiPython from "../../services/apiPython";
 
@@ -14,11 +14,7 @@ export const Solicitar = () => {
     const [solicitacao13, setSolicitacao13] = useState(false);
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
-    const idColaborador = useSelector((state) => state.idColaborador);
-    const tipoContratacao = useSelector((state) => state.tipoContratacao);
-    const nomeColaborador = useSelector((state) => state.nomeColaborador);
-    const emailGestor = useSelector((state) => state.emailGestor);
-    const idWorkplace = useSelector((state) => state.idWorkplace);
+    const colab = useSelector((state) => state.colaborador);
 
     function salvarSolicitacao() {
         if (dataInicio === "") {
@@ -31,7 +27,7 @@ export const Solicitar = () => {
                     dataInicio: new Date(dataInicio),
                     dataFim: addDays(new Date(dataInicio), (qntDias - 1)),
                     comentarioColab: comentarioColab,
-                    idColaborador: parseInt(idColaborador),
+                    idColaborador: parseInt(colab.idColaborador),
                     solicitacao13: (solicitacao13) ? new Date() : null
                 })
                 .then((response) => {
@@ -40,9 +36,9 @@ export const Solicitar = () => {
 
                     apiPython
                         .post("/enviarEmail", {
-                            nomeColaborador: nomeColaborador,
+                            nomeColaborador: colab.nome,
                             idSolicitacao: response.data.idSolicitacao,
-                            email: emailGestor,
+                            email: colab.colaborador.email,
                             resposta: false
                         })
                         .then((response) => {
@@ -54,8 +50,8 @@ export const Solicitar = () => {
 
                     apiPython
                         .post("/enviarNotificacao", {
-                            idWorkplace: idWorkplace,
-                            nomeColaborador: nomeColaborador,
+                            idWorkplace: colab.idWorkplace,
+                            nomeColaborador: colab.nome,
                             idSolicitacao: response.data.idSolicitacao,
                             resposta: false
                         })
@@ -68,7 +64,7 @@ export const Solicitar = () => {
                 })
                 .catch((error) => {
                     setAlert("warning")
-                    setMsg("Erro ao solicitar férias!")
+                    setMsg(error.response.data.message)
                     console.log(error.response.data.message);
                 })
         }
@@ -96,15 +92,15 @@ export const Solicitar = () => {
             <div className={Style.containerFerias}>
                 <div className={Style.periodos}>
                     <span>Dias Disponíveis</span>
-                    <span>30</span>
+                    <span>{colab.diasDisponiveis}</span>
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Aquisitivo</span>
-                    <span>30</span>
+                    <span>{format(addMonths(new Date(colab.dataContratacao), 12), 'dd/MM/yyyy')}</span>
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Concessivo</span>
-                    <span>30</span>
+                    <span>{format(addMonths(new Date(colab.dataContratacao), 24), 'dd/MM/yyyy')}</span>
                 </div>
             </div>
 
@@ -134,7 +130,7 @@ export const Solicitar = () => {
                 <textarea className={Style.textarea} name="comentarioColab" id="comentarioColab" cols="30" rows="3" onChange={(evt) => setComentarioColab(evt.target.value)} value={comentarioColab}></textarea>
 
                 {
-                    (tipoContratacao === "CLT")
+                    (colab.tipoContratacao === "CLT")
                         ?
                         <div className={Style.antecipacao}>
                             <label htmlFor="solicitacao13">Antecipar 13°</label>

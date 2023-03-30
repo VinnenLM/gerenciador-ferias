@@ -6,6 +6,7 @@ import api from "../../services/api";
 import Style from "./style.module.css"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard = () => {
 
@@ -15,34 +16,40 @@ export const Dashboard = () => {
     const [negados, setNegados] = useState(0);
     const [pendentes, setPendentes] = useState(0);
     const [totalSolicitacoes, setTotalSolicitacoes] = useState(0);
-    const idColaborador = useSelector((state) => state.idColaborador);
+    const colab = useSelector((state) => state.colaborador);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        api
-            .post("/colaborador/gestor", {
-                idGestor: idColaborador
-            })
-            .then((response) => {
-                setAtivos(response.data.countAtivos);
-                setFerias(response.data.countFerias);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-        api
-            .post("/solicitacao/gestor/count", {
-                idGestor: idColaborador
-            })
-            .then((response) => {
-                setAprovados(response.data.aprovados)
-                setNegados(response.data.negados)
-                setPendentes(response.data.pendentes)
-                setTotalSolicitacoes(response.data.total)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [idColaborador])
+        if (colab.idPerfil === 2) {
+            api
+                .post("/colaborador/gestor", {
+                    idGestor: colab.idColaborador
+                })
+                .then((response) => {
+                    setAtivos(response.data.countAtivos);
+                    setFerias(response.data.countFerias);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            api
+                .post("/solicitacao/gestor/count", {
+                    idGestor: colab.idColaborador
+                })
+                .then((response) => {
+                    setAprovados(response.data.aprovados)
+                    setNegados(response.data.negados)
+                    setPendentes(response.data.pendentes)
+                    setTotalSolicitacoes(response.data.total)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        } else {
+            navigate("/home");
+        }
+
+    }, [colab, navigate])
 
     const feriasTotal = [
         {
