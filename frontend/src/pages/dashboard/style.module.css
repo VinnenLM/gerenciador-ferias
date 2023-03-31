@@ -179,3 +179,8 @@
 .total {
     background-color: #1D4636;
 }
+
+.relatorio{
+    position: absolute;
+    bottom: 5%;
+}

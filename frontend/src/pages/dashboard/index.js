@@ -7,6 +7,8 @@ import Style from "./style.module.css"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Dropdown from 'react-bootstrap/Dropdown';
+import apiPython from "../../services/apiPython";
 
 export const Dashboard = () => {
 
@@ -16,6 +18,7 @@ export const Dashboard = () => {
     const [negados, setNegados] = useState(0);
     const [pendentes, setPendentes] = useState(0);
     const [totalSolicitacoes, setTotalSolicitacoes] = useState(0);
+    const [colaboradores, setColaboradores] = useState([]);
     const colab = useSelector((state) => state.colaborador);
     const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ export const Dashboard = () => {
                 .then((response) => {
                     setAtivos(response.data.countAtivos);
                     setFerias(response.data.countFerias);
+                    setColaboradores(response.data.todosColaboradores)
                 })
                 .catch((error) => {
                     console.log(error);
@@ -61,6 +65,76 @@ export const Dashboard = () => {
             sales: ferias,
         },
     ];
+
+    function enviarRelatorioAtivosFerias() {
+        apiPython
+            .post("/enviarRelatorio", {
+                data: {
+                    ativos: ativos,
+                    ferias: ferias
+                },
+                email: colab.email
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+            })
+    }
+
+    function enviarRelatorioTotalSolicitacoes() {
+        apiPython
+            .post("/enviarRelatorio", {
+                data: {
+                    aprovadas: aprovados,
+                    negadas: negados,
+                    pendentes: pendentes,
+                    total: totalSolicitacoes
+                },
+                email: colab.email
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+            })
+    }
+
+    function enviarRelatorioTodosColaboradores() {
+
+        let dados = []
+
+        colaboradores.forEach((colab) => {
+            let array = {
+                "matricula": colab.matricula,
+                "nome": colab.nome,
+                "cpf": colab.cpf,
+                "email": colab.email,
+                "tipoContratacao": colab.tipoContratacao,
+                "dataContratacao": colab.dataContratacao,
+                "setor": colab.setor.nomeSetor,
+                "status": colab.stats
+            };
+            dados.push(array)
+        })
+
+        apiPython
+            .post("/enviarRelatorio", {
+                data: {
+                    colaboradores: colaboradores,
+                },
+                email: colab.email,
+                colaboradores: true
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+            })
+    }
 
     const feriasMeses = [
         {
@@ -118,6 +192,21 @@ export const Dashboard = () => {
             <Header />
             <div className={Style.dashboard}>
                 <div className={Style.containerGeral}>
+
+                    <div className={Style.relatorio}>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Relatórios
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => { enviarRelatorioAtivosFerias() }}>Funcionários Ativos/Férias</Dropdown.Item>
+                                <Dropdown.Item onClick={() => { enviarRelatorioTotalSolicitacoes() }}>Total Solicitações</Dropdown.Item>
+                                <Dropdown.Item onClick={() => { enviarRelatorioTodosColaboradores() }}>Todos Colaboradores</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
+
                     <div className={Style.containerRequisicoes}>
                         <h2>Resultado das Solicitações</h2>
                         <div className={Style.requisicoes}>

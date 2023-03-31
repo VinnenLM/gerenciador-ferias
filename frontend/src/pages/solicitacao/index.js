@@ -12,7 +12,7 @@ import apiPython from "../../services/apiPython";
 export const Solicitacao = () => {
 
     const { idSolicitacao } = useParams();
-    const idColaborador = useSelector((state) => state.idColaborador);
+    const idColaborador = useSelector((state) => state.colaborador.idColaborador);
 
     const [solicitacao, setSolicitacao] = useState([]);
     const [colaborador, setColaborador] = useState([]);

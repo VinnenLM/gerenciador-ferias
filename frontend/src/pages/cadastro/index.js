@@ -62,7 +62,7 @@ export const Cadastro = () => {
                 gmail: gmail ? gmail : null,
                 senha: "quero123",
                 tipoContratacao: tipoContratacao,
-                diasDisponiveis: 0,
+                diasDisponiveis: parseInt(diasDisponiveis),
                 idWorkplace: (idWorkplace !== "") ? idWorkplace : null,
                 dataContratacao: (dataContratacao !== "") ? dataContratacao : null,
                 idGestor: (parseInt(idGestor) !== 0) ? parseInt(idGestor) : null,

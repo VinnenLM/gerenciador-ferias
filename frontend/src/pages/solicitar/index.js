@@ -96,11 +96,11 @@ export const Solicitar = () => {
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Aquisitivo</span>
-                    <span>{format(addMonths(new Date(colab.dataContratacao), 12), 'dd/MM/yyyy')}</span>
+                    <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 12), 1), 'dd/MM/yyyy')}</span>
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Concessivo</span>
-                    <span>{format(addMonths(new Date(colab.dataContratacao), 24), 'dd/MM/yyyy')}</span>
+                    <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 24), 1), 'dd/MM/yyyy')}</span>
                 </div>
             </div>
 
