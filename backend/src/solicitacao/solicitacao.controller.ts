@@ -23,6 +23,10 @@ export class SolicitacaoController {
   async buscarCountSolicitacoesPorGestor(@Body() data) {
     return this.solicitacaoService.buscarCountSolicitacoesPorGestor(data);
   }
+  @Post('gestor/meses')
+  async solicitacoesPorMeses(@Body() data) {
+    return this.solicitacaoService.solicitacoesPorMeses(data);
+  }
   @Post('minhasSolicitacoes')
   async buscarMinhasSolicitacoes(@Body() data) {
     return this.solicitacaoService.buscarMinhasSolicitacoes(data);

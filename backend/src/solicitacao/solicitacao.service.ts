@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common/exceptions';
 import { Prisma, solicitacao } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { differenceInDays, parseISO } from 'date-fns';
+import { format, differenceInDays, parseISO } from 'date-fns';
 
 @Injectable()
 export class SolicitacaoService {
@@ -149,5 +149,33 @@ export class SolicitacaoService {
     ) {
       throw new NotFoundException(`O usuário ${idSolicitacao} não existe!`);
     }
+  }
+  async solicitacoesPorMeses(data) {
+    const solicitacoes: solicitacao[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor} and Solicitacao."statusSolicitacao" = 'aprovado'`,
+    );
+    /*const contagemPorMes = solicitacoes.reduce((acumulador, solicitacao) => {
+      const mesSolicitacao = format(solicitacao.dataInicio, 'MMMM');
+      if (!acumulador[mesSolicitacao]) {
+        acumulador[mesSolicitacao] = { name: mesSolicitacao, FeriasPorMes: 0 };
+      }
+      acumulador[mesSolicitacao].FeriasPorMes++;
+      return acumulador;
+    }, {});
+    const arrayContagemPorMes = Object.values(contagemPorMes);
+    return arrayContagemPorMes;*/
+    const mesesDoAno = {};
+    for (let mes = 0; mes < 12; mes++) {
+      const nomeMes = format(new Date(2022, mes, 1), 'MMM');
+      mesesDoAno[nomeMes] = 0;
+    }
+    solicitacoes.forEach((solicitacao) => {
+      const nomeMes = format(solicitacao.dataInicio, 'MMM');
+      mesesDoAno[nomeMes]++;
+    });
+    const mesesDoAnoArray = Object.entries(mesesDoAno).map(
+      ([name, FeriasPorMes]) => ({ name, FeriasPorMes }),
+    );
+    return mesesDoAnoArray;
   }
 }
