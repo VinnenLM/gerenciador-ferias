@@ -148,57 +148,6 @@ export const Dashboard = () => {
             })
     }
 
-    /*const feriasMeses = [
-        {
-            name: "Jan",
-            "Funcionários De Férias Por Mês": 14,
-        },
-        {
-            name: "Fev",
-            "Funcionários De Férias Por Mês": 14,
-        },
-        {
-            name: "Mar",
-            "Funcionários De Férias Por Mês": 5,
-        },
-        {
-            name: "Abr",
-            "Funcionários De Férias Por Mês": 6,
-        },
-        {
-            name: "Mai",
-            "Funcionários De Férias Por Mês": 0,
-        },
-        {
-            name: "Jun",
-            "Funcionários De Férias Por Mês": 1,
-        },
-        {
-            name: "Jul",
-            "Funcionários De Férias Por Mês": 2,
-        },
-        {
-            name: "Ago",
-            "Funcionários De Férias Por Mês": 4,
-        },
-        {
-            name: "Set",
-            "Funcionários De Férias Por Mês": 1,
-        },
-        {
-            name: "Out",
-            "Funcionários De Férias Por Mês": 0,
-        },
-        {
-            name: "Nov",
-            "Funcionários De Férias Por Mês": 0,
-        },
-        {
-            name: "Dez",
-            "Funcionários De Férias Por Mês": 5,
-        },
-    ];*/
-
     return (
         <>
             <Header />

@@ -1,9 +1,9 @@
-import { addDays, differenceInMonths } from "date-fns";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Card } from "../../components/card"
 import { Header } from "../../components/header"
+import api from "../../services/api";
 import Style from "./style.module.css"
 
 export const Home = () => {
@@ -13,9 +13,15 @@ export const Home = () => {
     const handleClose = () => setShow(false);
 
     useEffect(() => {
-        if(differenceInMonths(new Date(), addDays(new Date(colab.dataContratacao), 1)) >= 11){
-            setShow(true)
-        }
+        api
+            .get(`/colaborador/${colab.idColaborador}/ferias`)
+            .then((response) => {
+                console.log(response.data);
+               (response.data === true)? setShow(true) : setShow(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }, [colab])
 
     return (

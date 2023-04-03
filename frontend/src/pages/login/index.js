@@ -24,7 +24,7 @@ export const Login = () => {
                     console.log(response.data);
                     dispatch({
                         type: 'LOGIN',
-                        colaborador: response.data,
+                        colaborador: response.data.colaborador,
                     });
                     navigate("/home")
                 } else {
