@@ -164,7 +164,10 @@ export class SolicitacaoService {
       mesesDoAno[nomeMes]++;
     });
     const mesesDoAnoArray = Object.entries(mesesDoAno).map(
-      ([name, FeriasPorMes]) => ({ name, FeriasPorMes }),
+      ([name, FeriasPorMes]) => ({
+        name,
+        'Colaboradores de férias por mês': FeriasPorMes,
+      }),
     );
     return mesesDoAnoArray;
   }

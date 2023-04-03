@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as moment from 'moment';
 import { differenceInMonths } from 'date-fns';
+import { colaborador, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ColaboradorService {
@@ -45,7 +45,7 @@ export class ColaboradorService {
       },
     });
     if (solicitacoes.length == 0) {
-      if (differenceInMonths(new Date(), colaborador.dataContratacao) >= 11) {
+      if (differenceInMonths(new Date(), colaborador.dataContratacao) >= 23) {
         feriasAtrasada = true;
       }
     } else {
@@ -59,52 +59,28 @@ export class ColaboradorService {
   }
 
   async listarTodos() {
-    const dataAtual = moment(new Date()).format('YYYY/MM/DD');
-    const colabAtivos = [];
-    const colabFerias = [];
-    let countAtivos = 0;
-    let countFerias = 0;
+    const colabFerias: colaborador[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Colaborador.*, setor."nomeSetor"
+      FROM Colaborador
+      LEFT JOIN Solicitacao ON Colaborador."idColaborador" = Solicitacao."idColaborador"
+      LEFT JOIN Setor ON Colaborador."idSetor" = Setor."idSetor"
+      WHERE NOW() BETWEEN Solicitacao."dataInicio" AND Solicitacao."dataFim" AND Solicitacao."statusSolicitacao" = 'aprovado'
+      ORDER BY Colaborador."idColaborador" DESC;`,
+    );
 
-    const colaboradores = this.prisma.colaborador.findMany({
-      include: {
-        setor: true,
-        solicitacao: true,
-      },
-    });
-
-    (await colaboradores).forEach((colab) => {
-      if (colab.solicitacao.length > 0) {
-        colab.solicitacao.forEach((soli) => {
-          if (
-            soli.statusSolicitacao === 'aprovado' &&
-            dataAtual >
-              moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
-            dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
-          ) {
-            if (
-              !colabFerias.some(
-                (col) => col.idColaborador === colab.idColaborador,
-              )
-            ) {
-              colabFerias.push(colab);
-              countFerias++;
-            }
-          } else {
-            if (
-              !colabAtivos.some(
-                (col) => col.idColaborador === colab.idColaborador,
-              )
-            ) {
-              colabAtivos.push(colab);
-              countAtivos++;
-            }
-          }
-        });
-      } else {
-        colabAtivos.push(colab);
-        countAtivos++;
-      }
-    });
+    const colabAtivos: colaborador[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Colaborador.*, Setor."nomeSetor"
+      FROM Colaborador
+      LEFT JOIN Setor ON Colaborador."idSetor" = Setor."idSetor"
+      WHERE Colaborador."idColaborador" NOT IN (
+        SELECT "idColaborador"
+        FROM Solicitacao
+        WHERE NOW() BETWEEN "dataInicio" AND "dataFim"
+          AND "statusSolicitacao" = 'aprovado'
+      )
+      ORDER BY Colaborador."idColaborador" DESC;
+      `,
+    );
 
     const ativos = colabAtivos.map((colab) => {
       return { ...colab, stats: 'ativo' };
@@ -116,59 +92,37 @@ export class ColaboradorService {
 
     const todosColaboradores = ferias.concat(ativos);
 
-    return { todosColaboradores, countAtivos, countFerias };
+    return {
+      todosColaboradores,
+      countAtivos: colabAtivos.length,
+      countFerias: colabFerias.length,
+    };
   }
 
   async listarTodosPorGestor(data) {
-    const dataAtual = moment(new Date()).format('YYYY/MM/DD');
-    const colabAtivos = [];
-    const colabFerias = [];
-    let countAtivos = 0;
-    let countFerias = 0;
+    const colabFerias: colaborador[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Colaborador.*, setor."nomeSetor"
+      FROM Colaborador
+      LEFT JOIN Solicitacao ON Colaborador."idColaborador" = Solicitacao."idColaborador"
+      LEFT JOIN Setor ON Colaborador."idSetor" = Setor."idSetor"
+      WHERE (NOW() BETWEEN Solicitacao."dataInicio" AND Solicitacao."dataFim" AND Solicitacao."statusSolicitacao" = 'aprovado') AND Colaborador."idGestor" = ${data.idGestor}
+      ORDER BY Colaborador."idColaborador" DESC;`,
+    );
 
-    const colaboradores = this.prisma.colaborador.findMany({
-      where: {
-        idGestor: data.idGestor,
-      },
-      include: {
-        setor: true,
-        solicitacao: true,
-      },
-    });
-
-    (await colaboradores).forEach((colab) => {
-      if (colab.solicitacao.length > 0) {
-        colab.solicitacao.forEach((soli) => {
-          if (
-            soli.statusSolicitacao === 'aprovado' &&
-            dataAtual >
-              moment(new Date(soli.dataInicio)).format('YYYY/MM/DD') &&
-            dataAtual < moment(new Date(soli.dataFim)).format('YYYY/MM/DD')
-          ) {
-            if (
-              !colabFerias.some(
-                (col) => col.idColaborador === colab.idColaborador,
-              )
-            ) {
-              colabFerias.push(colab);
-              countFerias++;
-            }
-          } else {
-            if (
-              !colabAtivos.some(
-                (col) => col.idColaborador === colab.idColaborador,
-              )
-            ) {
-              colabAtivos.push(colab);
-              countAtivos++;
-            }
-          }
-        });
-      } else {
-        colabAtivos.push(colab);
-        countAtivos++;
-      }
-    });
+    const colabAtivos: colaborador[] = await this.prisma.$queryRaw(
+      Prisma.sql`SELECT Colaborador.*, Setor."nomeSetor"
+      FROM Colaborador
+      LEFT JOIN Setor ON Colaborador."idSetor" = Setor."idSetor"
+      WHERE Colaborador."idColaborador" NOT IN (
+        SELECT "idColaborador"
+        FROM Solicitacao
+        WHERE NOW() BETWEEN "dataInicio" AND "dataFim"
+          AND "statusSolicitacao" = 'aprovado'
+      )
+      AND Colaborador."idGestor" = ${data.idGestor}
+      ORDER BY Colaborador."idColaborador" DESC;
+      `,
+    );
 
     const ativos = colabAtivos.map((colab) => {
       return { ...colab, stats: 'ativo' };
@@ -180,7 +134,11 @@ export class ColaboradorService {
 
     const todosColaboradores = ferias.concat(ativos);
 
-    return { todosColaboradores, countAtivos, countFerias };
+    return {
+      todosColaboradores,
+      countAtivos: colabAtivos.length,
+      countFerias: colabFerias.length,
+    };
   }
 
   async buscarColaborador(idColaborador: number) {
