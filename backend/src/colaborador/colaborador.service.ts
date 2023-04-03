@@ -157,14 +157,22 @@ export class ColaboradorService {
   }
 
   async buscarColaborador(idColaborador: number) {
-    return this.prisma.colaborador.findUnique({
+    let verificarCLT = false;
+    const colaborador = await this.prisma.colaborador.findUnique({
       where: {
         idColaborador,
       },
       include: {
         setor: true,
+        solicitacao: true,
       },
     });
+    colaborador.solicitacao.forEach((sol) => {
+      sol.solicitacao13 != null && sol.statusSolicitacao != 'negado'
+        ? (verificarCLT = true)
+        : null;
+    });
+    return { colaborador, verificarCLT };
   }
   async listarGestores() {
     return this.prisma.colaborador.findMany({
