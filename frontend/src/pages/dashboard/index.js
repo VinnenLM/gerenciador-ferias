@@ -21,6 +21,7 @@ export const Dashboard = () => {
     const [colaboradores, setColaboradores] = useState([]);
     const colab = useSelector((state) => state.colaborador);
     const navigate = useNavigate();
+    const [feriasMeses, setFeriasMeses] = useState([])
 
     useEffect(() => {
         if (colab.idPerfil === 2) {
@@ -45,6 +46,17 @@ export const Dashboard = () => {
                     setNegados(response.data.negados)
                     setPendentes(response.data.pendentes)
                     setTotalSolicitacoes(response.data.total)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            api
+                .post("/solicitacao/gestor/meses", {
+                    idGestor: colab.idColaborador
+                })
+                .then((response) => {
+                    console.log(response.data)
+                    setFeriasMeses(response.data)
                 })
                 .catch((error) => {
                     console.log(error);
@@ -136,7 +148,7 @@ export const Dashboard = () => {
             })
     }
 
-    const feriasMeses = [
+    /*const feriasMeses = [
         {
             name: "Jan",
             "Funcionários De Férias Por Mês": 14,
@@ -185,7 +197,7 @@ export const Dashboard = () => {
             name: "Dez",
             "Funcionários De Férias Por Mês": 5,
         },
-    ];
+    ];*/
 
     return (
         <>
@@ -242,9 +254,9 @@ export const Dashboard = () => {
                             className="mt-6"
                             data={feriasMeses}
                             index="name"
-                            categories={["Funcionários De Férias Por Mês"]}
+                            categories={["FeriasPorMes"]}
                             colors={["green"]}
-                            yAxisWidth={25}
+                            yAxisWidth={30}
                         />
                     </div>
 

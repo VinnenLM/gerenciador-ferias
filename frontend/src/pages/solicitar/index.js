@@ -15,13 +15,15 @@ export const Solicitar = () => {
     const [colaborador, setColaborador] = useState([]);
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
+    const [verificarCLT, setVerificarCLT] = useState(false);
     const colab = useSelector((state) => state.colaborador);
 
     useEffect(() => {
         api
             .get(`/colaborador/${colab.idColaborador}`)
             .then((response) => {
-                setColaborador(response.data)
+                setColaborador(response.data.colaborador)
+                setVerificarCLT(response.data.verificarCLT)
             })
             .catch((error) => {
                 console.log(error);
@@ -149,7 +151,7 @@ export const Solicitar = () => {
                 <textarea className={Style.textarea} name="comentarioColab" id="comentarioColab" cols="30" rows="3" onChange={(evt) => setComentarioColab(evt.target.value)} value={comentarioColab}></textarea>
 
                 {
-                    (colaborador.tipoContratacao === "CLT")
+                    ((colaborador.tipoContratacao === "CLT") && (verificarCLT === false))
                         ?
                         <div className={Style.antecipacao}>
                             <label htmlFor="solicitacao13">Antecipar 13°</label>
