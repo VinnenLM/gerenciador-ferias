@@ -12,7 +12,7 @@ export const Colaboradores = () => {
     const [query, setQuery] = useState("");
     const idColaborador = useSelector((state) => state.colaborador.idColaborador);
     const idPerfil = useSelector((state) => state.colaborador.idPerfil);
-    const [pesquisa] = useState(["nome", "matricula", "stats"]);
+    const [pesquisa] = useState(["nome", "matricula", "nomeSetor", "stats"]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,6 +20,7 @@ export const Colaboradores = () => {
             api
                 .get("/colaborador")
                 .then((response) => {
+                    console.log(response.data);
                     setColaboradores(response.data.todosColaboradores)
                 })
                 .catch((error) => {
@@ -83,7 +84,7 @@ export const Colaboradores = () => {
                             <Pessoa
                                 key={index}
                                 nome={pessoa.nome}
-                                setor={pessoa.setor.nomeSetor}
+                                setor={pessoa.nomeSetor}
                                 matricula={pessoa.matricula}
                                 status={pessoa.stats}
                             />

@@ -17,7 +17,7 @@ export const Home = () => {
             .get(`/colaborador/${colab.idColaborador}/ferias`)
             .then((response) => {
                 console.log(response.data);
-               (response.data === true)? setShow(true) : setShow(false);
+                (response.data === true) ? setShow(true) : setShow(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -53,18 +53,18 @@ export const Home = () => {
                 </div>
             </div>
             <Modal show={showModal} onHide={handleClose}>
-                    <Modal.Header>
-                        <Modal.Title className="text-dark">Aviso Período de Férias</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className="text-dark">
-                        <span>Se passaram 11 meses desde seu último período de férias, favor fazer nova solicitação!</span>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div>
-                            <button className={Style.confirmar} onClick={handleClose}>Confirmar</button>
-                        </div>
-                    </Modal.Footer>
-                </Modal>
+                <Modal.Header>
+                    <Modal.Title className="text-dark">Aviso Período de Férias</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-dark">
+                    <span>Se passaram 11 meses desde seu último período de férias, favor fazer nova solicitação!</span>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div>
+                        <button className={Style.confirmar} onClick={handleClose}>Confirmar</button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

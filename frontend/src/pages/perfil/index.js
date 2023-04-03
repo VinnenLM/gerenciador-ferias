@@ -14,8 +14,8 @@ export const Perfil = () => {
         api
             .get(`/colaborador/${idColaborador}`)
             .then((response) => {
-                setColaborador(response.data)
-                setSetor(response.data.setor.nomeSetor)
+                setColaborador(response.data.colaborador)
+                setSetor(response.data.colaborador.setor.nomeSetor)
             })
             .catch((error) => {
                 console.log(error);

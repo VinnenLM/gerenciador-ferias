@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import apiPython from "../../services/apiPython";
+import { Modal } from "react-bootstrap";
 
 export const Dashboard = () => {
 
@@ -19,9 +20,12 @@ export const Dashboard = () => {
     const [pendentes, setPendentes] = useState(0);
     const [totalSolicitacoes, setTotalSolicitacoes] = useState(0);
     const [colaboradores, setColaboradores] = useState([]);
-    const colab = useSelector((state) => state.colaborador);
-    const navigate = useNavigate();
+    const [showModal, setShow] = useState(false);
     const [feriasMeses, setFeriasMeses] = useState([])
+    const colab = useSelector((state) => state.colaborador);
+    
+    const navigate = useNavigate();
+    const handleClose = () => setShow(false);
 
     useEffect(() => {
         if (colab.idPerfil === 2) {
@@ -88,7 +92,7 @@ export const Dashboard = () => {
                 email: colab.email
             })
             .then((response) => {
-                console.log(response.data);
+                setShow(true);
             })
             .catch((error) => {
                 console.log(error.response.data.message);
@@ -107,7 +111,7 @@ export const Dashboard = () => {
                 email: colab.email
             })
             .then((response) => {
-                console.log(response.data);
+                setShow(true);
             })
             .catch((error) => {
                 console.log(error.response.data.message);
@@ -141,7 +145,7 @@ export const Dashboard = () => {
                 colaboradores: true
             })
             .then((response) => {
-                console.log(response.data);
+                setShow(true);
             })
             .catch((error) => {
                 console.log(error.response.data.message);
@@ -203,7 +207,7 @@ export const Dashboard = () => {
                             className="mt-6"
                             data={feriasMeses}
                             index="name"
-                            categories={["FeriasPorMes"]}
+                            categories={["Colaboradores de férias por mês"]}
                             colors={["green"]}
                             yAxisWidth={30}
                         />
@@ -251,6 +255,21 @@ export const Dashboard = () => {
                 </div>
 
             </div>
+
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title className="text-dark">Solicitação de Relatório</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-dark">
+                    <span>O relatório solicitado foi enviado ao seu email!</span>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div>
+                        <button className={Style.confirmar} onClick={handleClose}>Confirmar</button>
+                    </div>
+                </Modal.Footer>
+            </Modal>
+
         </>
     )
 }

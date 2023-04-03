@@ -20,11 +20,11 @@ export const Login = () => {
                 senha: senha
             })
             .then((response) => {
+                console.log(response.data);
                 if (response.data !== '') {
-                    console.log(response.data);
                     dispatch({
                         type: 'LOGIN',
-                        colaborador: response.data.colaborador,
+                        colaborador: response.data,
                     });
                     navigate("/home")
                 } else {
