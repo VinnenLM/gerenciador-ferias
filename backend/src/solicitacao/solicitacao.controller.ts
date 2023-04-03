@@ -2,10 +2,14 @@ import { Controller, ParseIntPipe } from '@nestjs/common';
 import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common/decorators';
 import { SolicitacaoService } from './solicitacao.service';
 import { CreateSolicitacaoDTO } from './dto/create-solicitacao.dto';
+import { ColaboradorService } from 'src/colaborador/colaborador.service';
 
 @Controller('solicitacao')
 export class SolicitacaoController {
-  constructor(private readonly solicitacaoService: SolicitacaoService) {}
+  constructor(
+    private readonly solicitacaoService: SolicitacaoService,
+    private readonly colaboradorService: ColaboradorService,
+  ) {}
 
   @Post()
   async salvarSolicitacao(@Body() data: CreateSolicitacaoDTO) {

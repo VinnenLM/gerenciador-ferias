@@ -9,7 +9,7 @@ export class ColaboradorService {
 
   async cadastrarColaborador(data) {
     try {
-      console.log(data);
+      data.cpf = data.cpf.replace(/\D/g, '');
       data.dataContratacao = new Date(data.dataContratacao);
       data.gmail = data.gmail ? data.gmail : null;
       data.idGestor = data.idGestor ? data.idGestor : null;
