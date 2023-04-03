@@ -39,6 +39,10 @@ export class ColaboradorController {
   async buscarColaborador(@Param('id', ParseIntPipe) idColaborador) {
     return this.colaboradorService.buscarColaborador(idColaborador);
   }
+  @Get(':id/ferias')
+  async verificarAtrasoFerias(@Param('id', ParseIntPipe) idColaborador) {
+    return this.colaboradorService.verificarAtrasoFerias(idColaborador);
+  }
   @Put(':id')
   async editarSenha(
     @Body() { senha },

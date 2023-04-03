@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as moment from 'moment';
+import { differenceInMonths } from 'date-fns';
 
 @Injectable()
 export class ColaboradorService {
@@ -29,6 +30,32 @@ export class ColaboradorService {
         colaborador: true,
       },
     });
+  }
+
+  async verificarAtrasoFerias(idColaborador: number) {
+    let feriasAtrasada = false;
+    const colaborador = await this.prisma.colaborador.findUnique({
+      where: {
+        idColaborador,
+      },
+    });
+    const solicitacoes = await this.prisma.solicitacao.findMany({
+      where: {
+        idColaborador,
+      },
+    });
+    if (solicitacoes.length == 0) {
+      if (differenceInMonths(new Date(), colaborador.dataContratacao) >= 11) {
+        feriasAtrasada = true;
+      }
+    } else {
+      solicitacoes.forEach((sol) => {
+        differenceInMonths(new Date(), sol.dataSolicitacao) >= 11
+          ? (feriasAtrasada = true)
+          : null;
+      });
+    }
+    return feriasAtrasada;
   }
 
   async listarTodos() {

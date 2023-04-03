@@ -154,16 +154,6 @@ export class SolicitacaoService {
     const solicitacoes: solicitacao[] = await this.prisma.$queryRaw(
       Prisma.sql`SELECT Solicitacao.*, Colaborador.nome from Solicitacao JOIN Colaborador ON Solicitacao."idColaborador" = Colaborador."idColaborador" WHERE Colaborador."idGestor" = ${data.idGestor} and Solicitacao."statusSolicitacao" = 'aprovado'`,
     );
-    /*const contagemPorMes = solicitacoes.reduce((acumulador, solicitacao) => {
-      const mesSolicitacao = format(solicitacao.dataInicio, 'MMMM');
-      if (!acumulador[mesSolicitacao]) {
-        acumulador[mesSolicitacao] = { name: mesSolicitacao, FeriasPorMes: 0 };
-      }
-      acumulador[mesSolicitacao].FeriasPorMes++;
-      return acumulador;
-    }, {});
-    const arrayContagemPorMes = Object.values(contagemPorMes);
-    return arrayContagemPorMes;*/
     const mesesDoAno = {};
     for (let mes = 0; mes < 12; mes++) {
       const nomeMes = format(new Date(2022, mes, 1), 'MMM');
