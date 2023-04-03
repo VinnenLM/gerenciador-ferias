@@ -1,3 +1,6 @@
+import { addDays, differenceInMonths } from "date-fns";
+import { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Card } from "../../components/card"
 import { Header } from "../../components/header"
@@ -6,6 +9,14 @@ import Style from "./style.module.css"
 export const Home = () => {
 
     const colab = useSelector((state) => state.colaborador);
+    const [showModal, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+
+    useEffect(() => {
+        if(differenceInMonths(new Date(), addDays(new Date(colab.dataContratacao), 1)) >= 11){
+            setShow(true)
+        }
+    }, [colab])
 
     return (
         <>
@@ -35,6 +46,19 @@ export const Home = () => {
                     }
                 </div>
             </div>
+            <Modal show={showModal} onHide={handleClose}>
+                    <Modal.Header>
+                        <Modal.Title className="text-dark">Aviso Período de Férias</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="text-dark">
+                        <span>Se passaram 11 meses desde seu último período de férias, favor fazer nova solicitação!</span>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div>
+                            <button className={Style.confirmar} onClick={handleClose}>Confirmar</button>
+                        </div>
+                    </Modal.Footer>
+                </Modal>
         </>
     )
 }

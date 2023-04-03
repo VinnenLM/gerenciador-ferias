@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/header"
 import api from "../../services/api";
 import Style from "./style.module.css"
@@ -12,61 +12,80 @@ export const Solicitar = () => {
     const [qntDias, setQntDias] = useState(5);
     const [comentarioColab, setComentarioColab] = useState("");
     const [solicitacao13, setSolicitacao13] = useState(false);
+    const [colaborador, setColaborador] = useState([]);
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
     const colab = useSelector((state) => state.colaborador);
 
+    useEffect(() => {
+        api
+            .get(`/colaborador/${colab.idColaborador}`)
+            .then((response) => {
+                setColaborador(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }, [colab])
+
     function salvarSolicitacao() {
-        if (dataInicio === "") {
-            setMsg("Informe todos os campos!")
+
+        if (colaborador.diasDisponiveis < qntDias) {
+            setMsg("Quantidade de dias maior que o disponível")
             setAlert("warning")
         } else {
-            api
-                .post("/solicitacao", {
-                    dataSolicitacao: new Date(),
-                    dataInicio: new Date(dataInicio),
-                    dataFim: addDays(new Date(dataInicio), (qntDias - 1)),
-                    comentarioColab: comentarioColab,
-                    idColaborador: parseInt(colab.idColaborador),
-                    solicitacao13: (solicitacao13) ? new Date() : null
-                })
-                .then((response) => {
-                    setAlert("success")
-                    setMsg("Solicitação enviada com sucesso!")
+            if (dataInicio === "") {
+                setMsg("Informe todos os campos!")
+                setAlert("warning")
+            } else {
+                api
+                    .post("/solicitacao", {
+                        dataSolicitacao: new Date(),
+                        dataInicio: new Date(dataInicio),
+                        dataFim: addDays(new Date(dataInicio), (qntDias - 1)),
+                        comentarioColab: comentarioColab,
+                        idColaborador: parseInt(colaborador.idColaborador),
+                        solicitacao13: (solicitacao13) ? new Date() : null
+                    })
+                    .then((response) => {
+                        
+                        setMsg("Solicitação enviada com sucesso!")
+                        setAlert("success")
+                        
+                        apiPython
+                            .post("/enviarEmail", {
+                                nomeColaborador: colab.nome,
+                                idSolicitacao: response.data.idSolicitacao,
+                                email: colab.colaborador.email,
+                                resposta: false
+                            })
+                            .then((response) => {
+                                console.log(response.data);
+                            })
+                            .catch((error) => {
+                                console.log(error.response.data.message);
+                            })
 
-                    apiPython
-                        .post("/enviarEmail", {
-                            nomeColaborador: colab.nome,
-                            idSolicitacao: response.data.idSolicitacao,
-                            email: colab.colaborador.email,
-                            resposta: false
-                        })
-                        .then((response) => {
-                            console.log(response.data);
-                        })
-                        .catch((error) => {
-                            console.log(error.response.data.message);
-                        })
-
-                    apiPython
-                        .post("/enviarNotificacao", {
-                            idWorkplace: colab.idWorkplace,
-                            nomeColaborador: colab.nome,
-                            idSolicitacao: response.data.idSolicitacao,
-                            resposta: false
-                        })
-                        .then((response) => {
-                            console.log(response.data);
-                        })
-                        .catch((error) => {
-                            console.log(error.response.data.message);
-                        })
-                })
-                .catch((error) => {
-                    setAlert("warning")
-                    setMsg(error.response.data.message)
-                    console.log(error.response.data.message);
-                })
+                        apiPython
+                            .post("/enviarNotificacao", {
+                                idWorkplace: colab.colaborador.idWorkplace,
+                                nomeColaborador: colab.nome,
+                                idSolicitacao: response.data.idSolicitacao,
+                                resposta: false
+                            })
+                            .then((response) => {
+                                console.log(response.data);
+                            })
+                            .catch((error) => {
+                                console.log(error.response.data.message);
+                            })
+                    })
+                    .catch((error) => {
+                        setAlert("warning")
+                        setMsg(error.response.data.message)
+                        console.log(error.response.data.message);
+                    })
+            }
         }
 
     }
@@ -92,7 +111,7 @@ export const Solicitar = () => {
             <div className={Style.containerFerias}>
                 <div className={Style.periodos}>
                     <span>Dias Disponíveis</span>
-                    <span>{colab.diasDisponiveis}</span>
+                    <span>{colaborador.diasDisponiveis}</span>
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Aquisitivo</span>
@@ -130,7 +149,7 @@ export const Solicitar = () => {
                 <textarea className={Style.textarea} name="comentarioColab" id="comentarioColab" cols="30" rows="3" onChange={(evt) => setComentarioColab(evt.target.value)} value={comentarioColab}></textarea>
 
                 {
-                    (colab.tipoContratacao === "CLT")
+                    (colaborador.tipoContratacao === "CLT")
                         ?
                         <div className={Style.antecipacao}>
                             <label htmlFor="solicitacao13">Antecipar 13°</label>

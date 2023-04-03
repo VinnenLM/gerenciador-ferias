@@ -7,7 +7,7 @@ import Style from "../minhasSolicitacoes/style.module.css"
 
 export const ListaSolicitacoes = () => {
 
-    const idColaborador = useSelector((state) => state.idColaborador);
+    const idColaborador = useSelector((state) => state.colaborador.idColaborador);
     const [solicitacoes, setSolicitacoes] = useState([]);
 
     useEffect(() => {

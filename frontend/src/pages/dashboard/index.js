@@ -123,7 +123,7 @@ export const Dashboard = () => {
         apiPython
             .post("/enviarRelatorio", {
                 data: {
-                    colaboradores: colaboradores,
+                    colaboradores: dados,
                 },
                 email: colab.email,
                 colaboradores: true

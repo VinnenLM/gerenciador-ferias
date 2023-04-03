@@ -6,7 +6,7 @@ import Style from "./style.module.css"
 export const Solicitacao = ({ id, dataSolicitacao, colaborador, dataInicio, dataFim, status }) => {
 
     const navigate = useNavigate();
-    const idPerfil = useSelector((state) => state.idPerfil);
+    const idPerfil = useSelector((state) => state.colaborador.idPerfil);
 
     function redirecionar() {
         navigate(`/solicitacao/${id}`);

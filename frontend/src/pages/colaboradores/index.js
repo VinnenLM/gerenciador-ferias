@@ -10,7 +10,7 @@ export const Colaboradores = () => {
 
     const [colaboradores, setColaboradores] = useState([]);
     const [query, setQuery] = useState("");
-    const idColaborador = useSelector((state) => state.idColaborador);
+    const idColaborador = useSelector((state) => state.colaborador.idColaborador);
     const idPerfil = useSelector((state) => state.colaborador.idPerfil);
     const [pesquisa] = useState(["nome", "matricula", "stats"]);
     const navigate = useNavigate();
