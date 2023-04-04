@@ -98,7 +98,7 @@ async def enviar_email(obj: ObjetoNotificacao):
 @app.post("/enviarRelatorio")
 async def enviar_relatorio(obj: Request):
 
-    #try:
+    try:
 
         json = await obj.json()
 
@@ -136,10 +136,10 @@ async def enviar_relatorio(obj: Request):
         s.sendmail(email_de, json['email'], msg.as_string())
         s.quit()
 
-     #   return { "message": "E-mail enviado com sucesso!" }
+        return { "message": "O relatório solicitado foi enviado ao seu email!" }
     
-   # except:
+    except:
 
-    #    return { "message": "Erro no envio do e-mail!" }
+        return { "message": "Erro no envio do e-mail!" }
 
 #uvicorn main:app --reload -> rodar o server
