@@ -22,8 +22,9 @@ export const Dashboard = () => {
     const [colaboradores, setColaboradores] = useState([]);
     const [showModal, setShow] = useState(false);
     const [feriasMeses, setFeriasMeses] = useState([])
+    const [msg, setMsg] = useState('')
     const colab = useSelector((state) => state.colaborador);
-    
+
     const navigate = useNavigate();
     const handleClose = () => setShow(false);
 
@@ -95,7 +96,7 @@ export const Dashboard = () => {
                 setShow(true);
             })
             .catch((error) => {
-                console.log(error.response.data.message);
+                setShow(false);
             })
     }
 
@@ -114,7 +115,7 @@ export const Dashboard = () => {
                 setShow(true);
             })
             .catch((error) => {
-                console.log(error.response.data.message);
+                setShow(false);
             })
     }
 
@@ -130,7 +131,7 @@ export const Dashboard = () => {
                 "email": colab.email,
                 "tipoContratacao": colab.tipoContratacao,
                 "dataContratacao": colab.dataContratacao,
-                "setor": colab.setor.nomeSetor,
+                "setor": colab.nomeSetor,
                 "status": colab.stats
             };
             dados.push(array)
@@ -145,10 +146,11 @@ export const Dashboard = () => {
                 colaboradores: true
             })
             .then((response) => {
+                setMsg(response.data.message)
                 setShow(true);
             })
             .catch((error) => {
-                console.log(error.response.data.message);
+                setShow(false);
             })
     }
 
@@ -261,7 +263,7 @@ export const Dashboard = () => {
                     <Modal.Title className="text-dark">Solicitação de Relatório</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="text-dark">
-                    <span>O relatório solicitado foi enviado ao seu email!</span>
+                    <span>{msg}</span>
                 </Modal.Body>
                 <Modal.Footer>
                     <div>

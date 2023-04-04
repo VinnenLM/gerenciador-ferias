@@ -34,7 +34,7 @@ export const Home = () => {
                             ?
                             <>
                                 <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />
-                                <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Solicitar" link="/minhas-solicitacoes" />
+                                <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Visualizar" link="/minhas-solicitacoes" />
                                 <Card titulo="Dashboard" icone="fa-solid fa-chart-pie" botao="Visualizar" link="/dashboard" />
                             </>
                             :
@@ -42,7 +42,7 @@ export const Home = () => {
                                 ?
                                 <>
                                     <Card titulo="Solicitação de Férias" icone="fas fa-plane-departure" botao="Solicitar" link="/solicitar" />
-                                    <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Solicitar" link="/minhas-solicitacoes" />
+                                    <Card titulo="Minhas Solicitações" icone="fa-regular fa-file-lines" botao="Visualizar" link="/minhas-solicitacoes" />
                                 </>
                                 :
                                 <>
