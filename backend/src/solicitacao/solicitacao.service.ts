@@ -5,27 +5,88 @@ import {
 } from '@nestjs/common/exceptions';
 import { Prisma, solicitacao } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { format, differenceInDays, parseISO } from 'date-fns';
+import { format, differenceInDays, parseISO, addDays } from 'date-fns';
 
 @Injectable()
 export class SolicitacaoService {
   constructor(private readonly prisma: PrismaService) {}
 
   async salvarSolicitacao(data) {
+    let quinzena = false;
+
     const colab = await this.prisma.colaborador.findUnique({
       where: {
         idColaborador: data.idColaborador,
       },
     });
+
+    const solicitacoes = await this.prisma.solicitacao.findMany({
+      where: {
+        AND: [
+          {
+            idColaborador: colab.idColaborador,
+          },
+          {
+            dataSolicitacao: {
+              gte: new Date(`${new Date().getFullYear()}-01-01`),
+              lte: new Date(`${new Date().getFullYear()}-12-31`),
+            },
+          },
+          {
+            NOT: {
+              statusSolicitacao: 'negado',
+            },
+          },
+        ],
+      },
+    });
+
+    const qntDiasAtual =
+      differenceInDays(parseISO(data.dataFim), parseISO(data.dataInicio)) + 1;
+
+    //verificar quinzena
+    if (solicitacoes.length > 0) {
+      solicitacoes.forEach((sol) => {
+        const qntDias = differenceInDays(sol.dataFim, sol.dataInicio) + 1;
+        qntDias === 15 ? (quinzena = true) : null;
+      });
+    }
+
+    const valido =
+      quinzena ||
+      (colab.diasDisponiveis > 15 &&
+        colab.diasDisponiveis - qntDiasAtual >= 15) ||
+      qntDiasAtual == 15 ||
+      (!quinzena && colab.diasDisponiveis == 15 && qntDiasAtual == 15);
+
+    const erro1 =
+      colab.diasDisponiveis == 20 && qntDiasAtual != 15 && qntDiasAtual >= 10;
+
+    const erro2 = colab.diasDisponiveis == 15 && qntDiasAtual < 15 && !quinzena;
+
+    const erro3 = colab.diasDisponiveis >= 25 && qntDiasAtual > 15;
+
+    if (valido) {
+      console.log('certo');
+    } else if (erro1 || erro2 || erro3) {
+      throw new BadRequestException(
+        `Necessário que o preríodo seja de 15 dias!`,
+      );
+    } else {
+      throw new BadRequestException(`Erro inesperado`);
+    }
+
     const decrementar = differenceInDays(
       parseISO(data.dataFim),
       parseISO(data.dataInicio),
     );
+
     const dataContratacao = new Date(colab.dataContratacao);
     const dataSolicitacao = new Date(data.dataSolicitacao);
     const dataDiff =
       (dataSolicitacao.getTime() - dataContratacao.getTime()) /
       (1000 * 3600 * 24 * 30);
+
     if (dataDiff >= 12) {
       await this.prisma.colaborador.update({
         data: {
@@ -35,8 +96,10 @@ export class SolicitacaoService {
           idColaborador: colab.idColaborador,
         },
       });
+
       data.statusSolicitacao = 'pendente';
       data.comentarioGestor = null;
+
       return this.prisma.solicitacao.create({ data });
     } else {
       throw new BadRequestException(
@@ -160,7 +223,7 @@ export class SolicitacaoService {
       mesesDoAno[nomeMes] = 0;
     }
     solicitacoes.forEach((solicitacao) => {
-      const nomeMes = format(solicitacao.dataInicio, 'MMM');
+      const nomeMes = format(addDays(solicitacao.dataInicio, 1), 'MMM');
       mesesDoAno[nomeMes]++;
     });
     const mesesDoAnoArray = Object.entries(mesesDoAno).map(
