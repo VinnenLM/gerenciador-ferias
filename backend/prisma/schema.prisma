@@ -21,7 +21,6 @@ model colaborador {
   idGestor          Int?
   idPerfil          Int
   idSetor           Int
-  ultimoAcesso      DateTime?     @db.Date
   idWorkplace       String?       @db.VarChar(45)
   colaborador       colaborador?  @relation("colaboradorTocolaborador", fields: [idGestor], references: [idColaborador], onDelete: NoAction, onUpdate: NoAction, map: "colaborador_id_gestor_fkey")
   other_colaborador colaborador[] @relation("colaboradorTocolaborador")

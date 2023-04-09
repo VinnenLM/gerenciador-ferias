@@ -23,14 +23,6 @@ export class ColaboradorController {
   async listarTodosPorGestor(@Body() data) {
     return this.colaboradorService.listarTodosPorGestor(data);
   }
-  /*@Get('ferias')
-  async listarTodosFerias() {
-    return this.colaboradorService.listarTodosFerias();
-  }
-  @Get('ativo')
-  async listarTodosAtivos() {
-    return this.colaboradorService.listarTodosAtivos();
-  }*/
   @Get('gestor')
   async listarGestores() {
     return this.colaboradorService.listarGestores();
@@ -40,8 +32,12 @@ export class ColaboradorController {
     return this.colaboradorService.buscarColaborador(idColaborador);
   }
   @Get(':id/ferias')
-  async verificarAtrasoFerias(@Param('id', ParseIntPipe) idColaborador) {
-    return this.colaboradorService.verificarAtrasoFerias(idColaborador);
+  async verificarVencimentoAcumuloColaborador(
+    @Param('id', ParseIntPipe) idColaborador,
+  ) {
+    return this.colaboradorService.verificarVencimentoAcumuloColaborador(
+      idColaborador,
+    );
   }
   @Put(':id')
   async editarSenha(

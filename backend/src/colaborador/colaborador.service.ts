@@ -32,7 +32,13 @@ export class ColaboradorService {
     });
   }
 
-  async verificarAtrasoFerias(idColaborador: number) {
+  async verificarVencimentoAcumuloColaborador(idColaborador: number) {
+    const vencimento = await this.verificarVencimentoPeriodo(idColaborador);
+    const acumulo = await this.verificarAcumuloPeriodo(idColaborador);
+    return { vencimento, acumulo };
+  }
+
+  async verificarVencimentoPeriodo(idColaborador: number) {
     let feriasAtrasada = false;
     const colaborador = await this.prisma.colaborador.findUnique({
       where: {
@@ -42,6 +48,9 @@ export class ColaboradorService {
     const solicitacoes = await this.prisma.solicitacao.findMany({
       where: {
         idColaborador,
+        NOT: {
+          statusSolicitacao: 'negado',
+        },
       },
     });
     if (solicitacoes.length == 0) {
@@ -56,6 +65,35 @@ export class ColaboradorService {
       });
     }
     return feriasAtrasada;
+  }
+
+  async verificarAcumuloPeriodo(idColaborador: number) {
+    let acumuloPeriodo = false;
+    const colaborador = await this.prisma.colaborador.findUnique({
+      where: {
+        idColaborador,
+      },
+    });
+    const solicitacoes = await this.prisma.solicitacao.findMany({
+      where: {
+        idColaborador,
+        NOT: {
+          statusSolicitacao: 'negado',
+        },
+      },
+    });
+    if (solicitacoes.length == 0) {
+      if (differenceInMonths(new Date(), colaborador.dataContratacao) >= 35) {
+        acumuloPeriodo = true;
+      }
+    } else {
+      solicitacoes.forEach((sol) => {
+        differenceInMonths(new Date(), sol.dataSolicitacao) >= 23
+          ? (acumuloPeriodo = true)
+          : null;
+      });
+    }
+    return acumuloPeriodo;
   }
 
   async listarTodos() {
@@ -90,7 +128,15 @@ export class ColaboradorService {
       return { ...colab, stats: 'ferias' };
     });
 
-    const todosColaboradores = ferias.concat(ativos);
+    let todosColaboradores = [];
+    todosColaboradores = ferias.concat(ativos);
+
+    for (const colab of todosColaboradores) {
+      const acumuloPeriodo = await this.verificarAcumuloPeriodo(
+        colab.idColaborador,
+      );
+      colab.acumuloPeriodo = acumuloPeriodo;
+    }
 
     return {
       todosColaboradores,
@@ -132,7 +178,15 @@ export class ColaboradorService {
       return { ...colab, stats: 'ferias' };
     });
 
-    const todosColaboradores = ferias.concat(ativos);
+    let todosColaboradores = [];
+    todosColaboradores = ferias.concat(ativos);
+
+    for (const colab of todosColaboradores) {
+      const acumuloPeriodo = await this.verificarAcumuloPeriodo(
+        colab.idColaborador,
+      );
+      colab.acumuloPeriodo = acumuloPeriodo;
+    }
 
     return {
       todosColaboradores,
@@ -157,7 +211,33 @@ export class ColaboradorService {
         ? (verificarCLT = true)
         : null;
     });
-    return { colaborador, verificarCLT };
+
+    const dataContratacao = colaborador.dataContratacao; // data de contratação do colaborador
+    const dataAtual = new Date();
+    const diferencaAnos =
+      dataAtual.getFullYear() - dataContratacao.getFullYear();
+
+    const periodos = []; //todos periodos
+
+    for (let i = 1; i < diferencaAnos; i++) {
+      const inicio = new Date(
+        dataContratacao.getFullYear() + i,
+        dataContratacao.getMonth(),
+        dataContratacao.getDate(),
+      );
+      const fim = new Date(
+        dataContratacao.getFullYear() + i + 1,
+        dataContratacao.getMonth(),
+        dataContratacao.getDate(),
+      );
+      periodos.push({ inicio, fim });
+    }
+
+    return {
+      colaborador,
+      verificarCLT,
+      periodoAtual: periodos.length > 0 ? periodos[periodos.length - 1] : null,
+    };
   }
   async listarGestores() {
     return this.prisma.colaborador.findMany({
