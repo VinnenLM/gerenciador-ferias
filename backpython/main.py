@@ -120,7 +120,7 @@ async def enviar_relatorio(obj: Request):
         else:
             df = pd.DataFrame.from_dict(json['data'], orient='index').T
         
-        df.to_csv('relatorio.csv', index=False)
+        df.to_csv('relatorio.csv', sep=';', index=False)
 
         with open('relatorio.csv', 'rb') as f:
             anexo = MIMEApplication(f.read(), _subtype='csv')

@@ -1,6 +1,7 @@
-matricula,nome,cpf,email,tipoContratacao,dataContratacao,setor,status
-teste,teste,11122255512,teste@teste.com,CLT,2021-05-01T00:00:00.000Z,Tecnologia da Informação,ativo
-123123,123123,12332132412,123@123.com,CLT,2021-05-03T00:00:00.000Z,Recursos Humanos,ativo
-111222,teste periodo,11122244432,teste@teste.com,CLT,2022-05-01T00:00:00.000Z,Recursos Humanos,ativo
-321,Teste Negado,12312367884,negado@email.com,CLT,2023-03-01T00:00:00.000Z,Tecnologia da Informação,ativo
-123,Teste Funcional,12312368905,viniciusmendonca@alunos.utfpr.edu.br,PJ,2022-03-01T00:00:00.000Z,Contabilidade,ativo
+matricula;nome;cpf;email;tipoContratacao;dataContratacao;setor;status
+teste;teste;11122255512;teste@teste.com;CLT;2021-05-01T00:00:00.000Z;Tecnologia da Informação;ferias
+teste acumulo;teste acumulo;55566611137;acumulo@email.com;PJ;2020-05-05T00:00:00.000Z;Recursos Humanos;ativo
+123123;123123;12332132412;123@123.com;CLT;2021-05-03T00:00:00.000Z;Recursos Humanos;ativo
+111222;teste periodo;11122244432;teste@teste.com;CLT;2022-05-01T00:00:00.000Z;Recursos Humanos;ativo
+321;Teste Negado;12312367884;negado@email.com;CLT;2023-03-01T00:00:00.000Z;Tecnologia da Informação;ativo
+123;Teste Funcional;12312368905;viniciusmendonca@alunos.utfpr.edu.br;PJ;2022-03-01T00:00:00.000Z;Contabilidade;ativo
