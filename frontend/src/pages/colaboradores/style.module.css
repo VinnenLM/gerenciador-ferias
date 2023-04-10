@@ -1,4 +1,4 @@
-.pesquisa{
+.pesquisa {
     text-align: center;
     display: flex;
     margin: 0 auto;
@@ -13,17 +13,19 @@
     margin-bottom: 30px;
 }
 
-table{
+table {
     width: 100%;
     border-spacing: 0;
     border-radius: 5px !important;
+    font-size: 13px;
 }
 
-th{
+th {
     text-align: center;
+    vertical-align: middle !important;
 }
 
-.tabela{
+.tabela {
     background-color: #009846 !important;
     color: white;
 }
@@ -39,12 +41,33 @@ th{
     margin-bottom: 30px;
 }
 
-.containerPesquisa{
+.containerPesquisa {
     position: relative;
 }
 
-.containerPesquisa>span{
+.containerPesquisa>span {
     position: absolute;
     top: 20%;
     right: 31%;
+}
+
+.diasDisponiveis {
+    margin-bottom: 15px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 2px 2px rgb(0, 0, 0, .15);
+}
+
+.salvar{
+    background-color: #5CB85D;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.salvar:hover{
+    background-color: #009846;
 }

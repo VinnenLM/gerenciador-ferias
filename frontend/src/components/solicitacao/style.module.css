@@ -1,15 +1,15 @@
-.solicitacao:hover{
+.solicitacao:hover {
     cursor: pointer;
     background-color: #9ae09b;
 }
 
-td{
+td {
     padding: 10px;
     margin: 10px 0 !important;
     width: 25%;
     vertical-align: middle !important;
 }
 
-table{
+table {
     margin-bottom: 0 !important;
 }

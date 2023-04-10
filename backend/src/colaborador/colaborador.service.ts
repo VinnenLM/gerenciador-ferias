@@ -260,6 +260,22 @@ export class ColaboradorService {
       },
     });
   }
+  async alterarDiasDisponiveis(data) {
+    if (data.diasDisponiveis > 30) {
+      throw new NotFoundException(
+        `A quantidade de dias deve ser no máximo 30!`,
+      );
+    } else {
+      return this.prisma.colaborador.update({
+        data: {
+          diasDisponiveis: Number(data.diasDisponiveis),
+        },
+        where: {
+          idColaborador: data.idColaborador,
+        },
+      });
+    }
+  }
   async excluirColaborador(idColaborador: number) {
     await this.exists(idColaborador);
     return this.prisma.colaborador.delete({

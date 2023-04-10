@@ -10,6 +10,8 @@ export const Home = () => {
 
     const colab = useSelector((state) => state.colaborador);
     const [showModal, setShow] = useState(false);
+    const [vencimento, setVencimento] = useState(false);
+    const [acumulo, setAcumulo] = useState(false);
     const handleClose = () => setShow(false);
 
     useEffect(() => {
@@ -17,7 +19,9 @@ export const Home = () => {
             .get(`/colaborador/${colab.idColaborador}/ferias`)
             .then((response) => {
                 console.log(response.data);
-                (response.data === true) ? setShow(true) : setShow(false);
+                setVencimento(response.data.vencimento);
+                setAcumulo(response.data.acumulo);
+                (response.data.vencimento || response.data.acumulo) ? setShow(true) : setShow(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -27,6 +31,7 @@ export const Home = () => {
     return (
         <>
             <Header />
+            <h1 className={Style.titulo}>Olá {(colab.nome.split(" "))[0]}, bem vindo(a) de volta!</h1>
             <div className={Style.containerCards}>
                 <div className={Style.cards}>
                     {
@@ -56,8 +61,9 @@ export const Home = () => {
                 <Modal.Header>
                     <Modal.Title className="text-dark">Aviso Período de Férias</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="text-dark">
-                    <span>Se passaram 11 meses desde seu último período de férias, favor fazer nova solicitação!</span>
+                <Modal.Body className={`text-dark d-flex flex-column ${Style.bodySpan}`}>
+                    {(vencimento) ? <span>Se passaram 11 meses desde seu último período de férias, favor fazer uma nova solicitação!</span> : null}
+                    {(acumulo) ? <span>O seu período de férias está para acumular, favor fazer uma nova solicitação!</span> : null}                    
                 </Modal.Body>
                 <Modal.Footer>
                     <div>

@@ -75,9 +75,8 @@ export const Cadastro = () => {
                 console.log(response.data);
             })
             .catch((error) => {
-                setAlert("warning")
-                setMsg("Erro ao cadastrar colaborador!")
-                console.log(error.response.data.message);
+                setAlert("warning");
+                (error.response.data.message.length === 1 && error.response.data.message[0] === "email must be an email") ? setMsg("Formato de e-mail inválido!") : setMsg("Preencha todos os campos!");
             })
     }
 

@@ -8,6 +8,7 @@ export const Perfil = () => {
 
     const [colaborador, setColaborador] = useState({});
     const [setor, setSetor] = useState("");
+    const [cpf, setCpf] = useState("");
     const idColaborador = useSelector((state) => state.colaborador.idColaborador);
 
     useEffect(() => {
@@ -15,6 +16,7 @@ export const Perfil = () => {
             .get(`/colaborador/${idColaborador}`)
             .then((response) => {
                 setColaborador(response.data.colaborador)
+                formatCPF(response.data.colaborador.cpf)
                 setSetor(response.data.colaborador.setor.nomeSetor)
             })
             .catch((error) => {
@@ -38,9 +40,12 @@ export const Perfil = () => {
                     setMsg("Erro ao alterar senha!")
                     console.log(error);
                 })
-        } else {
+        } else if(senha !== repetirSenha) {
             setAlert("warning")
             setMsg("As senha precisam ser iguais!")
+        } else {
+            setAlert("warning")
+            setMsg("Não há o que ser salvo!")
         }
     }
 
@@ -62,6 +67,15 @@ export const Perfil = () => {
             setRepetirSenha("");
         }
     }
+
+    function formatCPF(cpf) {
+        console.log(cpf);
+        cpf = cpf.replace(/\D/g, '');
+        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+        setCpf(cpf);
+      }
 
     return (
         <>
@@ -93,7 +107,7 @@ export const Perfil = () => {
                         <div className={Style.valores}>
                             <span>{colaborador.matricula}</span>
                             <span>{colaborador.nome}</span>
-                            <span>{colaborador.cpf}</span>
+                            <span>{cpf}</span>
                             <span>{colaborador.email}</span>
                             <span>{colaborador.gmail}</span>
                             <span>{setor}</span>

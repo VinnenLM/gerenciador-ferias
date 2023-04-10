@@ -15,6 +15,10 @@ export class ColaboradorController {
   async logar(@Body() data) {
     return this.colaboradorService.logar(data);
   }
+  @Post('diasDisponiveis')
+  async alterarDiasDisponiveis(@Body() data) {
+    return this.colaboradorService.alterarDiasDisponiveis(data);
+  }
   @Get()
   async listarTodos() {
     return this.colaboradorService.listarTodos();

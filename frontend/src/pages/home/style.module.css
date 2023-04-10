@@ -6,6 +6,14 @@
     width: 100%;
 }
 
+.titulo {
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
 .cards {
     display: flex;
     justify-content: center;
@@ -18,4 +26,8 @@
     border-radius: 5px;
     margin: 0 auto;
     display: flex;
+}
+
+.bodySpan > span{
+    margin: 10px 0;
 }

@@ -1,12 +1,17 @@
 import "./style.css"
 
-export const Pessoa = ({ nome, setor, matricula, status }) => {
+export const Pessoa = ({ matricula, nome, setor, email, diasDisponiveis, status, acumulo, onClick }) => {
     return (
-        <tr className="colaborador">
+        <tr className="colaborador" onClick={onClick}>
+            <td>{matricula}</td>
             <td>{nome}</td>
             <td>{setor}</td>
-            <td>{matricula}</td>
-            <td><span className={`status ${status}`}>{status}</span></td>
+            <td>{email}</td>
+            <td>{diasDisponiveis}</td>
+            <td className="spanStatus">
+                <span className={`status ${status}`}>{status}</span>
+                {(acumulo) ? <span className={"status acumulando"}>acumulando</span> : null}
+            </td>
         </tr>
     )
 }

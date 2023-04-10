@@ -16,19 +16,29 @@ export const Solicitar = () => {
     const [msg, setMsg] = useState("");
     const [alert, setAlert] = useState("");
     const [verificarCLT, setVerificarCLT] = useState(false);
+    const [periodoAtual, setPeriodoAtual] = useState([]);
     const colab = useSelector((state) => state.colaborador);
+    const [carregando, setCarregando] = useState(true);
 
     useEffect(() => {
-        api
+            api
             .get(`/colaborador/${colab.idColaborador}`)
             .then((response) => {
-                setColaborador(response.data.colaborador)
-                setVerificarCLT(response.data.verificarCLT)
+                console.log(response.data);
+                setColaborador(response.data.colaborador);
+                setVerificarCLT(response.data.verificarCLT);
+                setPeriodoAtual(response.data.periodoAtual);
+                setCarregando(false);
             })
             .catch((error) => {
                 console.log(error);
+                setCarregando(false);
             })
     }, [colab])
+
+    if (carregando) {
+        return <Header />;
+      }
 
     function salvarSolicitacao() {
 
@@ -117,11 +127,20 @@ export const Solicitar = () => {
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Aquisitivo</span>
-                    <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 12), 1), 'dd/MM/yyyy')}</span>
+                    {
+                        (periodoAtual !== null) ?
+                            <span>{format(addDays(new Date(periodoAtual.inicio), 1), 'dd/MM/yyy')}</span> :
+                            <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 12), 1), 'dd/MM/yyyy')}</span>
+                    }
+                    
                 </div>
                 <div className={Style.periodos}>
                     <span>Período Concessivo</span>
-                    <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 24), 1), 'dd/MM/yyyy')}</span>
+                    {
+                        (periodoAtual !== null) ?
+                            <span>{format(addDays(new Date(periodoAtual.fim), 1), 'dd/MM/yyy')}</span> :
+                            <span>{format(addDays(addMonths(new Date(colab.dataContratacao), 24), 1), 'dd/MM/yyyy')}</span>
+                    }
                 </div>
             </div>
 

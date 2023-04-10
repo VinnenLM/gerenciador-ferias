@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Dropdown from 'react-bootstrap/Dropdown';
 import apiPython from "../../services/apiPython";
 import { Modal } from "react-bootstrap";
+import { addDays, addMonths, format } from 'date-fns';
 
 export const Dashboard = () => {
 
@@ -18,6 +19,7 @@ export const Dashboard = () => {
     const [aprovados, setAprovados] = useState(0);
     const [negados, setNegados] = useState(0);
     const [pendentes, setPendentes] = useState(0);
+    const [solicitacoes, setSolicitacoes] = useState(0);
     const [totalSolicitacoes, setTotalSolicitacoes] = useState(0);
     const [colaboradores, setColaboradores] = useState([]);
     const [showModal, setShow] = useState(false);
@@ -62,6 +64,16 @@ export const Dashboard = () => {
                 .then((response) => {
                     console.log(response.data)
                     setFeriasMeses(response.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            api
+                .post("/solicitacao/gestor", {
+                    idGestor: colab.idColaborador
+                })
+                .then((response) => {
+                    setSolicitacoes(response.data)
                 })
                 .catch((error) => {
                     console.log(error);
@@ -119,6 +131,44 @@ export const Dashboard = () => {
             })
     }
 
+    function enviarRelatorioTodasSolicitacoes() {
+        let dados = []
+
+        format(addDays(addMonths(new Date(colab.dataContratacao), 12), 1), 'dd/MM/yyyy')
+
+        solicitacoes.forEach((sol) => {
+            let array = {
+                "idSolicitacao": sol.idSolicitacao,
+                "dataSolicitacao": format(addDays(new Date(sol.dataSolicitacao), 1), 'dd/MM/yyy'),
+                "dataInicio": format(addDays(new Date(sol.dataInicio), 1), 'dd/MM/yyy'),
+                "dataFim": format(addDays(new Date(sol.dataFim), 1), 'dd/MM/yyy'),
+                "statusSolicitacao": sol.statusSolicitacao,
+                "comentarioColab": sol.comentarioColab,
+                "comentarioGestor": sol.comentarioGestor,
+                "dataSolicitacao13": (sol.solicitacao13) ? format(addDays(new Date(sol.solicitacao13), 1), 'dd/MM/yyy') : '',
+                "idColaborador": sol.idColaborador,
+                "nomeColaborador": sol.nome,
+            };
+            dados.push(array)
+        });
+
+        apiPython
+            .post("/enviarRelatorio", {
+                data: {
+                    solicitacoes: dados,
+                },
+                email: colab.email,
+                solicitacoes: true
+            })
+            .then((response) => {
+                setMsg(response.data.message)
+                setShow(true);
+            })
+            .catch((error) => {
+                setShow(false);
+            })
+    }
+
     function enviarRelatorioTodosColaboradores() {
 
         let dados = []
@@ -167,9 +217,10 @@ export const Dashboard = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => { enviarRelatorioAtivosFerias() }}>Funcionários Ativos/Férias</Dropdown.Item>
+                                <Dropdown.Item onClick={() => { enviarRelatorioAtivosFerias() }}>Número de Ativos/Férias</Dropdown.Item>
                                 <Dropdown.Item onClick={() => { enviarRelatorioTotalSolicitacoes() }}>Total Solicitações</Dropdown.Item>
                                 <Dropdown.Item onClick={() => { enviarRelatorioTodosColaboradores() }}>Todos Colaboradores</Dropdown.Item>
+                                <Dropdown.Item onClick={() => { enviarRelatorioTodasSolicitacoes() }}>Todas Solicitações</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     </div>

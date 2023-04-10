@@ -1,7 +1,6 @@
 matricula;nome;cpf;email;tipoContratacao;dataContratacao;setor;status
-teste;teste;11122255512;teste@teste.com;CLT;2021-05-01T00:00:00.000Z;Tecnologia da Informação;ferias
-teste acumulo;teste acumulo;55566611137;acumulo@email.com;PJ;2020-05-05T00:00:00.000Z;Recursos Humanos;ativo
-123123;123123;12332132412;123@123.com;CLT;2021-05-03T00:00:00.000Z;Recursos Humanos;ativo
-111222;teste periodo;11122244432;teste@teste.com;CLT;2022-05-01T00:00:00.000Z;Recursos Humanos;ativo
-321;Teste Negado;12312367884;negado@email.com;CLT;2023-03-01T00:00:00.000Z;Tecnologia da Informação;ativo
-123;Teste Funcional;12312368905;viniciusmendonca@alunos.utfpr.edu.br;PJ;2022-03-01T00:00:00.000Z;Contabilidade;ativo
+25555;Colaborador 2;51251256432;viniciusmendonca@alunos.utfpr.edu.br;CLT;2022-04-05T00:00:00.000Z;Recursos Humanos;ferias
+colab3anos;Colaborador Acumulo;53463434634;viniciusmendonca@alunos.utfpr.edu.br;PJ;2020-05-09T00:00:00.000Z;Recursos Humanos;ativo
+colab2anos;Colaborador 4;63452342342;viniciusmendonca@alunos.utfpr.edu.br;CLT;2021-05-10T00:00:00.000Z;Recursos Humanos;ativo
+colab1Ano;Colaborador 3;51241252352;viniciusmendonca@alunos.utfpr.edu.br;PJ;2022-03-10T00:00:00.000Z;Recursos Humanos;ativo
+12352;Colaborador 1;45123412312;vinicius.mendoncaa@gmail.com;CLT;2023-04-04T00:00:00.000Z;Recursos Humanos;ativo

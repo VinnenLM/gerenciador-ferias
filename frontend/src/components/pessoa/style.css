@@ -9,22 +9,6 @@ td {
     width: 25%;
 }
 
-td:nth-child(1) {
-    border-radius: 5px 0 0 5px;
-}
-
-
-td:nth-child(4) {
-    border-radius: 0 5px 5px 0;
-}
-
-.status {
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 5px 10px;
-}
-
 .ferias {
     background-color: #E8D52E;
 }
@@ -33,7 +17,31 @@ td:nth-child(4) {
     background-color: #5CB85D;
 }
 
+.acumulando {
+    background-color: #d85a5a;
+}
+
 .colaborador:hover {
     cursor: pointer;
     background-color: #9ae09b;
+}
+
+.spanStatus{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spanStatus>span:nth-child(1){
+    margin-bottom: 3px;
+}
+
+.table-bordered td {
+    border: none;
+}
+
+.table td {
+    border-top: none;
 }

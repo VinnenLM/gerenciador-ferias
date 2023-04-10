@@ -117,6 +117,10 @@ async def enviar_relatorio(obj: Request):
             dataFrame = pd.DataFrame.from_dict(json['data'])
             listaColaboradores = dataFrame['colaboradores'].tolist()
             df = pd.json_normalize(listaColaboradores)
+        elif 'solicitacoes' in json:
+            dataFrame = pd.DataFrame.from_dict(json['data'])
+            listaSolicitacoes = dataFrame['solicitacoes'].tolist()
+            df = pd.json_normalize(listaSolicitacoes)
         else:
             df = pd.DataFrame.from_dict(json['data'], orient='index').T
         

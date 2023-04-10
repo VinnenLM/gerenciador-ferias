@@ -47,7 +47,7 @@
 }
 
 .dado>span {
-    width: 100%;
+    width: 63%;
 }
 
 .dado>input {
@@ -77,7 +77,7 @@
 
 .containerLabels {
     display: grid;
-    grid-template-columns: 45% 45%;
+    grid-template-columns: 35% 45%;
     grid-gap: 10%;
 }
 
